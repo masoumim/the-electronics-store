@@ -6,41 +6,35 @@ import { getProducts, getUser, logIn } from "./api/api"
 
 export default function Home() {
 
-  // const [products, setProducts] = useState([]);
-  // const [user, setUser] = useState({})
+  const [products, setProducts] = useState([]);
+  const [user, setUser] = useState({})
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const fetchedProducts = await getProducts();      
-  //     setProducts(fetchedProducts);
+  useEffect(() => {
+    async function fetchData() {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
 
-  //     // Try to login
-  //     await logIn();
+      // Try to login
+      await logIn();
 
-  //     // Try to set user state
-  //     const user = await getUser();
-  //     setUser(user);
-  //   }
-  //   fetchData();
-  // }, [])
+      // Try to set user state
+      const user = await getUser();
+      setUser(user);
+    }
+    fetchData();
+  }, [])
 
-  // return (
-  //   <>
-  //     <p>Products:</p>
-  //     {products.map((product, index) => {
-  //       return <div key={index}>
-  //         <span>{product.name}</span>
-  //         <span> - {product.price}</span>
-  //       </div>
-  //     })}
-  //     <p>User:</p>
-  //     <p>{user.firstName}</p>
-  //   </>
-  // )
-
-  return(
+  return (
     <>
-    <p>TEST</p>
+      <p>Products:</p>
+      {products.map((product, index) => {
+        return <div key={index}>
+          <span>{product.name}</span>
+          <span> - {product.price}</span>
+        </div>
+      })}
+      <p>User:</p>
+      <p>{user.firstName}</p>
     </>
   )
 }
