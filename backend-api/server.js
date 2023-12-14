@@ -8,7 +8,7 @@ const app = express();
 
 // Require in the dotenv module
 // Will load environment variables contained in .env file
-require('dotenv').config();
+require('dotenv').config({path: "../.env"});
 
 // Require in the cors module and set the origin dynamically
 const cors = require('cors');
