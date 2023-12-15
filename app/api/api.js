@@ -30,7 +30,7 @@ export async function logIn() {
 export async function getUser() {
     const res = await fetch(`${apiBaseUrl}/users/37`, { credentials: "include" });
     if (!res.ok) {
-        throw new Error('Failed to fetch user data')
+        return res.json();
     }
     return res.json()
 }
