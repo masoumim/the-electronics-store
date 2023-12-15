@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "heroku-postbuild": "node backend-api/server",
+    "start": "next start",    
     "lint": "next lint"
   },
   "dependencies": {
