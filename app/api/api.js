@@ -19,7 +19,7 @@ export async function logIn() {
         "password": "Mark1234567!"
     }
     
-    const res = await fetch(`${apiBaseUrl}/login`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`${apiBaseUrl}/login`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" }, credentials: "include" })
     if (!res.ok) {              
         throw new Error('Login failed')
     }    
