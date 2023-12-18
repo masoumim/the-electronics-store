@@ -14,7 +14,7 @@ export function getFirebaseAuth() {
     };
 
     // Creates and initializes a Firebase App instance
-    const app = initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
 
     // Returns the Auth instance associated with the Firebase App
     const auth = getAuth();

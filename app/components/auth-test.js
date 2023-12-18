@@ -5,12 +5,13 @@ import { registerUser, signInUser, signOutUser, getUser } from "../firebase/fire
 
 export default function AuthTest() {
     const [user, setUser] = useState("");
-
+    
     // Get current logged in user
     useEffect(() => {
         async function getData() {
             const response = await getUser();
-            setUser(response);
+            const parsedResponse = JSON.parse(response);
+            if (parsedResponse.user) setUser(parsedResponse.user);
         }
         getData();
     })
@@ -23,7 +24,7 @@ export default function AuthTest() {
             <button onClick={() => signInUser("foo@bar.com", "Foo1234567!")}>Sign In</button>
             <p />
             <button onClick={signOutUser}>Sign Out</button>
-            <p>Signed in user: {user}</p>
+            <p>Signed in user: {user}</p>            
         </>
     )
 }

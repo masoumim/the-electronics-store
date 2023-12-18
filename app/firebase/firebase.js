@@ -2,7 +2,7 @@ import 'client-only'
 
 // Get current signed in user
 export async function getUser(){
-  const res = await fetch('route-handlers/get-user');
+  const res = await fetch('route-handlers/get-user');  
   return res.json();
 }
 
@@ -18,5 +18,5 @@ export async function signInUser(email, password) {
 
 // Sign Out
 export async function signOutUser() {
-
+  await fetch('route-handlers/sign-out');
 }
