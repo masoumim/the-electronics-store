@@ -1,8 +1,8 @@
 import 'client-only'
 
 // Get current signed in user
-export async function getUser(){
-  const res = await fetch('route-handlers/get-user');  
+export async function getUser() {
+  const res = await fetch('route-handlers/get-user');
   return res.json();
 }
 

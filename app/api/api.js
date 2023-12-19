@@ -34,3 +34,16 @@ export async function getUser() {
     }
     return res.json()
 }
+
+// Send user ID Token to backend
+export async function sendIdToken(tokenId){
+    const data = {
+        "tokenId": tokenId        
+    }
+    
+    const res = await fetch(`${apiBaseUrl}/firebase-auth`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {              
+        throw new Error(res);
+    }        
+    return res.json()
+}
