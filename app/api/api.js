@@ -12,19 +12,18 @@ export async function getProducts() {
     return res.json()
 }
 
-// Login
-export async function logIn() {    
-    const data = {
-        "username": "masoumi.mark@gmail.com",
-        "password": "Mark1234567!"
-    }
-    
-    const res = await fetch(`${apiBaseUrl}/login`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" }, credentials: "include" })
-    if (!res.ok) {              
-        throw new Error('Login failed')
-    }    
-    return res.json()
-}
+// Sign In
+// export async function signIn() {    
+//     const data = {
+//         "username": "masoumi.mark@gmail.com",
+//         "password": "Mark1234567!"
+//     }    
+//     const res = await fetch(`${apiBaseUrl}/login`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" }, credentials: "include" })
+//     if (!res.ok) {              
+//         throw new Error('Login failed')
+//     }    
+//     return res.json()
+// }
 
 // Get user
 export async function getUser() {
@@ -39,8 +38,7 @@ export async function getUser() {
 export async function sendIdToken(tokenId){
     const data = {
         "tokenId": tokenId        
-    }
-    
+    }    
     const res = await fetch(`${apiBaseUrl}/firebase-auth`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {              
         throw new Error(res);

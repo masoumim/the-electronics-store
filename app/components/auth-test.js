@@ -9,12 +9,11 @@ export default function AuthTest() {
     // Get current logged in user
     useEffect(() => {
         async function getData() {
-            const response = await getUser();
-            const parsedResponse = JSON.parse(response);
-            if (parsedResponse.user) setUser(parsedResponse.user);
+            const signedInUser = await getUser();            
+            if(signedInUser) setUser(signedInUser);     
         }
         getData();
-    })
+    },[user])
 
     return (
         <>
