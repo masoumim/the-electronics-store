@@ -3,9 +3,8 @@ import 'server-only'
 import { getFirebaseAuth } from '@/app/firebase/config';
 const auth = getFirebaseAuth();
 
-export async function GET() {
-    // let response = {};
-    let response = ""
+export async function GET() {    
+    let response = "No user signed in"
     const user = auth.currentUser;
     if (user) {        
         response = user.email;     
