@@ -2,7 +2,7 @@ import 'client-only'
 
 // Get current signed in user
 export async function getUser() {
-  const res = await fetch('route-handlers/get-user');
+  const res = await fetch('route-handlers/get-user');  
   return res.json();
 }
 
@@ -12,7 +12,7 @@ export async function registerUser(email, password) {
 }
 
 // Sign In
-export async function signInUser(email, password) {
+export async function signInUser(email, password) {  
   await fetch('route-handlers/sign-in', { method: 'POST', body: JSON.stringify({ email: email, password: password }) });
 }
 

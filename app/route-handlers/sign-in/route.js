@@ -12,10 +12,10 @@ export async function POST(request) {
         .then(response => response)
         .then(userCredentials => {
             // Send the user's idToken to the Express.js backend API for server-side authentication
-            sendIdToken(userCredentials._tokenResponse.idToken)
+            sendIdToken(userCredentials._tokenResponse.idToken);
         })
         .catch((error) => {
             throw error;
-        })
+        })    
     return Response.json(result);
 }
