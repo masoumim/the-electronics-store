@@ -1,7 +1,7 @@
 // This file contains functions that get and post data to the Express.js backend API
 
 // Set the base url of the API
-const apiBaseUrl = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "https://electronics-store-api-b4c3eebe7021.herokuapp.com";
+const apiBaseUrl = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "https://the-electronics-store-api-962f1726488d.herokuapp.com/";
 
 // Get all products
 export async function getProducts() {
