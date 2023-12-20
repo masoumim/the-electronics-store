@@ -40,8 +40,8 @@ export async function sendIdToken(tokenId){
         "tokenId": tokenId        
     }    
     const res = await fetch(`${apiBaseUrl}/firebase-auth`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
-    if (!res.ok) {              
-        throw new Error(res);
+    if (!res.ok) {                      
+        throw res.Error;
     }        
     return res.json()
 }
