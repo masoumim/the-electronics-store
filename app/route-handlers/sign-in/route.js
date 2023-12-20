@@ -7,6 +7,7 @@ const auth = getFirebaseAuth();
 
 export async function POST(request) {
     const req = await request.json();
+    console.log(req);
     // Sign into Firebase Auth
     const result = signInWithEmailAndPassword(auth, req.email, req.password)
         .then(response => response)
