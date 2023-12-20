@@ -13,7 +13,8 @@ export async function registerUser(email, password) {
 
 // Sign In
 export async function signInUser(email, password) {  
-  await fetch('route-handlers/sign-in', { method: 'POST', body: JSON.stringify({ email: email, password: password }) });
+  const res = await fetch('route-handlers/sign-in', { method: 'POST', body: JSON.stringify({ email: email, password: password }) });
+  return res.json();
 }
 
 // Sign Out
