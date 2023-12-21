@@ -25,7 +25,7 @@ export default function AuthTest() {
     return (
         <>
             <p>Auth Test</p>
-            <button onClick={() => registerUser('foo@bar.com', 'Foo1234567!')}>Register</button>
+            <button onClick={() => registerUser('mark@mark.com', 'Mark1234567!')}>Register</button>
             <p />
             <button onClick={() => signInUser("foo@bar.com", "Foo1234567!")}>Sign In</button>
             <p />

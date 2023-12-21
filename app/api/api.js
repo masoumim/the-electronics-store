@@ -1,5 +1,8 @@
 // This file contains functions that get and post data to the Express.js backend API
 
+// TODO: Replace the following methods with server-side calls to route handlers
+
+
 // Set the base url of the API
 const apiBaseUrl = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "https://the-electronics-store-api-962f1726488d.herokuapp.com";
 
@@ -12,21 +15,8 @@ export async function getProducts() {
     return res.json()
 }
 
-// Sign In
-// export async function signIn() {    
-//     const data = {
-//         "username": "masoumi.mark@gmail.com",
-//         "password": "Mark1234567!"
-//     }    
-//     const res = await fetch(`${apiBaseUrl}/login`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" }, credentials: "include" })
-//     if (!res.ok) {              
-//         throw new Error('Login failed')
-//     }    
-//     return res.json()
-// }
-
-// Get user
-export async function getUser() {
+// Get user profile info
+export async function getUserInfo() {
     const res = await fetch(`${apiBaseUrl}/users/37`, { credentials: "include" });
     if (!res.ok) {
         return res.json();

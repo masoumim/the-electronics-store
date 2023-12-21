@@ -1,25 +1,38 @@
+// firebase/firebase.js - This file contains client-side methods for interacting with the Firebase Auth App instance 
 import 'client-only'
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirebaseAuth } from './config';
 const auth = getFirebaseAuth();
 
-
 // Get current signed in user
 export async function getUser() {
-  const res = await fetch('route-handlers/get-user');
-  return res.json();
+  const user = auth.currentUser;
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    return user.email;
+  } else {
+    // No user is signed in.
+  }
 }
 
 // Register user
 export async function registerUser(email, password) {
-  await fetch('route-handlers/register', { method: 'POST', body: JSON.stringify({ email: email, password: password }) });
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up 
+      const user = userCredential.user;
+      
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      throw error;
+    });
 }
 
 // Sign In
 export async function signInUser(email, password) {
-  // const res = await fetch('route-handlers/sign-in', { method: 'POST', body: JSON.stringify({ email: email, password: password }) });
-  // return res.json();
-
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
@@ -33,10 +46,11 @@ export async function signInUser(email, password) {
 }
 
 // Sign Out
-export async function signOutUser() {  
+export async function signOutUser() {
   signOut(auth).then(() => {
     // Sign-out successful.
   }).catch((error) => {
     // An error happened.
+    throw error;
   });
 }
