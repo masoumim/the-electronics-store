@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useState } from "react"
 import { registerUser, signInUser, signOutUser, getUser } from "../firebase/firebase"
 
@@ -10,6 +9,7 @@ export default function AuthTest() {
     useEffect(() => {
         async function getData() {
             const signedInUser = await getUser();
+            console.log(signedInUser);    
             if (signedInUser) setUser(signedInUser);
         }
         getData();

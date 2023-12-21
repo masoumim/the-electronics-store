@@ -27,8 +27,7 @@ export async function POST(request) {
     signInWithEmailAndPassword(auth, req.email, req.password)
         .then((userCredential) => {
             // Signed in 
-            const user = userCredential.user;
-            console.log(user);
+            const user = userCredential.user;            
         })
         .catch((error) => {
             const errorCode = error.code;
