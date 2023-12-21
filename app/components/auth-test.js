@@ -9,7 +9,7 @@ export default function AuthTest() {
     useEffect(() => {
         async function getData() {
             const signedInUser = await getUser();
-            console.log(signedInUser);    
+            console.log(`useEffect: signedInUser: ${signedInUser}`);    
             if (signedInUser) setUser(signedInUser);
         }
         getData();

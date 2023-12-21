@@ -23,13 +23,13 @@ onAuthStateChanged(auth, (user) => {
         userEmail = user.email;
     } else {
         // User is signed out
-        // ...
+        userEmail = "no user signed in"
     }
 });
 
 
 export async function GET() {
-    console.log(userEmail);
+    console.log(`/get-user route handler: ${userEmail}`);
 
        
     return Response.json(userEmail);
