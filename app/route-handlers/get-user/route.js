@@ -13,26 +13,26 @@ const auth = getFirebaseAuth();
 //     return Response.json(response);
 // }
 
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//         // User is signed in, see docs for a list of available properties
+//         // https://firebase.google.com/docs/reference/js/auth.user
+//         const uid = user.uid;
+//         userEmail = user.email;
+//     } else {
+//         // User is signed out
+//         userEmail = "no user signed in"
+//     }
+// });
 
 
-
-
-let userEmail = ""
 export async function GET() {
     console.log('test server message');
     
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
-            const uid = user.uid;
-            userEmail = user.email;
-        } else {
-            // User is signed out
-            userEmail = "no user signed in"
-        }
-    });
-
-    return Response.json(userEmail);
+    let response = "No user signed in"
+    const user = auth.currentUser;
+    if (user) {        
+        response = user.email;     
+    }    
+    return Response.json(response);
 }
