@@ -29,6 +29,7 @@ onAuthStateChanged(auth, (user) => {
 
 
 export async function GET() {
+    console.log('test server message');
     console.log(`/get-user route handler: ${userEmail}`);
 
        
