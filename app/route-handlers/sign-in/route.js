@@ -5,6 +5,7 @@ import { getFirebaseAuth } from '@/app/firebase/config';
 import { sendIdToken } from '@/app/api/api';
 const auth = getFirebaseAuth();
 
+
 // export async function POST(request) {
 //     const req = await request.json();
 //     console.log(req);

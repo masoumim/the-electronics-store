@@ -13,24 +13,24 @@ const auth = getFirebaseAuth();
 //     return Response.json(response);
 // }
 
-let userEmail = "";
+let userEmail = ""
 
-function foo() {    
-    const user = auth.currentUser;
-    userEmail = user.email;
-}
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        userEmail = user.email;
+    } else {
+        // User is signed out
+        // ...
+    }
+});
+
 
 export async function GET() {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
-            const uid = user.uid;
-            foo();
-        } else {
-            // User is signed out
-            // ...
-        }
-    });    
+    console.log(userEmail);
+
+       
     return Response.json(userEmail);
 }
