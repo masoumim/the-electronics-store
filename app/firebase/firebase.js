@@ -2,6 +2,7 @@
 import 'client-only'
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirebaseAuth } from './config';
+import { sendIdToken } from '../api/api';
 const auth = getFirebaseAuth();
 
 // Get current signed in user
@@ -22,7 +23,7 @@ export async function registerUser(email, password) {
     .then((userCredential) => {
       // Signed up 
       const user = userCredential.user;
-      
+
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -37,6 +38,13 @@ export async function signInUser(email, password) {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
+      // Authorize user on the backend server
+      auth.currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+        // Send token to your backend via HTTPS
+        sendIdToken(idToken);
+      }).catch(function (error) {        
+        throw error;
+      });
     })
     .catch((error) => {
       const errorCode = error.code;

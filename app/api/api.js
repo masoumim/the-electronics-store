@@ -8,30 +8,27 @@ const apiBaseUrl = process.env.NODE_ENV === "development" ? "http://localhost:80
 
 // Get all products
 export async function getProducts() {
-    const res = await fetch(`${apiBaseUrl}/products`);
+    const res = await fetch(`route-handlers/products?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
-        throw new Error('Failed to fetch data')
+        throw res.Error;
     }
     return res.json()
 }
 
 // Get user profile info
-export async function getUserInfo() {
-    const res = await fetch(`${apiBaseUrl}/users/37`, { credentials: "include" });
-    if (!res.ok) {
-        return res.json();
-    }
-    return res.json()
-}
+// export async function getUserInfo() {
+//     const res = await fetch(`${apiBaseUrl}/users/37`, { credentials: "include" });
+//     if (!res.ok) {
+//         return res.json();
+//     }
+//     return res.json()
+// }
 
-// Send user ID Token to backend
-export async function sendIdToken(tokenId){
-    const data = {
-        "tokenId": tokenId        
-    }    
-    const res = await fetch(`${apiBaseUrl}/firebase-auth`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
+// Send user ID Token to backend to authorize user on server
+export async function sendIdToken(idToken){   
+    const res = await fetch(`route-handlers/backend-auth?api_base_url=${apiBaseUrl}&id_token=${idToken}`, { method: "POST", headers: { "Content-Type": "application/json" } })
     if (!res.ok) {                      
         throw res.Error;
-    }        
+    }                
     return res.json()
 }

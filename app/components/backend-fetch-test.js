@@ -17,7 +17,7 @@ export default function BackendFetchTest() {
 
     return (
         <>            
-            <p>Products:</p>
+            <p>Products:</p>            
             {products.map((product, index) => {
                 return <div key={index}>
                     <span>{product.name}</span>
