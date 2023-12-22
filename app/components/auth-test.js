@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react"
-import { registerUser, signInUser, signOutUser, getUser } from "../firebase/firebase"
+import { registerUser, signInUser, signOutUser } from "../firebase/firebase"
 import { getFirebaseAuth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 const auth = getFirebaseAuth();
