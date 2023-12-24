@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
-import { registerUser, signInUser, signOutUser } from "../firebase/firebase"
+import { signInUser, signOutUser } from "../firebase/firebase"
+import { registerUser } from "../api/api";
 import { getFirebaseAuth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 const auth = getFirebaseAuth();
@@ -25,7 +26,7 @@ export default function AuthTest() {
     return (
         <>
             <p>Auth Test</p>
-            <button onClick={() => registerUser('mark@mark.com', 'Mark1234567!')}>Register</button>
+            <button onClick={() => registerUser('Won', 'Won', 'won@won.com', 'Won1234567!')}>Register</button>
             <p />
             <button onClick={() => signInUser("foo@bar.com", "Foo1234567!")}>Sign In</button>
             <p />

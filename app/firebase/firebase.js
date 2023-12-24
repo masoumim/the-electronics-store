@@ -1,6 +1,6 @@
 // firebase/firebase.js - This file contains client-side methods for interacting with the Firebase Auth App instance 
 import 'client-only'
-import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirebaseAuth } from './config';
 import { sendIdToken } from '../api/api';
 const auth = getFirebaseAuth();
@@ -15,21 +15,6 @@ export async function getUser() {
   } else {
     // No user is signed in.
   }
-}
-
-// Register user
-export async function registerUser(email, password) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      throw error;
-    });
 }
 
 // Sign In
