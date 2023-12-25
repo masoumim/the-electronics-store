@@ -2,7 +2,7 @@
 import 'client-only'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirebaseAuth } from './config';
-import { sendIdToken } from '../api/api';
+import { sendIdToken, signOutBackend } from '../api/api';
 const auth = getFirebaseAuth();
 
 // Get current signed in user
@@ -41,9 +41,9 @@ export async function signInUser(email, password) {
 // Sign Out
 export async function signOutUser() {
   signOut(auth).then(() => {
-    // Sign-out successful.
+    // Sign out user in the backend
+    signOutBackend();
   }).catch((error) => {
-    // An error happened.
     throw error;
   });
 }

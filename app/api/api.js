@@ -39,3 +39,12 @@ export async function registerUser(firstName, lastName, email, password) {
     }
     return res.json()
 }
+
+// Sign user out of the backend
+export async function signOutBackend() {
+    const res = await fetch(`route-handlers/signout-backend?api_base_url=${apiBaseUrl}`);
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
