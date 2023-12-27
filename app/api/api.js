@@ -13,13 +13,13 @@ export async function getProducts() {
 }
 
 // Get user profile info
-// export async function getUserInfo() {
-//     const res = await fetch(`${apiBaseUrl}/users/37`, { credentials: "include" });
-//     if (!res.ok) {
-//         return res.json();
-//     }
-//     return res.json()
-// }
+export async function getUserInfo() {
+    const res = await fetch(`route-handlers/user-info?api_base_url=${apiBaseUrl}`);
+    if (!res.ok) {
+        return res.json();
+    }
+    return res.json()
+}
 
 // Send user ID Token to backend to authorize user on server
 export async function sendIdToken(idToken) {
