@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
+import Link from 'next/link'
 const auth = getFirebaseAuth();
 
 export default function HeaderSignInAndCart() {
@@ -26,6 +27,7 @@ export default function HeaderSignInAndCart() {
 
     return (
         <>
+            <Link href="/sign-in">Sign In</Link>
             <p>sign in / your account link goes here</p>
             <p>your cart goes here</p>            
         </>

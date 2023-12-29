@@ -27,13 +27,13 @@ export async function signInUser(email, password) {
       auth.currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
         // Send token to your backend via HTTPS
         sendIdToken(idToken);
-      }).catch(function (error) {        
+      }).catch(function (error) {                
         throw error;
-      });
+      });      
     })
-    .catch((error) => {
+    .catch((error) => {      
       const errorCode = error.code;
-      const errorMessage = error.message;
+      const errorMessage = error.message;            
       throw error;
     });
 }
