@@ -3,8 +3,8 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { signInUser } from "../firebase/firebase";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { sendIdToken } from "../api/api";
 
@@ -14,6 +14,7 @@ export default function SignInForm() {
     const [inputEmail, setInputEmail] = useState("");                   // Form 'email' input from user
     const [inputPassword, setInputPassword] = useState("");             // Form 'password' input from user
     const [signedInUserEmail, setSignedInUserEmail] = useState("");     // The email of the signed in user
+    const router = useRouter();                                         // useRouter hook allows you to programmatically change routes inside Client Components
 
     // Check if user has successfully signed in:
     useEffect(() => {                
@@ -21,6 +22,7 @@ export default function SignInForm() {
             if (signedInUserEmail === inputEmail) {
                 console.log("user signed in");
                 // Use Router hook to redirect user after sign in to the account page
+                router.push('/account');
             }
         }
     })

@@ -7,7 +7,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const apiBaseURL = searchParams.get('api_base_url');    
 
-    // Fetch the products from the backend
+    // Fetch the user from the backend
     const res = await fetch(`${apiBaseURL}/user`);
     if (!res.ok) {        
         throw new Error('Failed to fetch data')
