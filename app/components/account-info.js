@@ -2,36 +2,39 @@
 
 'use client'
 import { useEffect, useState } from "react"
-import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation.js";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
-import { getUserInfo } from "../api/api";
+import { getUserInfo, signOutBackend } from "../api/api";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
-    const [firstName, setFirstName] = useState("User First Name");
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({});
+    const router = useRouter();
 
     // // Get current logged in user on page load
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, async (user) => {
-    //         if (user) {
-    //             // Get user info from the backend
-    //             // const fetchedUserInfo = await getUserInfo();
+    useEffect(() => {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Get user info from the backend
+                // const fetchedUserInfo = await getUserInfo();
 
-    //             // const returnedUser = {}
-    //             // returnedUser.uid = user.uid;
-    //             // returnedUser.firstName = fetchedUserInfo.firstName;
-    //             // returnedUser.lastName = fetchedUserInfo.lastName;
-    //             // returnedUser.email = fetchedUserInfo.email;
+                const returnedUser = {}
+                returnedUser.uid = user.uid;
+                returnedUser.email = user.email;
+                // returnedUser.firstName = fetchedUserInfo.firstName;
+                // returnedUser.lastName = fetchedUserInfo.lastName;
+                // returnedUser.email = fetchedUserInfo.email;
 
-    //             setUser([user.uid, user.email]);
-    //         } else {
-    //             // User is signed out                
-    //         }
-    //     });
-    // }, [user])
+                setUser(returnedUser);
+            } else {
+                // User is signed out
+                // TODO: Redirect user to /sign-in ?            
+            }
+        });
+    }, [user])
 
-    // // Get user info the backend
+    // // Get user info from the backend
     // useEffect(() => {
     //     async function fetchData() {
     //         const fetchedUserInfo = await getUserInfo();
@@ -39,16 +42,27 @@ export default function AccountInfo() {
     //     fetchData();
     // },[]);
 
-    // return (
-    //     <>
-    //         <p>User: {user}</p>
-    //         <p>First Name: {firstName}</p>
-    //     </>
-    // )
+    function signUserOut() {
+        // Sign out of Firebase Auth
+        signOut(auth).then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
 
-    return(
+        // Sign out of Backend
+        signOutBackend();
+
+        // Redirect to /sign-in
+        router.push('/sign-in');
+    }
+
+    return (
         <>
-        <p>Account Info Here</p>
+            <p>User uid: {user.uid}</p>
+            <p>Email: {user.email}</p>
+            <button onClick={signUserOut}>Sign Out</button>
+
         </>
     )
 }

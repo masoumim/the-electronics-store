@@ -5,7 +5,9 @@ import 'server-only'
 export async function GET(request) {    
     // Get the base URL (either localhost or Heroku)
     const { searchParams } = new URL(request.url);
-    const apiBaseURL = searchParams.get('api_base_url');    
+    const apiBaseURL = searchParams.get('api_base_url');
+    
+    console.log(`apiBaseURL: ${apiBaseURL}`);
 
     // Fetch the user from the backend
     const res = await fetch(`${apiBaseURL}/user`);
