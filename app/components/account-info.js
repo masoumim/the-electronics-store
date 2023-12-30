@@ -17,22 +17,21 @@ export default function AccountInfo() {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 // Get user info from the backend
-                // const fetchedUserInfo = await getUserInfo();
-
+                const fetchedUserInfo = await getUserInfo();
+                                
                 const returnedUser = {}
                 returnedUser.uid = user.uid;
                 returnedUser.email = user.email;
-                // returnedUser.firstName = fetchedUserInfo.firstName;
-                // returnedUser.lastName = fetchedUserInfo.lastName;
-                // returnedUser.email = fetchedUserInfo.email;
-
+                returnedUser.firstName = fetchedUserInfo.firstName;
+                returnedUser.lastName = fetchedUserInfo.lastName;
+                
                 setUser(returnedUser);
             } else {
                 // User is signed out
                 // TODO: Redirect user to /sign-in ?            
             }
         });
-    }, [user])
+    }, [])
 
     // // Get user info from the backend
     // useEffect(() => {
@@ -61,6 +60,8 @@ export default function AccountInfo() {
         <>
             <p>User uid: {user.uid}</p>
             <p>Email: {user.email}</p>
+            <p>First Name: {user.firstName}</p>
+            <p>Last Name: {user.lastName}</p>
             <button onClick={signUserOut}>Sign Out</button>
 
         </>
