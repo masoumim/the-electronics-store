@@ -15,7 +15,7 @@ export default function SignInForm() {
     const [inputPassword, setInputPassword] = useState("");             // Form 'password' input from user
     const [signedInUserEmail, setSignedInUserEmail] = useState("");     // The email of the signed in user
     const router = useRouter();                                         // useRouter hook allows you to programmatically change routes inside Client Components
-
+  
     // If a user is already signed in, redirect them to /account
     useEffect(()=> {
         onAuthStateChanged(auth, async (user) => {
@@ -31,7 +31,7 @@ export default function SignInForm() {
     useEffect(() => {                
         if (signedInUserEmail && inputEmail) {
             if (signedInUserEmail === inputEmail) {
-                console.log("user signed in");
+                console.log("user signed in successfully");
                 // Use Router hook to redirect user after sign in to the account page
                 router.push('/account');
             }
@@ -41,23 +41,33 @@ export default function SignInForm() {
     // Form Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
+             
+        console.log(`handleSubmit():`)
+        console.log(`inputEmail: ${inputEmail}`);
+        console.log(`inputPassword: ${inputPassword}`);
+        console.log(`auth:`);
+        console.log(auth);
+        
         // Call Firebase's signInWithEmailAndPassword method
         signInWithEmailAndPassword(auth, inputEmail, inputPassword)
             .then((userCredential) => {
                 // Signed in                
                 setSignedInUserEmail(userCredential.user.email);
-                console.log(`useEffect() userCredential.user.email: ${userCredential.user.email}`);
+                console.log(`handleSubmit() -- useEffect() userCredential.user.email: ${userCredential.user.email}`);
                 // Authorize user on the backend server
                 auth.currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
                     // Send token to your backend via HTTPS
                     sendIdToken(idToken);
                 }).catch(function (error) {
+                    console.log(`There was an error sending the idToken to the backend`);
                     throw error;
                 });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                console.log(`sign-in-form.js handleSubmit() threw an error:`);
+                console.log(`error code: ${errorCode}, error msg: ${errorMessage}`);
                 throw error;
             });
     }

@@ -12,10 +12,12 @@ export default function AccountInfo() {
     const [user, setUser] = useState({});
     const router = useRouter();
 
-    // // Get current logged in user on page load
+    // Get current logged in user on page load
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
+                console.log(`account-info.js called! signed in user found!`);
+                
                 // Get user info from the backend
                 const fetchedUserInfo = await getUserInfo();
                                 
@@ -63,7 +65,6 @@ export default function AccountInfo() {
             <p>First Name: {user.firstName}</p>
             <p>Last Name: {user.lastName}</p>
             <button onClick={signUserOut}>Sign Out</button>
-
         </>
     )
 }

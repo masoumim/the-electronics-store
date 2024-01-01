@@ -10,8 +10,12 @@ export async function GET(request) {
     // Fetch the user from the backend
     const res = await fetch(`${apiBaseURL}/user`);
     if (!res.ok) {        
+        console.log(`Error! route-handlers/user-info/route.js response object:`);
+        console.log(res);
         throw new Error('Failed to fetch data')
     }
-    const data = await res.json();    
+    const data = await res.json();
+    console.log(`fetched user info:`);
+    console.log(data);
     return Response.json(data);
 }
