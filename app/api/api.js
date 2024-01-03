@@ -48,3 +48,12 @@ export async function signOutBackend() {
     }
     return res.json()
 }
+
+// Check if user is signed-in on the backend
+export async function checkBackendSignIn(){
+    const res = await fetch(`route-handlers/check-backend-sign-in?api_base_url=${apiBaseUrl}`);
+    if(!res.ok){
+        throw res.Error;
+    }
+    return res.json();
+}

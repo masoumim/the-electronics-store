@@ -15,23 +15,24 @@ export default function SignInForm() {
     const [inputPassword, setInputPassword] = useState("");             // Form 'password' input from user
     const [signedInUserEmail, setSignedInUserEmail] = useState("");     // The email of the signed in user
     const router = useRouter();                                         // useRouter hook allows you to programmatically change routes inside Client Components
-  
+
     // If a user is already signed in, redirect them to /account
-    useEffect(()=> {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                router.push('/account');
-            } else {
-                // User is signed out                               
-            }
-        });
-    })
-        
+    // useEffect(() => {
+    //     onAuthStateChanged(auth, async (user) => {
+    //         if (user) {
+    //             console.log('sign-in-form.js: user already signed in. redirecting to /account');
+    //             router.push('/account');
+    //         } else {
+    //             // User is signed out                               
+    //         }
+    //     });
+    // })
+
     // Check if user has successfully signed in:
-    useEffect(() => {                
+    useEffect(() => {
         if (signedInUserEmail && inputEmail) {
             if (signedInUserEmail === inputEmail) {
-                console.log("user signed in successfully");
+                console.log("user signed in successfully.. redirecting to /account");
                 // Use Router hook to redirect user after sign in to the account page
                 router.push('/account');
             }
@@ -41,23 +42,29 @@ export default function SignInForm() {
     // Form Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
-             
+
         console.log(`handleSubmit():`)
         console.log(`inputEmail: ${inputEmail}`);
         console.log(`inputPassword: ${inputPassword}`);
         console.log(`auth:`);
         console.log(auth);
-        
+
         // Call Firebase's signInWithEmailAndPassword method
         signInWithEmailAndPassword(auth, inputEmail, inputPassword)
             .then((userCredential) => {
                 // Signed in                
-                setSignedInUserEmail(userCredential.user.email);
-                console.log(`handleSubmit() -- useEffect() userCredential.user.email: ${userCredential.user.email}`);
+                console.log('sign-in-form.js - signInWithEmailAndPassword()');
+
                 // Authorize user on the backend server
-                auth.currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+                auth.currentUser.getIdToken(/* forceRefresh */ true).then(async function (idToken) {
                     // Send token to your backend via HTTPS
-                    sendIdToken(idToken);
+                    console.log('calling sendIdToken!');
+                    await sendIdToken(idToken);
+                    console.log('back from sendIdToken');
+
+                    console.log(`calling setSignedInUserEmail`);                    
+                    setSignedInUserEmail(userCredential.user.email);
+                    console.log(`back from setSignedInUserEmail`);
                 }).catch(function (error) {
                     console.log(`There was an error sending the idToken to the backend`);
                     throw error;
