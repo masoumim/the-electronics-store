@@ -30,6 +30,7 @@ export default function SignInForm() {
 
     // Check if user has successfully signed in:
     useEffect(() => {
+        console.log('sign-in-form.js useEffect() called');
         if (signedInUserEmail && inputEmail) {
             if (signedInUserEmail === inputEmail) {
                 console.log("user signed in successfully.. redirecting to /account");

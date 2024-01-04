@@ -14,6 +14,7 @@ export default function AccountInfo() {
 
     // Get current logged in user on page load
     useEffect(() => {
+        console.log('account-info.js useEffect() called');
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 console.log(`account-info.js called! signed in user found = `);
@@ -46,7 +47,7 @@ export default function AccountInfo() {
                 }
                 else{
                     // Sign out user
-                    signUserOut();
+                    // signUserOut();
                 }
 
 
