@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { sendIdToken } from "../api/api";
 
@@ -16,21 +16,9 @@ export default function SignInForm() {
     const [signedInUserEmail, setSignedInUserEmail] = useState("");     // The email of the signed in user
     const router = useRouter();                                         // useRouter hook allows you to programmatically change routes inside Client Components
 
-    // If a user is already signed in, redirect them to /account
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, async (user) => {
-    //         if (user) {
-    //             console.log('sign-in-form.js: user already signed in. redirecting to /account');
-    //             router.push('/account');
-    //         } else {
-    //             // User is signed out                               
-    //         }
-    //     });
-    // })
-
     // Check if user has successfully signed in:
     // TODO: Include 'signedInUserEmail' in the useEffect dependency array so that it doesn't run on every screen update
-    useEffect(() => {        
+    useEffect(() => {
         if (signedInUserEmail && inputEmail) {
             if (signedInUserEmail === inputEmail) {
                 console.log("user signed in successfully.. redirecting to /account");
@@ -38,7 +26,7 @@ export default function SignInForm() {
                 router.push('/account');
             }
         }
-    })
+    }, [signedInUserEmail])
 
     // Form Submit handler
     const handleSubmit = async (e) => {
