@@ -29,8 +29,8 @@ export default function SignInForm() {
     // })
 
     // Check if user has successfully signed in:
-    useEffect(() => {
-        console.log('sign-in-form.js useEffect() called');
+    // TODO: Include 'signedInUserEmail' in the useEffect dependency array so that it doesn't run on every screen update
+    useEffect(() => {        
         if (signedInUserEmail && inputEmail) {
             if (signedInUserEmail === inputEmail) {
                 console.log("user signed in successfully.. redirecting to /account");
@@ -63,7 +63,7 @@ export default function SignInForm() {
                     await sendIdToken(idToken);
                     console.log('back from sendIdToken');
 
-                    console.log(`calling setSignedInUserEmail`);                    
+                    console.log(`calling setSignedInUserEmail`);
                     setSignedInUserEmail(userCredential.user.email);
                     console.log(`back from setSignedInUserEmail`);
                 }).catch(function (error) {

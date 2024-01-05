@@ -12,10 +12,75 @@ export default function AccountInfo() {
     const [user, setUser] = useState({});
     const router = useRouter();
 
+    // // Get current logged in user on page load
+    // useEffect(() => {
+    //     console.log('account-info.js useEffect() called');
+    //     onAuthStateChanged(auth, async (user) => {
+    //         if (user) {
+    //             console.log(`account-info.js called! signed in user found = `);
+    //             console.log(user);
+
+    //             // Confirm user is signed in on the backend
+    //             // TODO: Call the backend route when it is finished. It will return whether a user
+    //             // has been signed in on the backend. If so, continue to next step (getUserInfo()).
+    //             // otherwise, return from this observer / or / don't run the following code - either or.
+    //             console.log('checking if user is signed in on backend:');
+    //             const backendUser = await checkBackendSignIn();
+    //             console.log('backendUser = ');
+    //             console.log(backendUser);
+    //             if (backendUser) {
+    //                 // Get user info from the backend
+    //                 console.log(`calling getUserInfo()`)
+    //                 const fetchedUserInfo = await getUserInfo();
+    //                 console.log(`back from getUserInfo()`);
+
+    //                 console.log(`fetchedUserInfo =`);
+    //                 console.log(fetchedUserInfo);
+
+    //                 const returnedUser = {}
+    //                 returnedUser.uid = user.uid;
+    //                 returnedUser.email = user.email;
+    //                 returnedUser.firstName = fetchedUserInfo.firstName;
+    //                 returnedUser.lastName = fetchedUserInfo.lastName;
+
+    //                 setUser(returnedUser);
+    //             }
+    //             else{
+    //                 // Sign out user
+    //                 // signUserOut();
+    //             }
+
+
+    //             // // Get user info from the backend
+    //             // console.log(`calling getUserInfo()`)
+    //             // const fetchedUserInfo = await getUserInfo();
+    //             // console.log(`back from getUserInfo()`);
+
+    //             // console.log(`fetchedUserInfo =`);
+    //             // console.log(fetchedUserInfo);
+
+
+    //             // const returnedUser = {}
+    //             // returnedUser.uid = user.uid;
+    //             // returnedUser.email = user.email;
+    //             // returnedUser.firstName = fetchedUserInfo.firstName;
+    //             // returnedUser.lastName = fetchedUserInfo.lastName;
+
+    //             // setUser(returnedUser);
+    //         } else {
+    //             // User is signed out
+    //             // TODO: Redirect user to /sign-in ?            
+    //         }
+    //     });
+    // }, [])
+
     // Get current logged in user on page load
     useEffect(() => {
-        console.log('account-info.js useEffect() called');
-        onAuthStateChanged(auth, async (user) => {
+        async function fetchData() {
+            console.log('account-info.js useEffect() called');
+            
+            const user = auth.currentUser;
+            
             if (user) {
                 console.log(`account-info.js called! signed in user found = `);
                 console.log(user);
@@ -45,34 +110,20 @@ export default function AccountInfo() {
 
                     setUser(returnedUser);
                 }
-                else{
-                    // Sign out user
-                    // signUserOut();
+                else {
                 }
-
-
-                // // Get user info from the backend
-                // console.log(`calling getUserInfo()`)
-                // const fetchedUserInfo = await getUserInfo();
-                // console.log(`back from getUserInfo()`);
-
-                // console.log(`fetchedUserInfo =`);
-                // console.log(fetchedUserInfo);
-
-
-                // const returnedUser = {}
-                // returnedUser.uid = user.uid;
-                // returnedUser.email = user.email;
-                // returnedUser.firstName = fetchedUserInfo.firstName;
-                // returnedUser.lastName = fetchedUserInfo.lastName;
-
-                // setUser(returnedUser);
             } else {
-                // User is signed out
-                // TODO: Redirect user to /sign-in ?            
             }
-        });
+        }
+        fetchData();
     }, [])
+
+
+
+
+
+
+
 
     // // Get user info from the backend
     // useEffect(() => {
