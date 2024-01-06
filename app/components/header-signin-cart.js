@@ -8,28 +8,27 @@ import Link from 'next/link'
 const auth = getFirebaseAuth();
 
 export default function HeaderSignInAndCart() {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState();
 
-    const foo = 'foobar';
     // Get current logged in user on page load
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
+            console.log('header-signin-cart.js onAuthStateChanged called!');
             if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/auth.user
-                const uid = user.uid;
-                setUser(user.email);
+                console.log('header-signin-cart.js - user found!');
+                const signedInUser = {}
+                signedInUser.email = user.email;
+                setUser(signedInUser);
             } else {
-                // User is signed out                
+                setUser(null);
             }
         });
-    }, [user])
+    }, [])
 
     return (
-        <>
-            <Link href="/sign-in">Sign In</Link>
-            <p>sign in / your account link goes here</p>
-            <p>your cart goes here</p>            
+        <>            
+            {user ? <p><Link href="/account">Account</Link></p> : <p><Link href="/sign-in">Sign In</Link></p>}
+            <p>your cart goes here</p>
         </>
     )
 }

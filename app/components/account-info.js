@@ -9,8 +9,7 @@ import { checkBackendSignIn, getUserInfo, signOutBackend } from "../api/api";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
-    const [user, setUser] = useState({});
-    const [signedIn, setSignedIn] = useState(false);
+    const [user, setUser] = useState({});    
     const router = useRouter();
 
     // Get current signed-in user on page load
