@@ -18,7 +18,8 @@ export default function AccountInfo() {
             console.log('account-info.js useEffect() called');
 
             // Get the current signed-in user
-            const user = auth.currentUser;            
+            // *currentUser will return the current user after sign-in
+            const user = auth.currentUser;
 
             if (user) {
                 console.log(`account-info.js called! auth.currentUser found = `);
@@ -46,14 +47,33 @@ export default function AccountInfo() {
 
                     setUser(returnedUser);
                 }
-                else {
-                }
             } else {
-                onAuthStateChanged(auth, (user) => {
-                    if(user){
+                // Get the current signed-in user using onAuthStateChanged
+                // *onAuthStateChanged will execute in this case when user closes / refreshes the 
+                // browser window and they are still logged in on the frontend
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
                         console.log('signed-in user onAuthStateChange found!');
 
-                        // TODO: setUser()
+                        // Check that user is signed-in in the backend
+                        console.log('onAuthStateChange() - calling checkBackendSignIn()')
+                        const backendUser = await checkBackendSignIn();
+
+                        // Set the User state variable                        
+                        if (backendUser) {
+                            // Get user info from the backend
+                            console.log('onAuthStateChange() - backendUser found - calling getUserInfo()');
+                            const fetchedUserInfo = await getUserInfo();
+
+                            // Set the User state variable
+                            const returnedUser = {}
+                            returnedUser.uid = user.uid;
+                            returnedUser.email = user.email;
+                            returnedUser.firstName = fetchedUserInfo.firstName;
+                            returnedUser.lastName = fetchedUserInfo.lastName;
+
+                            setUser(returnedUser);
+                        }
                     }
                 })
             }
