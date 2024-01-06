@@ -4,9 +4,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { sendIdToken } from "../api/api";
+import { sendIdToken, checkBackendSignIn } from "../api/api";
 
 const auth = getFirebaseAuth();
 
@@ -16,8 +16,38 @@ export default function SignInForm() {
     const [signedInUserEmail, setSignedInUserEmail] = useState("");     // The email of the signed in user
     const router = useRouter();                                         // useRouter hook allows you to programmatically change routes inside Client Components
 
-    // Check if user has successfully signed in:
-    // TODO: Include 'signedInUserEmail' in the useEffect dependency array so that it doesn't run on every screen update
+    
+    // If user is already signed-in, redirect them to /account
+    useEffect(() => {
+        async function fetchData() {
+            console.log('sign-in-form.js - Checking if there is a user already signed-in');
+
+            // Get the current signed-in user            
+            const user = auth.currentUser;
+
+            if (user) {                
+                // Confirm user is signed in on the backend                                
+                const backendUser = await checkBackendSignIn();
+                if(backendUser) router.push('/account');
+            } else {
+                // Get the current signed-in user using onAuthStateChanged                
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        console.log('sign-in-form.js - onAuthStateChanged() called');
+
+                        // Check that user is signed-in in the backend                        
+                        const backendUser = await checkBackendSignIn();
+
+                        // Set the User state variable                        
+                        if (backendUser) router.push('/account');
+                    }
+                })
+            }
+        }
+        fetchData();
+    }, [])
+    
+    // Check if user has successfully signed in:    
     useEffect(() => {
         if (signedInUserEmail && inputEmail) {
             if (signedInUserEmail === inputEmail) {
