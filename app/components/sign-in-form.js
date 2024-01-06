@@ -16,7 +16,6 @@ export default function SignInForm() {
     const [signedInUserEmail, setSignedInUserEmail] = useState("");     // The email of the signed in user
     const router = useRouter();                                         // useRouter hook allows you to programmatically change routes inside Client Components
 
-    
     // If user is already signed-in, redirect them to /account
     useEffect(() => {
         async function fetchData() {

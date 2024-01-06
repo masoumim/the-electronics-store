@@ -10,6 +10,7 @@ const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
     const [user, setUser] = useState({});
+    const [signedIn, setSignedIn] = useState(false);
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -52,6 +53,7 @@ export default function AccountInfo() {
                 // *onAuthStateChanged will execute in this case when user closes / refreshes the 
                 // browser window and they are still logged in on the frontend
                 onAuthStateChanged(auth, async (user) => {
+                    console.log('account-info.js - onAuthStateChange() called!')
                     if (user) {
                         console.log('signed-in user onAuthStateChange found!');
 
@@ -75,6 +77,11 @@ export default function AccountInfo() {
                             setUser(returnedUser);
                         }
                     }
+                    else{
+                        // No signed-in user found
+                        console.log(`No signed-in user found! Redirecting to /sign-in`);
+                        router.push('/sign-in');
+                    }
                 })
             }
         }
@@ -83,6 +90,7 @@ export default function AccountInfo() {
 
     // Sign Out
     async function signUserOut() {
+        console.log('signUserOut() called!');
         // Sign out of Firebase Auth
         signOut(auth).then(async () => {
             // Sign-out successful.
