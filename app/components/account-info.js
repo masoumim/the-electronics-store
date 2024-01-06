@@ -3,7 +3,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation.js";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
 import { checkBackendSignIn, getUserInfo, signOutBackend } from "../api/api";
 const auth = getFirebaseAuth();
@@ -16,12 +16,12 @@ export default function AccountInfo() {
     useEffect(() => {
         async function fetchData() {
             console.log('account-info.js useEffect() called');
-            
+
             // Get the current signed-in user
-            const user = auth.currentUser;
-            
+            const user = auth.currentUser;            
+
             if (user) {
-                console.log(`account-info.js called! signed in user found = `);
+                console.log(`account-info.js called! auth.currentUser found = `);
                 console.log(user);
 
                 // Confirm user is signed in on the backend                
@@ -49,6 +49,13 @@ export default function AccountInfo() {
                 else {
                 }
             } else {
+                onAuthStateChanged(auth, (user) => {
+                    if(user){
+                        console.log('signed-in user onAuthStateChange found!');
+
+                        // TODO: setUser()
+                    }
+                })
             }
         }
         fetchData();
