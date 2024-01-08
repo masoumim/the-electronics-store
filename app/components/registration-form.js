@@ -2,6 +2,26 @@
 
 'use client'
 export default function RegistrationForm() {
+
+    // Form Submit handler
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Validate input?
+
+        // Call Firebase's add user method?
+
+    }
+
+    // Handle form input
+    const handleInput = (e) => {
+        const fieldName = e.target.name;
+        const fieldValue = e.target.value;
+
+        if (fieldName === "email") setInputEmail(fieldValue);
+        if (fieldName === "password") setInputPassword(fieldValue);
+    }
+
     return (
         <>
             <p>*Registration form goes here*</p>
@@ -59,7 +79,7 @@ export default function RegistrationForm() {
                         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
                     </div>
                 </div>
-            </form>       
+            </form>
         </>
     )
 }
