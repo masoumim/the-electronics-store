@@ -99,8 +99,8 @@ export default function AccountInfo() {
             await signOutBackend();
             console.log('back from signOutBackend()')
 
-            // Redirect to /sign-in
-            router.push('/sign-in');
+            // Redirect to home
+            router.push('/');
         }).catch((error) => {
             // An error happened.
         });
