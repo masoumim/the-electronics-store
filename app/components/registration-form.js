@@ -1,8 +1,49 @@
 // registration-form.js - This interactive component contains a form used for creating / registering new users.
 
 'use client'
-export default function RegistrationForm() {
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation.js";
+import { onAuthStateChanged } from "firebase/auth";
+import { getFirebaseAuth } from '../firebase/config.js';
+import { checkBackendSignIn } from "../api/api";
+
+const auth = getFirebaseAuth();
+
+export default function RegistrationForm() {
+    const router = useRouter();  
+
+    // If a user is signed-in, redirect them back to /account
+    useEffect(() => {
+        async function fetchData() {
+            console.log('registration-form.js - Checking if there is a user already signed-in');
+
+            // Get the current signed-in user            
+            const user = auth.currentUser;
+
+            if (user) {                
+                // Confirm user is signed in on the backend                                
+                const backendUser = await checkBackendSignIn();
+                if(backendUser) router.push('/account');
+            } else {
+                // Get the current signed-in user using onAuthStateChanged                
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        console.log('registration-form.js - onAuthStateChanged() called');
+
+                        // Check that user is signed-in in the backend                        
+                        const backendUser = await checkBackendSignIn();
+
+                        // Redirect to /account                    
+                        if (backendUser) router.push('/account');
+                    }
+                })
+            }
+        }
+        fetchData();
+    }, [])
+
+    
     // Form Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();

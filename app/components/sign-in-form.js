@@ -37,7 +37,7 @@ export default function SignInForm() {
                         // Check that user is signed-in in the backend                        
                         const backendUser = await checkBackendSignIn();
 
-                        // Set the User state variable                        
+                        // Redirect to /account                       
                         if (backendUser) router.push('/account');
                     }
                 })
