@@ -36,14 +36,16 @@ export default function AccountInfo() {
                     const fetchedUserInfo = await getUserInfo();
                     console.log(`back from getUserInfo()`);
 
+                    
+                    // TODO: Fix this! fetchedUserInfo returns only email of a newly registered user
                     console.log(`fetchedUserInfo =`);
                     console.log(fetchedUserInfo);
 
                     const returnedUser = {}
                     returnedUser.uid = user.uid;
                     returnedUser.email = user.email;
-                    returnedUser.firstName = fetchedUserInfo.firstName;
-                    returnedUser.lastName = fetchedUserInfo.lastName;
+                    returnedUser.firstName = fetchedUserInfo.first_name;
+                    returnedUser.lastName = fetchedUserInfo.last_name;
 
                     setUser(returnedUser);
                 }
@@ -65,13 +67,15 @@ export default function AccountInfo() {
                             // Get user info from the backend
                             console.log('onAuthStateChange() - backendUser found - calling getUserInfo()');
                             const fetchedUserInfo = await getUserInfo();
+                            console.log('fetchedUserInfo = ');
+                            console.log(fetchedUserInfo);
 
                             // Set the User state variable
                             const returnedUser = {}
                             returnedUser.uid = user.uid;
                             returnedUser.email = user.email;
-                            returnedUser.firstName = fetchedUserInfo.firstName;
-                            returnedUser.lastName = fetchedUserInfo.lastName;
+                            returnedUser.firstName = fetchedUserInfo.first_name;
+                            returnedUser.lastName = fetchedUserInfo.last_name;
 
                             setUser(returnedUser);
                         }

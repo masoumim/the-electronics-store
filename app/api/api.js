@@ -30,10 +30,19 @@ export async function sendIdToken(idToken) {
     return res.json()
 }
 
-// Register a new user
-export async function registerUser(firstName, lastName, email, password) {
-    const data = { firstName, lastName, email, password }
+// Register a new user in the backend
+export async function registerUser(firstName, lastName, email, uid) {
+    const data = { firstName, lastName, email, uid }
     const res = await fetch(`route-handlers/register?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
+// Sign-in newly registered user on the backend
+export async function signInNewUserBackend(newUser) {    
+    const res = await fetch(`route-handlers/sign-in-new-backend?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(newUser), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
