@@ -51,30 +51,26 @@ export default function RegistrationForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate input?
-        // Backend validation is already in place. Just use client-side form validation
-
         // Call Firebase's add user method
         createUserWithEmailAndPassword(auth, inputEmail, inputPassword)
             .then(async (userCredential) => {
                 // Signed up 
-                const user = userCredential.user;                
-                
+                const user = userCredential.user;
+
                 // Add user on backend
-                const addedUserBackend =  await registerUser(inputFirstName, inputLastName, inputEmail, user.uid);
-                                              
+                const addedUserBackend = await registerUser(inputFirstName, inputLastName, inputEmail, user.uid);
+
                 // Sign-in user on backend
                 console.log('calling signInNewUserBackend(addedUserBackend) where addedUserBackend = ');
                 console.log(addedUserBackend);
                 await signInNewUserBackend(addedUserBackend);
-                
+
                 // Redirect to /account
                 router.push('/account');
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
+                console.log(error);
+                throw error;
             });
     }
 
@@ -97,8 +93,8 @@ export default function RegistrationForm() {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                             First Name
                         </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="firstName" id="grid-first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"/>
-                        <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>                     
+                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="firstName" id="grid-first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
