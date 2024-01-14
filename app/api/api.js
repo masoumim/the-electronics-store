@@ -49,6 +49,15 @@ export async function signInNewUserBackend(newUser) {
     return res.json()
 }
 
+// Delete a user
+export async function deleteUser(uid){
+    const res = await fetch(`route-handlers/user-delete?api_base_url=${apiBaseUrl}&uid=${uid}`, {method: "DELETE"});
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
 // Sign user out of the backend
 export async function signOutBackend() {
     const res = await fetch(`route-handlers/signout-backend?api_base_url=${apiBaseUrl}`);

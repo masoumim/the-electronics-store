@@ -5,11 +5,11 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
-import { checkBackendSignIn, getUserInfo, signOutBackend } from "../api/api";
+import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUser } from "../api/api";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
-    const [user, setUser] = useState({});    
+    const [user, setUser] = useState({});
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -36,8 +36,6 @@ export default function AccountInfo() {
                     const fetchedUserInfo = await getUserInfo();
                     console.log(`back from getUserInfo()`);
 
-                    
-                    // TODO: Fix this! fetchedUserInfo returns only email of a newly registered user
                     console.log(`fetchedUserInfo =`);
                     console.log(fetchedUserInfo);
 
@@ -80,7 +78,7 @@ export default function AccountInfo() {
                             setUser(returnedUser);
                         }
                     }
-                    else{
+                    else {
                         // No signed-in user found
                         console.log(`No signed-in user found! Redirecting to /sign-in`);
                         router.push('/sign-in');
@@ -110,6 +108,29 @@ export default function AccountInfo() {
         });
     }
 
+    // Delete user
+    async function deleteAccount() {
+        // Delete user on Firebase Auth (Frontend)
+        const user = auth.currentUser;
+
+        console.log(`deleteAccount() called! user = `);
+        console.log(user);
+
+        // deleteUser(user).then(()=>{
+        //     // User deleted
+        //     // Delete user from backend?
+        // }).catch((error)=>{
+        //     console.log(error);
+        //     throw error;
+        // })
+
+        // Delete user from backend
+        await deleteUser(user.uid);
+
+        // Redirect to home
+
+    }
+
     return (
         <>
             <p>User uid: {user.uid}</p>
@@ -117,6 +138,8 @@ export default function AccountInfo() {
             <p>First Name: {user.firstName}</p>
             <p>Last Name: {user.lastName}</p>
             <button onClick={signUserOut}>Sign Out</button>
+            <p/>
+            <button onClick={deleteAccount}>Delete Account</button>
         </>
     )
 }
