@@ -8,10 +8,6 @@ export async function DELETE(request) {
     const apiBaseURL = searchParams.get('api_base_url');
     const uid = searchParams.get('uid');
 
-    console.log('/route-handlers/user-delete/route.js - uid =');
-    console.log(uid);
-    console.log(apiBaseURL);
-
     const res = await fetch(`${apiBaseURL}/user?uid=${uid}`, { method: "DELETE" })
     if (!res.ok) {
         throw res.Error;

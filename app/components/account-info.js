@@ -118,10 +118,8 @@ export default function AccountInfo() {
 
         // Call the Firebase Auth delete user function        
         deleteUser(user).then(async ()=>{
-            // User deleted
-            // Delete user from backend
-            console.log('calling deleteUserBackend(user.uid) where user.uid = ');
-            console.log(user.uid);
+            // User deleted on frontend
+            // Delete user from backend            
             await deleteUserBackend(user.uid);
             // Redirecting back to home
             router.push('/');
