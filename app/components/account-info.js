@@ -3,9 +3,9 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation.js";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
-import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUser } from "../api/api";
+import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend } from "../api/api";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
@@ -116,24 +116,20 @@ export default function AccountInfo() {
         console.log(`deleteAccount() called! user.uid = `);
         console.log(user.uid);
 
-        // Call the Firebase Auth delete user function
-        // TODO !!!!!!!! FIX THIS!!! THIS IS CALLING MY FUNCTION NOT THE FIREBASE FUNCTION!!
+        // Call the Firebase Auth delete user function        
         deleteUser(user).then(async ()=>{
             // User deleted
             // Delete user from backend
             console.log('calling deleteUser(user.uid) where user.uid = ');
             console.log(user.uid);
-            await deleteUser(user.uid);
+            await deleteUserBackend(user.uid);
         }).catch((error)=>{
             console.log(error);
             throw error;
         })
 
-        // Delete user from backend
-        // await deleteUser(user.uid);
-
         // Redirect to home
-
+        router.push('/');
     }
 
     return (

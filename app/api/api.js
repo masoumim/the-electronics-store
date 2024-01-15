@@ -50,7 +50,7 @@ export async function signInNewUserBackend(newUser) {
 }
 
 // Delete a user in the backend
-export async function deleteUser(uid){
+export async function deleteUserBackend(uid){
     console.log('api.js - deleteUser(uid) called!');
     console.log(`uid = `);
     console.log(uid);
