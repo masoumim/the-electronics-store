@@ -113,19 +113,24 @@ export default function AccountInfo() {
         // Delete user on Firebase Auth (Frontend)
         const user = auth.currentUser;
 
-        console.log(`deleteAccount() called! user = `);
-        console.log(user);
+        console.log(`deleteAccount() called! user.uid = `);
+        console.log(user.uid);
 
-        // deleteUser(user).then(()=>{
-        //     // User deleted
-        //     // Delete user from backend?
-        // }).catch((error)=>{
-        //     console.log(error);
-        //     throw error;
-        // })
+        // Call the Firebase Auth delete user function
+        // TODO !!!!!!!! FIX THIS!!! THIS IS CALLING MY FUNCTION NOT THE FIREBASE FUNCTION!!
+        deleteUser(user).then(async ()=>{
+            // User deleted
+            // Delete user from backend
+            console.log('calling deleteUser(user.uid) where user.uid = ');
+            console.log(user.uid);
+            await deleteUser(user.uid);
+        }).catch((error)=>{
+            console.log(error);
+            throw error;
+        })
 
         // Delete user from backend
-        await deleteUser(user.uid);
+        // await deleteUser(user.uid);
 
         // Redirect to home
 
