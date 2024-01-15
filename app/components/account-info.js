@@ -120,16 +120,15 @@ export default function AccountInfo() {
         deleteUser(user).then(async ()=>{
             // User deleted
             // Delete user from backend
-            console.log('calling deleteUser(user.uid) where user.uid = ');
+            console.log('calling deleteUserBackend(user.uid) where user.uid = ');
             console.log(user.uid);
             await deleteUserBackend(user.uid);
+            // Redirecting back to home
+            router.push('/');
         }).catch((error)=>{
             console.log(error);
             throw error;
         })
-
-        // Redirect to home
-        router.push('/');
     }
 
     return (
