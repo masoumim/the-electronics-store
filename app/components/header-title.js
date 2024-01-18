@@ -2,10 +2,12 @@
 
 import 'server-only'
 
+import Link from 'next/link'
+
 export default function HeaderTitle() {
     return (
         <>
-            <h2>The Electronics Store</h2>
+            <Link href={"/"}>The Electronics Store</Link>
             <p>*logo goes here*</p>
         </>
     )

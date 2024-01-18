@@ -12,6 +12,26 @@ export async function getProducts() {
     return res.json()
 }
 
+// Get product by product ID
+export async function getProduct(productID) {
+    const res = await fetch(`route-handlers/product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
+// Add Product to Cart
+export async function addProductToCart(productID){
+    console.log('addProductToCart(productID) called. productID = ');
+    console.log(productID);
+    const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
 // Get user profile info
 export async function getUserInfo() {
     const res = await fetch(`route-handlers/user-info?api_base_url=${apiBaseUrl}`);

@@ -1,4 +1,4 @@
-// account-info.js - This component gets the currently signed in user and displays their account info
+// account-info.js - This component gets the currently signed in user and displays their account info. Used in the /account page
 
 'use client'
 import { useEffect, useState } from "react"
