@@ -21,6 +21,15 @@ export async function getProduct(productID) {
     return res.json()
 }
 
+// Get Cart info
+export async function getCartInfo(){
+    const res = await fetch(`route-handlers/cart-info?api_base_url=${apiBaseUrl}`);
+    if (!res.ok) {
+        return res.json();
+    }
+    return res.json()
+}
+
 // Add Product to Cart
 export async function addProductToCart(productID){
     console.log('addProductToCart(productID) called. productID = ');

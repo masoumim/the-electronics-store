@@ -28,7 +28,7 @@ export default function HeaderSignInAndCart() {
     return (
         <>            
             {user ? <p><Link href="/account">Account</Link></p> : <p><Link href="/sign-in">Sign In</Link></p>}
-            <p>your cart goes here</p>
+            <Link href={'/cart'}>My Cart</Link>
         </>
     )
 }
