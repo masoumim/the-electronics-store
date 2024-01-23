@@ -41,6 +41,24 @@ export async function addProductToCart(productID){
     return res.json()
 }
 
+// Remove Product from Cart
+export async function removeProductFromCart(productID){        
+    const res = await fetch(`route-handlers/cart-remove-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+ 
+// Delete Product from Cart
+export async function deleteProductFromCart(productID){        
+    const res = await fetch(`route-handlers/cart-delete-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
 // Get user profile info
 export async function getUserInfo() {
     const res = await fetch(`route-handlers/user-info?api_base_url=${apiBaseUrl}`);

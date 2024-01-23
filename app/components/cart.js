@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getProduct, addProductToCart } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getProduct, deleteProductFromCart } from "../api/api.js";
+import CartProduct from "./cart-product.js";
 
 const auth = getFirebaseAuth();
 
@@ -14,7 +15,6 @@ export default function Cart() {
     const [cart, setCart] = useState({});
     const [cartProducts, setCartProducts] = useState(null);
     const [cartProductsInfo, setCartProductsInfo] = useState(null);
-    const [qty, setQty] = useState();
     const router = useRouter();
 
     // If a user is signed-in, get cart info. Otherwise, redirect user to /sign-in page
@@ -92,7 +92,15 @@ export default function Cart() {
         fetchData();
     }, [cartProducts])
 
-    
+    // Delete Product from Cart
+    async function deleteProduct(productID) {        
+        await deleteProductFromCart(productID);
+        
+        // Get and set updated cart info
+        const cartInfo = await getCartInfo();
+        setCart(cartInfo);
+        setCartProducts(cartInfo.cart_product);
+    }
 
     return (
         <>
@@ -102,15 +110,8 @@ export default function Cart() {
                     {/* Iterate over cartProductsInfo[] and display each product's properties */}
                     {cartProductsInfo.map((product, index) =>
                         <div key={index}>
-                            <p>Name: {product.name}</p>
-                            <p>Description: {product.description}</p>
-                            <p>Price: {product.price}</p>
-                            <p>Discount: {product.discountPercent}</p>
-                            <p>Quantity: {product.quantity}</p>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">-</button>
-                            <button onClick={() => addProductToCart(product.productID)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">+</button>
-                            <br />
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Remove</button>
+                            <CartProduct key={index} name={product.name} description={product.description} price={product.price} discount={product.discount} quantity={product.quantity} productID={product.productID} />
+                            <button onClick={() => deleteProduct(product.productID)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                         </div>
                     )}
                 </>
