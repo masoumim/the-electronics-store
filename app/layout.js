@@ -13,6 +13,7 @@ import './globals.css'
 import HeaderTitle from './components/header-title'
 import HeaderSignInAndCart from './components/header-signin-cart'
 import Navbar from './components/navbar'
+import Providers from './components/providers'
 
 // Font
 const inter = Inter({ subsets: ['latin'] })
@@ -30,9 +31,11 @@ export default function RootLayout({ children }) {
         <HeaderTitle />
         <HeaderSignInAndCart />
         <nav>
-          <Navbar/>
+          <Navbar />
         </nav>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )

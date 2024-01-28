@@ -2,18 +2,27 @@
 
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getProduct, deleteProductFromCart } from "../api/api.js";
 import CartProduct from "./cart-product.js";
+import { ctx } from "./providers.js";
 
 const auth = getFirebaseAuth();
 
 export default function Cart() {
-    const [cart, setCart] = useState({});
-    const [cartProducts, setCartProducts] = useState(null);
+    // const [cart, setCart] = useState({});
+    // const [cartProducts, setCartProducts] = useState(null);
+
+    const contactsCtx = useContext(ctx);                                // The Context object
+    const cart = contactsCtx[0];                                        // State object representing user's cart
+    const setCart = contactsCtx[1];                                     // Setter to set cart
+    const cartProducts = contactsCtx[2];                                // State object representing user's cart
+    const setCartProducts = contactsCtx[3];                             // Setter to set cart
+
+
     const [cartProductsInfo, setCartProductsInfo] = useState(null);
     const router = useRouter();
 
@@ -61,7 +70,10 @@ export default function Cart() {
     // Get Product info for each product in the user's Cart
     useEffect(() => {
         async function fetchData() {
-            if (cartProducts) {
+            if (cartProducts) {                
+                console.log('cartProducts = ');
+                console.log(cartProducts);
+                
                 const fetchedProductsInfo = [];
 
                 // Iterate over each product in the cartProducts[] array
@@ -93,15 +105,15 @@ export default function Cart() {
     }, [cartProducts])
 
     // Delete Product from Cart
-    async function deleteProduct(productID) {        
+    async function deleteProduct(productID) {
         await deleteProductFromCart(productID);
-        
+
         // Get and set updated cart info
         const cartInfo = await getCartInfo();
         setCart(cartInfo);
         setCartProducts(cartInfo.cart_product);
     }
-
+    
     return (
         <>
             <p>My Cart:</p>
@@ -110,7 +122,7 @@ export default function Cart() {
                     {/* Iterate over cartProductsInfo[] and display each product's properties */}
                     {cartProductsInfo.map((product, index) =>
                         <div key={index}>
-                            <CartProduct key={index} name={product.name} description={product.description} price={product.price} discount={product.discount} quantity={product.quantity} productID={product.productID} />
+                            <CartProduct key={index} name={product.name} description={product.description} price={product.price} discount={product.discountPercent} quantity={product.quantity} productID={product.productID} />
                             <button onClick={() => deleteProduct(product.productID)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                         </div>
                     )}
