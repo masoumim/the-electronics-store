@@ -98,7 +98,9 @@ export default function Cart() {
                 }
 
                 // Set the Cart Products Info array
-                setCartProductsInfo(fetchedProductsInfo);
+                console.log('cart.js useEffect() fetchedProductsInfo = ');
+                console.log(fetchedProductsInfo);
+                setCartProductsInfo(fetchedProductsInfo);                
             }
         }
         fetchData();
@@ -112,6 +114,11 @@ export default function Cart() {
         const cartInfo = await getCartInfo();
         setCart(cartInfo);
         setCartProducts(cartInfo.cart_product);
+
+        console.log(`cart.js deleteProduct - cartInfo =`);
+        console.log(cartInfo)
+        console.log(`cart.js deleteProduct - cartInfo.cart_product =`);
+        console.log(cartInfo.cart_product);
     }
     
     return (

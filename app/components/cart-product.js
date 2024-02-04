@@ -13,6 +13,7 @@ const auth = getFirebaseAuth();
 
 export default function CartProduct({ name, description, price, discount, quantity, productID }) {
     const [qty, setQty] = useState(quantity);
+    // const [qty, setQty] = useState();
 
     const contactsCtx = useContext(ctx);                                // The Context object
     const cart = contactsCtx[0];                                        // State object representing user's cart
@@ -28,12 +29,12 @@ export default function CartProduct({ name, description, price, discount, quanti
         // Get the updated quantity value
         const cartInfo = await getCartInfo();
         const updatedProduct = cartInfo.cart_product.find((product) => product.product_id === productID);
-                        
+
         // Set the qty state variable
         setQty(updatedProduct.quantity);
 
         // Update the Cart's info by setting the shared state variable
-        setCart(cartInfo);          
+        setCart(cartInfo);
     }
 
     // Decrease Product Qty
@@ -49,8 +50,44 @@ export default function CartProduct({ name, description, price, discount, quanti
         setQty(updatedProduct.quantity);
 
         // Update the Cart's info by setting the shared state variable
-        setCart(cartInfo);            
+        setCart(cartInfo);
     }
+
+    // TODO: Update the 'Quantity' value of the product
+    useEffect(() => {
+        async function fetchData() {
+            console.log('cart-product.js useEffect() triggered!');
+
+            // Get the updated quantity value
+            const cartInfo = await getCartInfo();
+            console.log('cartInfo = ');
+            console.log(cartInfo);
+            
+            // TODO: Trying to find out why 'updatedProduct' is undefined on first render but not on second when the data is the same.
+            console.log(cartInfo.cart_product);
+            const updatedProduct = cartInfo.cart_product.find((product) => product.product_id === productID);
+                        
+            // First try testing by hardcoding it? I know the position of the product in the cartInfo.cart_product array is [0]
+            // So, try setting it to that and see if I can setQty using the quantity that gets returned..
+            console.log('updatedProduct = ');                        
+            console.log(updatedProduct);            
+            
+            
+            console.log(cartInfo.cart_product);
+            setQty(cartInfo.cart_product[0].quantity); // <-- TODO: This works! Next steps are: Loop though cartInfo.cart_product, find matching product using product id and then setQty using cartInfo.cart_product[n].quantity.
+
+            // Set the qty state variable
+            // if (updatedProduct) {
+            //     console.log('setQty() called!');
+            //     console.log(updatedProduct.quantity);
+            //     console.log(`Qty before set = ${qty}`);
+            //     setQty(updatedProduct.quantity);
+            //     console.log(`Qty after set = ${qty}`);
+            //     // setCart(cartInfo);
+            // }
+        }
+        fetchData();
+    }, [cartProducts])
 
     return (
         <>
@@ -58,6 +95,7 @@ export default function CartProduct({ name, description, price, discount, quanti
             <p>Description: {description}</p>
             <p>Price: {price}</p>
             <p>Discount: {discount}</p>
+            {console.log(`returning qty = ${qty}`)}
             <p>Quantity: {qty}</p>
             {qty === 1 ?
                 // If qty is 1, render a disabled (grayed-out) minus button
