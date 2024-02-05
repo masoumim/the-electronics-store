@@ -1,7 +1,6 @@
 // cart.js - This component represents the user's Cart.
 
 'use client'
-
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
@@ -13,9 +12,6 @@ import { ctx } from "./providers.js";
 const auth = getFirebaseAuth();
 
 export default function Cart() {
-    // const [cart, setCart] = useState({});
-    // const [cartProducts, setCartProducts] = useState(null);
-
     const contactsCtx = useContext(ctx);                                // The Context object
     const cart = contactsCtx[0];                                        // State object representing user's cart
     const setCart = contactsCtx[1];                                     // Setter to set cart
@@ -69,9 +65,6 @@ export default function Cart() {
     useEffect(() => {
         async function fetchData() {
             if (cartProducts) {                
-                console.log('cartProducts = ');
-                console.log(cartProducts);
-                
                 const fetchedProductsInfo = [];
 
                 // Iterate over each product in the cartProducts[] array
@@ -95,10 +88,8 @@ export default function Cart() {
                     fetchedProductsInfo.push(productInfo);
                 }
 
-                // Set the Cart Products Info array
-                console.log('cart.js useEffect() fetchedProductsInfo = ');
-                console.log(fetchedProductsInfo);
-                setCartProductsInfo(fetchedProductsInfo);                
+                // Set the Cart Products Info array                
+                setCartProductsInfo(fetchedProductsInfo);
             }
         }
         fetchData();
@@ -112,13 +103,8 @@ export default function Cart() {
         const cartInfo = await getCartInfo();
         setCart(cartInfo);
         setCartProducts(cartInfo.cart_product);
-
-        console.log(`cart.js deleteProduct - cartInfo =`);
-        console.log(cartInfo)
-        console.log(`cart.js deleteProduct - cartInfo.cart_product =`);
-        console.log(cartInfo.cart_product);
     }
-    
+
     return (
         <>
             <p>My Cart:</p>

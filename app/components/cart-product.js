@@ -1,85 +1,29 @@
 // cart-product.js - This component represents a product in the user's cart. The quantity can be increased and decreased.
-// The product can also be removed entirely from the cart.
+// The product can also be deleted from the cart.
 
 'use client'
 import { useEffect, useState, useContext } from "react"
-import { useRouter } from "next/navigation.js";
-import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
-import { getFirebaseAuth } from "../firebase/config";
-import { addProductToCart, removeProductFromCart, getCartInfo, deleteProductFromCart } from "../api/api";
+import { addProductToCart, removeProductFromCart, getCartInfo } from "../api/api";
 import { ctx } from "./providers.js";
 
-const auth = getFirebaseAuth();
-
 export default function CartProduct({ name, description, price, discount, quantity, productID }) {
-    const [qty, setQty] = useState(quantity);
-
-
+    const [qty, setQty] = useState(quantity);                           // The quantity of the product
     const contactsCtx = useContext(ctx);                                // The Context object
-    const cart = contactsCtx[0];                                        // State object representing user's cart
     const setCart = contactsCtx[1];                                     // Setter to set cart
-    const cartProducts = contactsCtx[2];                                // State object representing user's cart products
-    const setCartProducts = contactsCtx[3];                             // Setter to set cart products
-
-
-    // TODO: Update the 'Quantity' value of the product
+    
+    // Update the 'Quantity' value of the product
     useEffect(() => {
-        async function fetchData() {
-            console.log('cart-product.js useEffect() triggered!');
-            console.log(`this cart product's quantity = ${quantity}`);
-            console.log(`this cart product's productID = ${productID}`);
-
+        async function fetchData() {        
             // Get the updated quantity value
-            const cartInfo = await getCartInfo();
-            console.log('cartInfo = ');
-            console.log(cartInfo);
+            const cartInfo = await getCartInfo();            
 
-            // TODO: Trying to find out why 'updatedProduct' is undefined on first render but not on second when the data is the same.
-            // console.log(cartInfo.cart_product);
-            // const updatedProduct = cartInfo.cart_product.find((product) => product.product_id === productID);
-
-            // First try testing by hardcoding it? I know the position of the product in the cartInfo.cart_product array is [0]
-            // So, try setting it to that and see if I can setQty using the quantity that gets returned..
-            // console.log('updatedProduct = ');                        
-            // console.log(updatedProduct);            
-
-            console.log('cartInfo.cart_product = ');
-            console.log(cartInfo.cart_product);
-
-            // This works! Next steps are: Loop though cartInfo.cart_product, find matching product using product id and then setQty using cartInfo.cart_product[n].quantity.
-            // setQty(cartInfo.cart_product[0].quantity); // <-- this works...
-
-            // if(updatedProduct){
-            //     console.log(`setting setQty() to updatedProduct.quantity = ${updatedProduct.quantity}`);                
-            //     setQty(updatedProduct.quantity);
-            // }
-
-            // Doesn't work...
-            // const index = cartInfo.cart_product.findIndex((product)=> product.product_id === productID);
-            // console.log(index);
-            // if(index > -1){
-            //     console.log('setting setQty using index... ');
-            //     console.log(index);
-            //     console.log(`cartInfo.cart_product[index].quantity = ${cartInfo.cart_product[index].quantity}`);
-            //     setQty(cartInfo.cart_product[index].quantity);
-            // }
-
-            
             let matchingProductQty = null;
-            for (let product of cartInfo.cart_product) {
-                console.log('inside loop! checking if product.product_id === productID');
-                console.log(`product.product_id = ${product.product_id}, productID = ${productID}`);
-                if (product.product_id === productID) {
-                    console.log('match found!');
-                    console.log(`product.product_id = ${product.product_id}`);
-                    console.log(`productID = ${productID}`);
-                    console.log(`product.quantity = ${product.quantity}`);
-                    console.log(typeof product.quantity);
+            for (let product of cartInfo.cart_product) {                
+                if (product.product_id === productID) {                    
                     matchingProductQty = product.quantity;
                     break;
                 }
-            }
-            console.log(`matchingProductQty = ${matchingProductQty}`);
+            }            
             setQty(matchingProductQty);
         }
         fetchData();
@@ -122,8 +66,7 @@ export default function CartProduct({ name, description, price, discount, quanti
             <p>Name: {name}</p>
             <p>Description: {description}</p>
             <p>Price: {price}</p>
-            <p>Discount: {discount}</p>
-            {console.log(`returning qty = ${qty}`)}
+            <p>Discount: {discount}</p>            
             <p>Quantity: {qty}</p>
             {qty === 1 ?
                 // If qty is 1, render a disabled (grayed-out) minus button

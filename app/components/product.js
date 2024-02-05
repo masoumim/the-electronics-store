@@ -45,7 +45,7 @@ export default function Product({ productID }) {
             <p>Description: {product.description}</p>
             <p>Price: {product.price}</p>
             <p>Category Code: {product.category_code}</p>
-            <p>Item Code: {product.item_code}</p>            
+            <p>Item Code: {product.item_code}</p>
             {auth.currentUser ? <button onClick={addToCart} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add To Cart</button> : <Link href={"/sign-in"}>Sign-in to add item to cart</Link>}
         </>
     )
