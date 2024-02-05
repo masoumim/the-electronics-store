@@ -22,7 +22,6 @@ export default function Cart() {
     const cartProducts = contactsCtx[2];                                // State object representing user's cart
     const setCartProducts = contactsCtx[3];                             // Setter to set cart
 
-
     const [cartProductsInfo, setCartProductsInfo] = useState(null);
     const router = useRouter();
 
@@ -65,7 +64,6 @@ export default function Cart() {
         }
         fetchData();
     }, [])
-
 
     // Get Product info for each product in the user's Cart
     useEffect(() => {

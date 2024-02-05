@@ -13,7 +13,7 @@ const auth = getFirebaseAuth();
 
 export default function CartProduct({ name, description, price, discount, quantity, productID }) {
     const [qty, setQty] = useState(quantity);
-    // const [qty, setQty] = useState();
+
 
     const contactsCtx = useContext(ctx);                                // The Context object
     const cart = contactsCtx[0];                                        // State object representing user's cart
@@ -21,77 +21,70 @@ export default function CartProduct({ name, description, price, discount, quanti
     const cartProducts = contactsCtx[2];                                // State object representing user's cart products
     const setCartProducts = contactsCtx[3];                             // Setter to set cart products
 
-    
-        // TODO: Update the 'Quantity' value of the product
-        useEffect(() => {
-            async function fetchData() {
-                console.log('cart-product.js useEffect() triggered!');
-    
-                // Get the updated quantity value
-                const cartInfo = await getCartInfo();
-                console.log('cartInfo = ');
-                console.log(cartInfo);
-                
-                // TODO: Trying to find out why 'updatedProduct' is undefined on first render but not on second when the data is the same.
-                console.log(cartInfo.cart_product);
-                const updatedProduct = cartInfo.cart_product.find((product) => product.product_id === productID);
-                            
-                // First try testing by hardcoding it? I know the position of the product in the cartInfo.cart_product array is [0]
-                // So, try setting it to that and see if I can setQty using the quantity that gets returned..
-                console.log('updatedProduct = ');                        
-                console.log(updatedProduct);            
-                
-                console.log('cartInfo.cart_product = ');    
-                console.log(cartInfo.cart_product);
-                
-                // This works! Next steps are: Loop though cartInfo.cart_product, find matching product using product id and then setQty using cartInfo.cart_product[n].quantity.
-                // setQty(cartInfo.cart_product[0].quantity); // <-- this works...
-                        
-                
-                if(updatedProduct){
-                    console.log(`setting setQty() to updatedProduct.quantity = ${updatedProduct.quantity}`);                
-                    setQty(updatedProduct.quantity);
+
+    // TODO: Update the 'Quantity' value of the product
+    useEffect(() => {
+        async function fetchData() {
+            console.log('cart-product.js useEffect() triggered!');
+            console.log(`this cart product's quantity = ${quantity}`);
+            console.log(`this cart product's productID = ${productID}`);
+
+            // Get the updated quantity value
+            const cartInfo = await getCartInfo();
+            console.log('cartInfo = ');
+            console.log(cartInfo);
+
+            // TODO: Trying to find out why 'updatedProduct' is undefined on first render but not on second when the data is the same.
+            // console.log(cartInfo.cart_product);
+            // const updatedProduct = cartInfo.cart_product.find((product) => product.product_id === productID);
+
+            // First try testing by hardcoding it? I know the position of the product in the cartInfo.cart_product array is [0]
+            // So, try setting it to that and see if I can setQty using the quantity that gets returned..
+            // console.log('updatedProduct = ');                        
+            // console.log(updatedProduct);            
+
+            console.log('cartInfo.cart_product = ');
+            console.log(cartInfo.cart_product);
+
+            // This works! Next steps are: Loop though cartInfo.cart_product, find matching product using product id and then setQty using cartInfo.cart_product[n].quantity.
+            // setQty(cartInfo.cart_product[0].quantity); // <-- this works...
+
+            // if(updatedProduct){
+            //     console.log(`setting setQty() to updatedProduct.quantity = ${updatedProduct.quantity}`);                
+            //     setQty(updatedProduct.quantity);
+            // }
+
+            // Doesn't work...
+            // const index = cartInfo.cart_product.findIndex((product)=> product.product_id === productID);
+            // console.log(index);
+            // if(index > -1){
+            //     console.log('setting setQty using index... ');
+            //     console.log(index);
+            //     console.log(`cartInfo.cart_product[index].quantity = ${cartInfo.cart_product[index].quantity}`);
+            //     setQty(cartInfo.cart_product[index].quantity);
+            // }
+
+            
+            let matchingProductQty = null;
+            for (let product of cartInfo.cart_product) {
+                console.log('inside loop! checking if product.product_id === productID');
+                console.log(`product.product_id = ${product.product_id}, productID = ${productID}`);
+                if (product.product_id === productID) {
+                    console.log('match found!');
+                    console.log(`product.product_id = ${product.product_id}`);
+                    console.log(`productID = ${productID}`);
+                    console.log(`product.quantity = ${product.quantity}`);
+                    console.log(typeof product.quantity);
+                    matchingProductQty = product.quantity;
+                    break;
                 }
-                
-    
-                // Doesn't work...
-                // const index = cartInfo.cart_product.findIndex((product)=> product.product_id === productID);
-                // console.log(index);
-                // if(index > -1){
-                //     console.log('setting setQty using index... ');
-                //     console.log(index);
-                //     console.log(`cartInfo.cart_product[index].quantity = ${cartInfo.cart_product[index].quantity}`);
-                //     setQty(cartInfo.cart_product[index].quantity);
-                // }
-                           
-                // Doesn't work...
-                // for (let product of cartInfo.cart_product){
-                //     console.log('inside loop!');
-                //     if (product.product_id === productID){
-                //         console.log('match found!');
-                //         console.log(`product.product_id = ${product.product_id}`);
-                //         console.log(`productID = ${productID}`);
-                //         console.log(`product.quantity = ${product.quantity}`);
-                //         console.log(typeof product.quantity);
-                //         setQty(product.quantity);
-                //     }
-                // }
-    
-                // Doesn't work...
-                // Set the qty state variable
-                // if (updatedProduct) {
-                //     console.log('setQty() called!');
-                //     console.log(updatedProduct.quantity);
-                //     console.log(`Qty before set = ${qty}`);
-                //     setQty(updatedProduct.quantity);
-                //     console.log(`Qty after set = ${qty}`);
-                //     // setCart(cartInfo);
-                // }
             }
-            fetchData();
-        }, [cartProducts])
-    
-    
+            console.log(`matchingProductQty = ${matchingProductQty}`);
+            setQty(matchingProductQty);
+        }
+        fetchData();
+    })
+
     // Increase Product Qty
     async function increaseQty() {
         // Add product to cart (backend)
