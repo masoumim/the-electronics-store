@@ -12,6 +12,8 @@ export async function GET(request) {
     if (!res.ok) {                        
         throw new Error('Failed to fetch data')
     }
-    const data = await res.json();        
+    const data = await res.json();
+    console.log('fetched cart data = ');
+    console.log(data);   
     return Response.json(data);
 }

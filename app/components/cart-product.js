@@ -10,20 +10,20 @@ export default function CartProduct({ name, description, price, discount, quanti
     const [qty, setQty] = useState(quantity);                           // The quantity of the product
     const contactsCtx = useContext(ctx);                                // The Context object
     const setCart = contactsCtx[1];                                     // Setter to set cart
-    
+
     // Update the 'Quantity' value of the product
     useEffect(() => {
-        async function fetchData() {        
+        async function fetchData() {
             // Get the updated quantity value
-            const cartInfo = await getCartInfo();            
+            const cartInfo = await getCartInfo();
 
             let matchingProductQty = null;
-            for (let product of cartInfo.cart_product) {                
-                if (product.product_id === productID) {                    
+            for (let product of cartInfo.cart_product) {
+                if (product.product_id === productID) {
                     matchingProductQty = product.quantity;
                     break;
                 }
-            }            
+            }
             setQty(matchingProductQty);
         }
         fetchData();
@@ -65,8 +65,8 @@ export default function CartProduct({ name, description, price, discount, quanti
         <>
             <p>Name: {name}</p>
             <p>Description: {description}</p>
-            <p>Price: {price}</p>
-            <p>Discount: {discount}</p>            
+            <p>Price: {(price - ((discount / 100) * price)).toFixed(2)}</p>
+            <p>Discount: {discount}</p>
             <p>Quantity: {qty}</p>
             {qty === 1 ?
                 // If qty is 1, render a disabled (grayed-out) minus button
