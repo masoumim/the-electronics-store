@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
 import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend } from "../api/api";
+import Link from "next/link";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
@@ -135,6 +136,10 @@ export default function AccountInfo() {
             <p>Email: {user.email}</p>
             <p>First Name: {user.firstName}</p>
             <p>Last Name: {user.lastName}</p>
+            <p>=========================================</p>
+            <p>Shipping Address:</p>
+            <Link href={"/account/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
+            <p>=========================================</p>
             <button onClick={signUserOut}>Sign Out</button>
             <p/>
             <button onClick={deleteAccount}>Delete Account</button>
