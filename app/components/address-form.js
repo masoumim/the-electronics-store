@@ -14,7 +14,18 @@ export default function AddressForm() {
     const [inputFirstName, setInputFirstName] = useState("");             // Form 'First Name' input from user
     const [inputLastName, setInputLastName] = useState("");               // Form 'First Name' input from user
     const [inputStreetNumber, setInputStreetNumber] = useState("");
+    const [inputStreetName, setInputStreetName] = useState("");
+    const [inputUnit, setInputUnit] = useState("");
+    const [inputCity, setInputCity] = useState("");
+    const [inputProvince, setInputProvince] = useState("");
+    const [inputCountry, setInputCountry] = useState("");
+    const [inputPostalCode, setInputPostalCode] = useState("");
+    const [inputPhoneNum, setInputPhoneNum] = useState("");
+
+    const [addressType, setAddressType] = useState("");
+
     const [user, setUser] = useState({});
+
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -111,27 +122,6 @@ export default function AddressForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Call Firebase's add user method
-        createUserWithEmailAndPassword(auth, inputEmail, inputPassword)
-            .then(async (userCredential) => {
-                // Signed up 
-                const user = userCredential.user;
-
-                // Add user on backend
-                const addedUserBackend = await registerUser(inputFirstName, inputLastName, inputEmail, user.uid);
-
-                // Sign-in user on backend
-                console.log('calling signInNewUserBackend(addedUserBackend) where addedUserBackend = ');
-                console.log(addedUserBackend);
-                await signInNewUserBackend(addedUserBackend);
-
-                // Redirect to /account
-                router.push('/account');
-            })
-            .catch((error) => {
-                console.log(error);
-                throw error;
-            });
     }
 
     // Handle form input
@@ -139,10 +129,32 @@ export default function AddressForm() {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
 
-        if (fieldName === "firstName") setInputFirstName(fieldValue);
-        if (fieldName === "lastName") setInputLastName(fieldValue);
-        if (fieldName === "email") setInputEmail(fieldValue);
-        if (fieldName === "password") setInputPassword(fieldValue);
+        // TODO: Consider replacing the IFs with a Switch statement
+        // if (fieldName === "first-name") setInputFirstName(fieldValue);
+        // if (fieldName === "last-name") setInputLastName(fieldValue);
+        // if (fieldName === "street-number") setInputStreetNumber(fieldValue)
+        // if (fieldName === "street-name") setInputStreetName(fieldValue)
+
+        switch (fieldName) {
+            case "first-name":
+                setInputFirstName(fieldValue);
+                break;
+            case "last-name":
+                setInputLastName(fieldValue);
+                break;
+            case "street-number":
+                setInputStreetNumber(fieldValue);
+                break;
+            case "street-name":
+                setInputStreetName(fieldValue);
+                break;
+            case "city":
+                setInputCity(fieldValue);
+                break;
+            case "province":
+                setInputProvince(fieldValue);
+                break;
+        }
     }
 
     return (
@@ -151,19 +163,19 @@ export default function AddressForm() {
             <form onSubmit={handleSubmit} className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="first-name">
                             First Name
                         </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="firstName" id="grid-first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="first-name" id="first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                         <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="last-name">
                             Last Name
                         </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputLastName} name="lastName" id="grid-last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputLastName} name="last-name" id="last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                         <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
                     </div>
                 </div>
@@ -175,8 +187,42 @@ export default function AddressForm() {
                         <input onChange={handleInput} required min={1} value={inputStreetNumber} name="street-number" id="street-number" type="number" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
                 </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-name">
+                            Street Name
+                        </label>
+                        <input onChange={handleInput} required minLength={1} value={inputStreetName} name="street-name" id="street-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
+                            City
+                        </label>
+                        <input onChange={handleInput} required minLength={1} value={inputCity} name="city" id="city" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
+                            Province
+                        </label>
+                        {/* <input onChange={handleInput} required minLength={1} value={inputProvince} name="province" id="province" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" /> */}
+                        <select name="province" id="province">
+                            <option value="ab">Alberta</option>
+                            <option value="bc">British Columbia</option>
+                            <option value="mb">Manitoba</option>
+                            <option value="nb">New Brunswick</option>
+                            <option value="nl">Newfoundland and Labrador</option>
+                            <option value="ns">Nova Scotia</option>
+                            <option value="on">Ontario</option>
+                            {/* TODO: Finish this */}
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Sign Up
+                    Add Address
                 </button>
             </form>
         </>

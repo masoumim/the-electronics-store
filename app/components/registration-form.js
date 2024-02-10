@@ -87,6 +87,7 @@ export default function RegistrationForm() {
 
     return (
         <>
+            {/* TODO: fix first name and last name so that they have their own outside div like the other inputs (check address-form.js for example) */}
             <form onSubmit={handleSubmit} className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
