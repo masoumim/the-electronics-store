@@ -116,6 +116,7 @@ export async function signOutBackend() {
 
 // Check if user is signed-in on the backend
 export async function checkBackendSignIn(){
+    console.log(`api.js checkBackendSignIn() called. apiBaseUrl = ${apiBaseUrl}`);  
     const res = await fetch(`route-handlers/check-backend-sign-in?api_base_url=${apiBaseUrl}`);
     if(!res.ok){
         throw res.Error;

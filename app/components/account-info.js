@@ -138,7 +138,7 @@ export default function AccountInfo() {
             <p>Last Name: {user.lastName}</p>
             <p>=========================================</p>
             <p>Shipping Address:</p>
-            <Link href={"/account/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
+            <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
             <p>=========================================</p>
             <button onClick={signUserOut}>Sign Out</button>
             <p/>
