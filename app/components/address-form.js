@@ -4,9 +4,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
-import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, registerUser, signInNewUserBackend, getUserInfo } from "../api/api.js";
+import { checkBackendSignIn, getUserInfo, addPrimaryShippingAddress } from "../api/api.js";
 
 const auth = getFirebaseAuth();
 
@@ -22,7 +22,7 @@ export default function AddressForm() {
     const [inputPostalCode, setInputPostalCode] = useState("");
     const [inputPhoneNum, setInputPhoneNum] = useState("");
 
-    const [addressType, setAddressType] = useState("");
+
 
     const [user, setUser] = useState({});
 
@@ -122,18 +122,39 @@ export default function AddressForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log("handleSubmit called!");
+        console.log(inputFirstName);
+        console.log(inputLastName);
+        console.log(inputStreetNumber);
+        console.log(inputStreetName);
+        console.log(inputCity);
+        console.log(inputProvince);
+        console.log(inputCountry);
+        console.log(inputPostalCode);
+        console.log(inputPhoneNum);
+        console.log(inputUnit);
+
+        const address = {};
+        address.firstName = inputFirstName;
+        address.lastName = inputLastName;
+        address.streetNumber = inputStreetNumber;
+        address.streetName = inputStreetName;
+        address.city = inputCountry;
+        address.province = inputProvince;
+        address.country = inputCountry;
+        address.postalCode = inputPostalCode;
+        address.phoneNum = inputPhoneNum;
+        address.unit = inputUnit;
+
+        // Add to backend database
+        await addPrimaryShippingAddress(address);
+
     }
 
     // Handle form input
     const handleInput = (e) => {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
-
-        // TODO: Consider replacing the IFs with a Switch statement
-        // if (fieldName === "first-name") setInputFirstName(fieldValue);
-        // if (fieldName === "last-name") setInputLastName(fieldValue);
-        // if (fieldName === "street-number") setInputStreetNumber(fieldValue)
-        // if (fieldName === "street-name") setInputStreetName(fieldValue)
 
         switch (fieldName) {
             case "first-name":
@@ -154,17 +175,28 @@ export default function AddressForm() {
             case "province":
                 setInputProvince(fieldValue);
                 break;
+            case "country":
+                setInputCountry(fieldValue);
+                break;
+            case "postal-code":
+                setInputPostalCode(fieldValue);
+                break;
+            case "phone-number":
+                setInputPhoneNum(fieldValue);
+                break;
+            case "unit":
+                setInputUnit(fieldValue);
+                break;
         }
     }
 
     return (
         <>
-            <p>ADDRESS FORM</p>
             <form onSubmit={handleSubmit} className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="first-name">
-                            First Name
+                            *First Name
                         </label>
                         <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="first-name" id="first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                         <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
@@ -173,7 +205,7 @@ export default function AddressForm() {
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="last-name">
-                            Last Name
+                            *Last Name
                         </label>
                         <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputLastName} name="last-name" id="last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                         <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
@@ -182,7 +214,7 @@ export default function AddressForm() {
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
-                            Street Number
+                            *Street Number
                         </label>
                         <input onChange={handleInput} required min={1} value={inputStreetNumber} name="street-number" id="street-number" type="number" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
@@ -190,15 +222,23 @@ export default function AddressForm() {
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-name">
-                            Street Name
+                            *Street Name
                         </label>
                         <input onChange={handleInput} required minLength={1} value={inputStreetName} name="street-name" id="street-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="unit">
+                            Unit (optional)
+                        </label>
+                        <input onChange={handleInput} maxLength={10} value={inputUnit} name="unit" id="unit" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
-                            City
+                            *City
                         </label>
                         <input onChange={handleInput} required minLength={1} value={inputCity} name="city" id="city" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
@@ -206,10 +246,9 @@ export default function AddressForm() {
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
-                            Province
+                            *Province
                         </label>
-                        {/* <input onChange={handleInput} required minLength={1} value={inputProvince} name="province" id="province" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" /> */}
-                        <select name="province" id="province">
+                        <select name="province" id="province" onChange={handleInput} value={inputProvince}>
                             <option value="ab">Alberta</option>
                             <option value="bc">British Columbia</option>
                             <option value="mb">Manitoba</option>
@@ -217,8 +256,35 @@ export default function AddressForm() {
                             <option value="nl">Newfoundland and Labrador</option>
                             <option value="ns">Nova Scotia</option>
                             <option value="on">Ontario</option>
-                            {/* TODO: Finish this */}
+                            <option value="pe">Prince Edward Island</option>
+                            <option value="qc">Quebec</option>
+                            <option value="sk">Saskatchewan</option>
                         </select>
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="country">
+                            *Country
+                        </label>
+                        <input onChange={handleInput} required minLength={1} value={inputCountry} name="country" id="country" type="text" placeholder="Canada" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="postal-code">
+                            *Postal Code
+                        </label>
+                        <input onChange={handleInput} required minLength={6} maxLength={6} value={inputPostalCode} name="postal-code" id="postal-code" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="phone-number">
+                            *Phone Number
+                        </label>
+                        <input onChange={handleInput} required minLength={10} maxLength={10} value={inputPhoneNum} name="phone-number" id="phone-number" type="text" placeholder="5552223456" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                        <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
