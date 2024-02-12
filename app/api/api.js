@@ -31,9 +31,7 @@ export async function getCartInfo(){
 }
 
 // Add Product to Cart
-export async function addProductToCart(productID){
-    console.log('addProductToCart(productID) called. productID = ');
-    console.log(productID);
+export async function addProductToCart(productID){    
     const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
@@ -115,8 +113,7 @@ export async function signOutBackend() {
 }
 
 // Check if user is signed-in on the backend
-export async function checkBackendSignIn(){
-    console.log(`api.js checkBackendSignIn() called. apiBaseUrl = ${apiBaseUrl}`);  
+export async function checkBackendSignIn(){     
     const res = await fetch(`route-handlers/check-backend-sign-in?api_base_url=${apiBaseUrl}`);
     if(!res.ok){
         throw res.Error;
@@ -125,11 +122,19 @@ export async function checkBackendSignIn(){
 }
 
 // Add a Primary Address
-export async function addPrimaryShippingAddress(address) {
-    console.log("addPrimaryShippingAddress() called!");
-    const res = await fetch(`route-handlers/add-primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+export async function addPrimaryShippingAddress(address) {    
+    const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
     return res.json()
+}
+
+// Get Primary Address
+export async function getPrimaryShippingAddress(){      
+    const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`);
+    if(!res.ok){
+        throw res.Error;
+    }
+    return res.json();
 }

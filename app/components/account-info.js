@@ -5,12 +5,13 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
-import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend } from "../api/api";
+import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend, getPrimaryShippingAddress } from "../api/api";
 import Link from "next/link";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
     const [user, setUser] = useState({});
+    const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -70,7 +71,7 @@ export default function AccountInfo() {
                             console.log(fetchedUserInfo);
 
                             // Set the User state variable
-                            const returnedUser = {}
+                            const returnedUser = {};
                             returnedUser.uid = user.uid;
                             returnedUser.email = user.email;
                             returnedUser.firstName = fetchedUserInfo.first_name;
@@ -89,6 +90,28 @@ export default function AccountInfo() {
         }
         fetchData();
     }, [])
+
+    // Get the user's primary shipping address on page load
+    useEffect(() => {
+        async function fetchData() {
+            // Fetch address                      
+            const fetchedAddress = await getPrimaryShippingAddress(); 
+
+            if(fetchedAddress){
+                const addressObj = {};
+                addressObj.address = fetchedAddress.address;
+                addressObj.unit = fetchedAddress.unit;
+                addressObj.city = fetchedAddress.city;                
+                addressObj.province = fetchedAddress.province;
+                addressObj.country = fetchedAddress.country;
+                addressObj.postalCode = fetchedAddress.postal_code;
+                addressObj.phoneNumber = fetchedAddress.phone_number;
+                setPrimaryShippingAddress(addressObj);
+            }
+        }
+        fetchData();
+    }, [])
+
 
     // Sign Out
     async function signUserOut() {
@@ -118,13 +141,13 @@ export default function AccountInfo() {
         console.log(user.uid);
 
         // Call the Firebase Auth delete user function        
-        deleteUser(user).then(async ()=>{
+        deleteUser(user).then(async () => {
             // User deleted on frontend
             // Delete user from backend            
             await deleteUserBackend(user.uid);
             // Redirecting back to home
             router.push('/');
-        }).catch((error)=>{
+        }).catch((error) => {
             console.log(error);
             throw error;
         })
@@ -137,11 +160,18 @@ export default function AccountInfo() {
             <p>First Name: {user.firstName}</p>
             <p>Last Name: {user.lastName}</p>
             <p>=========================================</p>
-            <p>Shipping Address:</p>
+            <p>Primary Shipping Address:</p>
+            <p>Address: {primaryShippingAddress.address}</p>
+            <p>Unit: {primaryShippingAddress.unit}</p>
+            <p>City: {primaryShippingAddress.city}</p>
+            <p>Province: {primaryShippingAddress.province}</p>
+            <p>Country: {primaryShippingAddress.country}</p>
+            <p>Postal Code: {primaryShippingAddress.postalCode}</p>
+            <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
             <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
             <p>=========================================</p>
             <button onClick={signUserOut}>Sign Out</button>
-            <p/>
+            <p />
             <button onClick={deleteAccount}>Delete Account</button>
         </>
     )

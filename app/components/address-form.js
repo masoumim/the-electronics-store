@@ -20,9 +20,7 @@ export default function AddressForm() {
     const [inputProvince, setInputProvince] = useState("");
     const [inputCountry, setInputCountry] = useState("");
     const [inputPostalCode, setInputPostalCode] = useState("");
-    const [inputPhoneNum, setInputPhoneNum] = useState("");
-
-
+    const [inputPhoneNumber, setInputPhoneNumber] = useState("");
 
     const [user, setUser] = useState({});
 
@@ -131,7 +129,7 @@ export default function AddressForm() {
         console.log(inputProvince);
         console.log(inputCountry);
         console.log(inputPostalCode);
-        console.log(inputPhoneNum);
+        console.log(inputPhoneNumber);
         console.log(inputUnit);
 
         const address = {};
@@ -139,16 +137,15 @@ export default function AddressForm() {
         address.lastName = inputLastName;
         address.streetNumber = inputStreetNumber;
         address.streetName = inputStreetName;
-        address.city = inputCountry;
+        address.city = inputCity;
         address.province = inputProvince;
         address.country = inputCountry;
         address.postalCode = inputPostalCode;
-        address.phoneNum = inputPhoneNum;
+        address.phoneNumber = inputPhoneNumber;
         address.unit = inputUnit;
 
         // Add to backend database
         await addPrimaryShippingAddress(address);
-
     }
 
     // Handle form input
@@ -182,7 +179,7 @@ export default function AddressForm() {
                 setInputPostalCode(fieldValue);
                 break;
             case "phone-number":
-                setInputPhoneNum(fieldValue);
+                setInputPhoneNumber(fieldValue);
                 break;
             case "unit":
                 setInputUnit(fieldValue);
@@ -283,7 +280,7 @@ export default function AddressForm() {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="phone-number">
                             *Phone Number
                         </label>
-                        <input onChange={handleInput} required minLength={10} maxLength={10} value={inputPhoneNum} name="phone-number" id="phone-number" type="text" placeholder="5552223456" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                        <input onChange={handleInput} required minLength={10} maxLength={10} value={inputPhoneNumber} name="phone-number" id="phone-number" type="text" placeholder="5552223456" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                         <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
