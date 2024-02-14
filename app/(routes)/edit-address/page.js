@@ -2,10 +2,10 @@ import 'server-only'
 
 import AddressForm from '@/app/components/address-form'
 
-export default function AddAddressPage(){
+export default function EditAddressPage(){
     return(
         <>
-        <AddressForm formType={"add"}/>
+        <AddressForm formType={"edit"}/>
         </>
     )
 }

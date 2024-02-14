@@ -123,7 +123,18 @@ export async function checkBackendSignIn(){
 
 // Add a Primary Address
 export async function addPrimaryShippingAddress(address) {    
+    console.log(`address = `);
+    console.log(address);
     const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
+// Edit a Primary Address
+export async function editPrimaryShippingAddress(address) {    
+    const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }

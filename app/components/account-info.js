@@ -95,13 +95,15 @@ export default function AccountInfo() {
     useEffect(() => {
         async function fetchData() {
             // Fetch address                      
-            const fetchedAddress = await getPrimaryShippingAddress(); 
+            const fetchedAddress = await getPrimaryShippingAddress();
+            console.log('fetched address = ');
+            console.log(fetchedAddress);
 
-            if(fetchedAddress){
+            if (fetchedAddress) {
                 const addressObj = {};
                 addressObj.address = fetchedAddress.address;
                 addressObj.unit = fetchedAddress.unit;
-                addressObj.city = fetchedAddress.city;                
+                addressObj.city = fetchedAddress.city;
                 addressObj.province = fetchedAddress.province;
                 addressObj.country = fetchedAddress.country;
                 addressObj.postalCode = fetchedAddress.postal_code;
@@ -161,14 +163,21 @@ export default function AccountInfo() {
             <p>Last Name: {user.lastName}</p>
             <p>=========================================</p>
             <p>Primary Shipping Address:</p>
-            <p>Address: {primaryShippingAddress.address}</p>
-            <p>Unit: {primaryShippingAddress.unit}</p>
-            <p>City: {primaryShippingAddress.city}</p>
-            <p>Province: {primaryShippingAddress.province}</p>
-            <p>Country: {primaryShippingAddress.country}</p>
-            <p>Postal Code: {primaryShippingAddress.postalCode}</p>
-            <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
-            <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
+            {/* If user has a primary shipping address, display the "edit button", otherwise display "Add" */}
+            {primaryShippingAddress.address ?
+                <>
+                    <p>Address: {primaryShippingAddress.address}</p>
+                    <p>Unit: {primaryShippingAddress.unit}</p>
+                    <p>City: {primaryShippingAddress.city}</p>
+                    <p>Province: {primaryShippingAddress.province}</p>
+                    <p>Country: {primaryShippingAddress.country}</p>
+                    <p>Postal Code: {primaryShippingAddress.postalCode}</p>
+                    <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
+                    <Link href={"/edit-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</Link>
+                </>
+                :
+                <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
+            }
             <p>=========================================</p>
             <button onClick={signUserOut}>Sign Out</button>
             <p />

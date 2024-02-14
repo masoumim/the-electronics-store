@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getUserInfo, addPrimaryShippingAddress } from "../api/api.js";
+import { checkBackendSignIn, getUserInfo, addPrimaryShippingAddress, editPrimaryShippingAddress, getPrimaryShippingAddress } from "../api/api.js";
 
 const auth = getFirebaseAuth();
 
-export default function AddressForm() {
+export default function AddressForm({ formType }) {
     const [inputFirstName, setInputFirstName] = useState("");             // Form 'First Name' input from user
     const [inputLastName, setInputLastName] = useState("");               // Form 'First Name' input from user
     const [inputStreetNumber, setInputStreetNumber] = useState("");
@@ -22,8 +22,8 @@ export default function AddressForm() {
     const [inputPostalCode, setInputPostalCode] = useState("");
     const [inputPhoneNumber, setInputPhoneNumber] = useState("");
 
-    const [user, setUser] = useState({});
 
+    const [user, setUser] = useState({}); // TODO: Delete this?
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -52,12 +52,6 @@ export default function AddressForm() {
 
                     console.log(`fetchedUserInfo =`);
                     console.log(fetchedUserInfo);
-
-                    // TODO: If user is signed in and already has a primary address - redirect to /update-address
-                    // check if user has a primary address...
-                    // If user has primary address... redirect to /update-address
-                    // If user doesn't have a primary address..
-                    // then Set the User state variable...
 
                     // Set the User state variable
                     const returnedUser = {}
@@ -89,12 +83,6 @@ export default function AddressForm() {
                             console.log('fetchedUserInfo = ');
                             console.log(fetchedUserInfo);
 
-                            // TODO: If user is signed in and already has a primary address - redirect to /update-address
-                            // check if user has a primary address...
-                            // If user has primary address... redirect to /update-address
-                            // If user doesn't have a primary address..
-                            // then Set the User state variable...
-
                             // Set the User state variable
                             const returnedUser = {}
                             returnedUser.uid = user.uid;
@@ -111,6 +99,49 @@ export default function AddressForm() {
                         router.push('/');
                     }
                 })
+            }
+        }
+        fetchData();
+    }, [])
+
+    // Redirect the user depending on the formType
+    // Sets the input values of the address form to current values if the user is editing their shipping info
+    useEffect(() => {
+        async function fetchData() {
+            console.log(`useEffect() 2 - formType = ${formType}`);
+
+            // Get the user's address data
+            const fetchedAddress = await getPrimaryShippingAddress();
+
+            if (formType === "edit") {
+                console.log(`formType === edit`);
+
+                if (fetchedAddress) {
+                    // Set the form data using the address                
+                    setInputFirstName(fetchedAddress.first_name);
+                    setInputLastName(fetchedAddress.last_name);
+                    // Extract the 'street number' and 'street name' from fetchedAddress.address string
+                    const address = fetchedAddress.address;
+                    const addressArray = address.split(" ");
+                    const streetName = address.replace(addressArray[0], "").trim();
+                    setInputStreetNumber(addressArray[0]);
+                    setInputStreetName(streetName);
+                    setInputUnit(fetchedAddress.unit);
+                    setInputCity(fetchedAddress.city);
+                    setInputProvince(fetchedAddress.province);
+                    setInputCountry(fetchedAddress.country);
+                    setInputPostalCode(fetchedAddress.postal_code);
+                    setInputPhoneNumber(fetchedAddress.phone_number);
+                } else {
+                    router.push('/add-address');
+                }
+            }
+            else {
+                // formType === "add"
+                console.log(`formType === add`);
+
+                // If user already has an address, redirect them to /edit-address
+                if (fetchedAddress) router.push('/edit-address');
             }
         }
         fetchData();
@@ -145,7 +176,11 @@ export default function AddressForm() {
         address.unit = inputUnit;
 
         // Add to backend database
-        await addPrimaryShippingAddress(address);
+        if (formType === "add") await addPrimaryShippingAddress(address);
+        if (formType === "edit") await editPrimaryShippingAddress(address);
+
+        // Redirect user back to the /account page
+        router.push('/account');
     }
 
     // Handle form input
@@ -246,16 +281,16 @@ export default function AddressForm() {
                             *Province
                         </label>
                         <select name="province" id="province" onChange={handleInput} value={inputProvince}>
-                            <option value="ab">Alberta</option>
-                            <option value="bc">British Columbia</option>
-                            <option value="mb">Manitoba</option>
-                            <option value="nb">New Brunswick</option>
-                            <option value="nl">Newfoundland and Labrador</option>
-                            <option value="ns">Nova Scotia</option>
-                            <option value="on">Ontario</option>
-                            <option value="pe">Prince Edward Island</option>
-                            <option value="qc">Quebec</option>
-                            <option value="sk">Saskatchewan</option>
+                            <option value="AB">Alberta</option>
+                            <option value="BC">British Columbia</option>
+                            <option value="MB">Manitoba</option>
+                            <option value="NB">New Brunswick</option>
+                            <option value="NL">Newfoundland and Labrador</option>
+                            <option value="NS">Nova Scotia</option>
+                            <option value="ON">Ontario</option>
+                            <option value="PE">Prince Edward Island</option>
+                            <option value="QC">Quebec</option>
+                            <option value="SK">Saskatchewan</option>
                         </select>
                     </div>
                 </div>
@@ -264,7 +299,7 @@ export default function AddressForm() {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="country">
                             *Country
                         </label>
-                        <input onChange={handleInput} required minLength={1} value={inputCountry} name="country" id="country" type="text" placeholder="Canada" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                        <input onChange={handleInput} required minLength={1} value={inputCountry} name="country" id="country" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -272,7 +307,7 @@ export default function AddressForm() {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="postal-code">
                             *Postal Code
                         </label>
-                        <input onChange={handleInput} required minLength={6} maxLength={6} value={inputPostalCode} name="postal-code" id="postal-code" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                        <input onChange={handleInput} required minLength={6} maxLength={6} value={inputPostalCode} name="postal-code" id="postal-code" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -284,9 +319,15 @@ export default function AddressForm() {
                         <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Add Address
-                </button>
+                {formType === "add" ?
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Add Address
+                    </button>
+                    :
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save changes
+                    </button>
+                }
             </form>
         </>
     )
