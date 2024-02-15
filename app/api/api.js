@@ -22,7 +22,7 @@ export async function getProduct(productID) {
 }
 
 // Get Cart info
-export async function getCartInfo(){
+export async function getCartInfo() {
     const res = await fetch(`route-handlers/cart-info?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         return res.json();
@@ -31,7 +31,7 @@ export async function getCartInfo(){
 }
 
 // Add Product to Cart
-export async function addProductToCart(productID){    
+export async function addProductToCart(productID) {
     const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
@@ -40,16 +40,16 @@ export async function addProductToCart(productID){
 }
 
 // Remove Product from Cart
-export async function removeProductFromCart(productID){        
+export async function removeProductFromCart(productID) {
     const res = await fetch(`route-handlers/cart-remove-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
     }
     return res.json()
 }
- 
+
 // Delete Product from Cart
-export async function deleteProductFromCart(productID){        
+export async function deleteProductFromCart(productID) {
     const res = await fetch(`route-handlers/cart-delete-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
@@ -86,7 +86,7 @@ export async function registerUser(firstName, lastName, email, uid) {
 }
 
 // Sign-in newly registered user on the backend
-export async function signInNewUserBackend(newUser) {    
+export async function signInNewUserBackend(newUser) {
     const res = await fetch(`route-handlers/sign-in-new-backend?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(newUser), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
@@ -95,8 +95,8 @@ export async function signInNewUserBackend(newUser) {
 }
 
 // Delete a user in the backend
-export async function deleteUserBackend(uid){    
-    const res = await fetch(`route-handlers/user-delete?api_base_url=${apiBaseUrl}&uid=${uid}`, {method: "DELETE"});
+export async function deleteUserBackend(uid) {
+    const res = await fetch(`route-handlers/user-delete?api_base_url=${apiBaseUrl}&uid=${uid}`, { method: "DELETE" });
     if (!res.ok) {
         throw res.Error;
     }
@@ -113,16 +113,16 @@ export async function signOutBackend() {
 }
 
 // Check if user is signed-in on the backend
-export async function checkBackendSignIn(){     
+export async function checkBackendSignIn() {
     const res = await fetch(`route-handlers/check-backend-sign-in?api_base_url=${apiBaseUrl}`);
-    if(!res.ok){
+    if (!res.ok) {
         throw res.Error;
     }
     return res.json();
 }
 
 // Add a Primary Address
-export async function addPrimaryShippingAddress(address) {    
+export async function addPrimaryShippingAddress(address) {
     console.log(`address = `);
     console.log(address);
     const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
@@ -133,7 +133,7 @@ export async function addPrimaryShippingAddress(address) {
 }
 
 // Edit a Primary Address
-export async function editPrimaryShippingAddress(address) {    
+export async function editPrimaryShippingAddress(address) {
     const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
@@ -142,9 +142,38 @@ export async function editPrimaryShippingAddress(address) {
 }
 
 // Get Primary Address
-export async function getPrimaryShippingAddress(){      
+export async function getPrimaryShippingAddress() {
     const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`);
-    if(!res.ok){
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
+}
+
+// Add a Billing Address
+export async function addBillingAddress(address) {
+    console.log(`address = `);
+    console.log(address);
+    const res = await fetch(`route-handlers/billing-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
+// Edit a Billing Address
+export async function editBillingAddress(address) {
+    const res = await fetch(`route-handlers/billing-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
+// Get Billing Address
+export async function getBillingAddress() {
+    const res = await fetch(`route-handlers/billing-address?api_base_url=${apiBaseUrl}`);
+    if (!res.ok) {
         throw res.Error;
     }
     return res.json();

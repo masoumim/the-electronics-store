@@ -5,13 +5,14 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
-import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend, getPrimaryShippingAddress } from "../api/api";
+import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend, getPrimaryShippingAddress, getBillingAddress } from "../api/api";
 import Link from "next/link";
 const auth = getFirebaseAuth();
 
 export default function AccountInfo() {
     const [user, setUser] = useState({});
     const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});
+    const [billingAddress, setBillingAddress] = useState({});
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -114,6 +115,28 @@ export default function AccountInfo() {
         fetchData();
     }, [])
 
+    // Get the user's Billing address on page load
+    useEffect(() => {
+        async function fetchData() {
+            // Fetch address                      
+            const fetchedAddress = await getBillingAddress();
+            console.log('fetched address = ');
+            console.log(fetchedAddress);
+
+            if (fetchedAddress) {
+                const addressObj = {};
+                addressObj.address = fetchedAddress.address;
+                addressObj.unit = fetchedAddress.unit;
+                addressObj.city = fetchedAddress.city;
+                addressObj.province = fetchedAddress.province;
+                addressObj.country = fetchedAddress.country;
+                addressObj.postalCode = fetchedAddress.postal_code;
+                addressObj.phoneNumber = fetchedAddress.phone_number;
+                setBillingAddress(addressObj);
+            }
+        }
+        fetchData();
+    }, [])
 
     // Sign Out
     async function signUserOut() {
@@ -177,6 +200,26 @@ export default function AccountInfo() {
                 </>
                 :
                 <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
+            }
+            <p>=========================================</p>
+            <br />
+            <p>=========================================</p>
+            <p>Billing Address:</p>
+            {/* If user has a billing address, display the "edit button", otherwise display "Add" */}
+            <p>*Display Billing address info here*</p>
+            {billingAddress.address ?
+                <>
+                    <p>Address: {billingAddress.address}</p>
+                    <p>Unit: {billingAddress.unit}</p>
+                    <p>City: {billingAddress.city}</p>
+                    <p>Province: {billingAddress.province}</p>
+                    <p>Country: {billingAddress.country}</p>
+                    <p>Postal Code: {billingAddress.postalCode}</p>
+                    <p>Phone Number: {billingAddress.phoneNumber}</p>
+                    <Link href={"/edit-billing"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</Link>
+                </>
+                :
+                <Link href={"/add-billing"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
             }
             <p>=========================================</p>
             <button onClick={signUserOut}>Sign Out</button>

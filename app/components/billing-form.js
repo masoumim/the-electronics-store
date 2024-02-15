@@ -1,4 +1,4 @@
-// address-form.js - This interactive component contains a form used for creating and editing a primary shipping address
+// billing-form.js - This interactive component contains a form used for creating and editing a billing address
 
 'use client'
 
@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getUserInfo, addPrimaryShippingAddress, editPrimaryShippingAddress, getPrimaryShippingAddress } from "../api/api.js";
+import { checkBackendSignIn, getUserInfo, addBillingAddress, editBillingAddress, getBillingAddress } from "../api/api.js";
 
 const auth = getFirebaseAuth();
 
-export default function AddressForm({ formType }) {
+export default function BillingForm({ formType }) {
     const [inputFirstName, setInputFirstName] = useState("");             // Form 'First Name' input from user
     const [inputLastName, setInputLastName] = useState("");               // Form 'First Name' input from user
     const [inputStreetNumber, setInputStreetNumber] = useState("");
@@ -21,7 +21,6 @@ export default function AddressForm({ formType }) {
     const [inputCountry, setInputCountry] = useState("");
     const [inputPostalCode, setInputPostalCode] = useState("");
     const [inputPhoneNumber, setInputPhoneNumber] = useState("");
-
 
     const [user, setUser] = useState({}); // TODO: Delete this?
     const router = useRouter();
@@ -105,13 +104,13 @@ export default function AddressForm({ formType }) {
     }, [])
 
     // Redirect the user depending on the formType
-    // Sets the input values of the address form to current values if the user is editing their shipping info
+    // Sets the input values of the billing address form to current values if the user is editing their billing info
     useEffect(() => {
         async function fetchData() {
             console.log(`useEffect() 2 - formType = ${formType}`);
 
-            // Get the user's address data
-            const fetchedAddress = await getPrimaryShippingAddress();
+            // Get the user's billing address data
+            const fetchedAddress = await getBillingAddress();
 
             if (formType === "edit") {
                 console.log(`formType === edit`);
@@ -133,15 +132,15 @@ export default function AddressForm({ formType }) {
                     setInputPostalCode(fetchedAddress.postal_code);
                     setInputPhoneNumber(fetchedAddress.phone_number);
                 } else {
-                    router.push('/add-address');
+                    router.push('/add-billing');
                 }
             }
             else {
                 // formType === "add"
                 console.log(`formType === add`);
 
-                // If user already has an address, redirect them to /edit-address
-                if (fetchedAddress) router.push('/edit-address');
+                // If user already has a billing address, redirect them to /edit-billing
+                if (fetchedAddress) router.push('/edit-billing');
             }
         }
         fetchData();
@@ -176,8 +175,8 @@ export default function AddressForm({ formType }) {
         address.unit = inputUnit;
 
         // Add to backend database
-        if (formType === "add") await addPrimaryShippingAddress(address);
-        if (formType === "edit") await editPrimaryShippingAddress(address);
+        if (formType === "add") await addBillingAddress(address);
+        if (formType === "edit") await editBillingAddress(address);
 
         // Redirect user back to the /account page
         router.push('/account');
@@ -321,7 +320,7 @@ export default function AddressForm({ formType }) {
                 </div>
                 {formType === "add" ?
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Add Shipping Address
+                        Add Billing Address
                     </button>
                     :
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
