@@ -221,6 +221,8 @@ export default function AccountInfo() {
                 <Link href={"/add-billing"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
             }
             <p>=========================================</p>
+            <Link href={"/change-password"}>Change Password</Link>
+            <p/>
             <button onClick={signUserOut}>Sign Out</button>
             <p />
             <button onClick={deleteAccount}>Delete Account</button>

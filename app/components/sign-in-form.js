@@ -1,4 +1,4 @@
-// sign-in-form.js - This interactive component contains the logic sign-in and renders the sign-in form
+// sign-in-form.js - This interactive component contains the logic to sign-in a user and renders the sign-in form
 
 'use client'
 
@@ -84,16 +84,14 @@ export default function SignInForm() {
                     setSignedInUserEmail(userCredential.user.email);
                     console.log(`back from setSignedInUserEmail`);
                 }).catch(function (error) {
-                    console.log(`There was an error sending the idToken to the backend`);
-                    throw error;
+                    console.log(`There was an error sending the idToken to the backend`);                    
                 });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(`sign-in-form.js handleSubmit() threw an error:`);
-                console.log(`error code: ${errorCode}, error msg: ${errorMessage}`);
-                throw error;
+                console.log(`error code: ${errorCode}, error msg: ${errorMessage}`);                
             });
     }
 
