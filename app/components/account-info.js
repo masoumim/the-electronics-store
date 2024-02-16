@@ -205,8 +205,7 @@ export default function AccountInfo() {
             <br />
             <p>=========================================</p>
             <p>Billing Address:</p>
-            {/* If user has a billing address, display the "edit button", otherwise display "Add" */}
-            <p>*Display Billing address info here*</p>
+            {/* If user has a billing address, display the "edit button", otherwise display "Add" */}            
             {billingAddress.address ?
                 <>
                     <p>Address: {billingAddress.address}</p>
