@@ -8,6 +8,7 @@ import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getProduct, deleteProductFromCart } from "../api/api.js";
 import CartProduct from "./cart-product.js";
 import { ctx } from "./providers.js";
+import Link from "next/link.js";
 
 const auth = getFirebaseAuth();
 
@@ -64,7 +65,7 @@ export default function Cart() {
     // Get Product info for each product in the user's Cart
     useEffect(() => {
         async function fetchData() {
-            if (cartProducts) {                
+            if (cartProducts && cartProducts.length > 0) {
                 const fetchedProductsInfo = [];
 
                 // Iterate over each product in the cartProducts[] array
@@ -87,7 +88,6 @@ export default function Cart() {
                     // Add this fetched product to the array
                     fetchedProductsInfo.push(productInfo);
                 }
-
                 // Set the Cart Products Info array                
                 setCartProductsInfo(fetchedProductsInfo);
             }
@@ -107,7 +107,7 @@ export default function Cart() {
 
     return (
         <>
-            <p>My Cart:</p>
+            <p>Cart:</p>
             {cartProductsInfo ?
                 <>
                     {/* Iterate over cartProductsInfo[] and display each product's properties */}
@@ -119,11 +119,18 @@ export default function Cart() {
                     )}
                 </>
                 :
-                <p>No Cart!</p>}
+                <p>No products in Cart!</p>}
             <p>Number of Items: {cart.num_items}</p>
             <p>Subtotal: {cart.subtotal}</p>
             <p>Taxes: {cart.taxes}</p>
             <p>Total: {cart.total}</p>
+            {/* TODO: Conditionally render the checkout button if the user has product(s) in cart */}
+            {cartProductsInfo ?
+                <Link href={"/checkout-shipping"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to checkout</Link>
+                :
+                <></>
+            }
+
         </>
     )
 }
