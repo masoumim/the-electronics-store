@@ -18,27 +18,43 @@ export default function Cart() {
     const setCart = contactsCtx[1];                                     // Setter to set cart
     const cartProducts = contactsCtx[2];                                // State object representing user's cart
     const setCartProducts = contactsCtx[3];                             // Setter to set cart
-
-    const [cartProductsInfo, setCartProductsInfo] = useState(null);
+    const [cartProductsInfo, setCartProductsInfo] = useState(null);     // Array of cart product(s) info (name, price, description etc)
     const router = useRouter();
 
     // If a user is signed-in, get cart info. Otherwise, redirect user to /sign-in page
     useEffect(() => {
         async function fetchData() {
+
+            console.log('Use effect 1 called!');
+
             // Get the current signed-in user            
             const user = auth.currentUser;
 
             if (user) {
+
+                console.log(`Use effect 1 - user = `);
+                console.log(user);
+
                 // Confirm user is signed in on the backend                                
                 const backendUser = await checkBackendSignIn();
+
+                console.log('checking if user signed in on background =');
+                console.log(backendUser);
 
                 if (backendUser) {
                     // Get Cart info
                     const cartInfo = await getCartInfo();
                     setCart(cartInfo);
                     setCartProducts(cartInfo.cart_product);
+
+                    console.log(`auth.currentUser ... cartInfo.cart_product =`);
+                    console.log(cartInfo.cart_product);
                 }
             } else {
+
+                console.log('Use effect 1 - checking onAuthStateChanged');
+
+
                 // Get the current signed-in user using onAuthStateChanged                
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
@@ -50,6 +66,9 @@ export default function Cart() {
                             const cartInfo = await getCartInfo();
                             setCart(cartInfo);
                             setCartProducts(cartInfo.cart_product);
+
+                            console.log(`onAuthStateChanged ... cartInfo.cart_product =`);
+                            console.log(cartInfo.cart_product);
                         }
                     }
                     else {
@@ -65,7 +84,14 @@ export default function Cart() {
     // Get Product info for each product in the user's Cart
     useEffect(() => {
         async function fetchData() {
+            console.log('useEffect 2 called!');
+            console.log(`use Effect 2 - cartProducts =`);
+            console.log(cartProducts);
             if (cartProducts && cartProducts.length > 0) {
+                console.log(`cartProducts = `);
+                console.log(cartProducts);
+                console.log(`cartProducts.length = ${cartProducts.length} `);
+
                 const fetchedProductsInfo = [];
 
                 // Iterate over each product in the cartProducts[] array
@@ -87,9 +113,25 @@ export default function Cart() {
 
                     // Add this fetched product to the array
                     fetchedProductsInfo.push(productInfo);
+
+
+
+                    // Trying this...
+                    console.log('setting cartProductsInfo to: ');
+                    console.log(fetchedProductsInfo)
+                    setCartProductsInfo(fetchedProductsInfo);
                 }
-                // Set the Cart Products Info array                
-                setCartProductsInfo(fetchedProductsInfo);
+                // Set the 'Cart Products Info' array                
+                // console.log('!!! setCartProductsInfo(fetchedProductsInfo) --> fetchedProductsInfo = ');
+                // console.log(fetchedProductsInfo);
+                // setCartProductsInfo(fetchedProductsInfo);
+            } else {
+                // cartProducts should be an empty array ... lets see
+                console.log('cartProducts should be an empty array ... lets see');
+                console.log(`cartProducts = `);
+                console.log(cartProducts);
+                // Set the cart products info
+                setCartProductsInfo(null);
             }
         }
         fetchData();
@@ -103,6 +145,10 @@ export default function Cart() {
         const cartInfo = await getCartInfo();
         setCart(cartInfo);
         setCartProducts(cartInfo.cart_product);
+
+        console.log(`deleteProduct() called!`);
+        console.log('deleteProduct() ... cartInfo = ');
+        console.log(cartInfo);
     }
 
     return (
