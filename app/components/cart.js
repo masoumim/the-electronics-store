@@ -18,57 +18,35 @@ export default function Cart() {
     const setCart = contactsCtx[1];                                     // Setter to set cart
     const cartProducts = contactsCtx[2];                                // State object representing user's cart
     const setCartProducts = contactsCtx[3];                             // Setter to set cart
-    const [cartProductsInfo, setCartProductsInfo] = useState(null);     // Array of cart product(s) info (name, price, description etc)
+    const [cartProductsInfo, setCartProductsInfo] = useState([]);       // Array of cart product(s) info (name, price, description etc)
+    const [cartHasProducts, setCartHasProducts] = useState(false);      // Boolean used for conditionally rendering the cart products and 'Proceed to checkout' button
     const router = useRouter();
 
     // If a user is signed-in, get cart info. Otherwise, redirect user to /sign-in page
     useEffect(() => {
         async function fetchData() {
-
-            console.log('Use effect 1 called!');
-
             // Get the current signed-in user            
             const user = auth.currentUser;
-
             if (user) {
-
-                console.log(`Use effect 1 - user = `);
-                console.log(user);
-
                 // Confirm user is signed in on the backend                                
                 const backendUser = await checkBackendSignIn();
-
-                console.log('checking if user signed in on background =');
-                console.log(backendUser);
-
                 if (backendUser) {
                     // Get Cart info
                     const cartInfo = await getCartInfo();
                     setCart(cartInfo);
                     setCartProducts(cartInfo.cart_product);
-
-                    console.log(`auth.currentUser ... cartInfo.cart_product =`);
-                    console.log(cartInfo.cart_product);
                 }
             } else {
-
-                console.log('Use effect 1 - checking onAuthStateChanged');
-
-
                 // Get the current signed-in user using onAuthStateChanged                
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         // Check that user is signed-in in the backend                        
                         const backendUser = await checkBackendSignIn();
-
                         if (backendUser) {
                             // Get Cart info
                             const cartInfo = await getCartInfo();
                             setCart(cartInfo);
                             setCartProducts(cartInfo.cart_product);
-
-                            console.log(`onAuthStateChanged ... cartInfo.cart_product =`);
-                            console.log(cartInfo.cart_product);
                         }
                     }
                     else {
@@ -84,16 +62,8 @@ export default function Cart() {
     // Get Product info for each product in the user's Cart
     useEffect(() => {
         async function fetchData() {
-            console.log('useEffect 2 called!');
-            console.log(`use Effect 2 - cartProducts =`);
-            console.log(cartProducts);
-            if (cartProducts && cartProducts.length > 0) {
-                console.log(`cartProducts = `);
-                console.log(cartProducts);
-                console.log(`cartProducts.length = ${cartProducts.length} `);
-
+            if (cartProducts) {
                 const fetchedProductsInfo = [];
-
                 // Iterate over each product in the cartProducts[] array
                 for (let product of cartProducts) {
                     const productInfo = {};
@@ -113,25 +83,16 @@ export default function Cart() {
 
                     // Add this fetched product to the array
                     fetchedProductsInfo.push(productInfo);
-
-
-
-                    // Trying this...
-                    console.log('setting cartProductsInfo to: ');
-                    console.log(fetchedProductsInfo)
-                    setCartProductsInfo(fetchedProductsInfo);
                 }
-                // Set the 'Cart Products Info' array                
-                // console.log('!!! setCartProductsInfo(fetchedProductsInfo) --> fetchedProductsInfo = ');
-                // console.log(fetchedProductsInfo);
-                // setCartProductsInfo(fetchedProductsInfo);
-            } else {
-                // cartProducts should be an empty array ... lets see
-                console.log('cartProducts should be an empty array ... lets see');
-                console.log(`cartProducts = `);
-                console.log(cartProducts);
-                // Set the cart products info
-                setCartProductsInfo(null);
+                // Set the 'Cart Products Info' array                                
+                setCartProductsInfo(fetchedProductsInfo);
+
+                // Set the boolean 'cartHasProducts' to true if the cart has products, and false if it doesn't.
+                if (fetchedProductsInfo.length > 0) {
+                    setCartHasProducts(true);
+                } else {
+                    setCartHasProducts(false);
+                }
             }
         }
         fetchData();
@@ -145,17 +106,13 @@ export default function Cart() {
         const cartInfo = await getCartInfo();
         setCart(cartInfo);
         setCartProducts(cartInfo.cart_product);
-
-        console.log(`deleteProduct() called!`);
-        console.log('deleteProduct() ... cartInfo = ');
-        console.log(cartInfo);
     }
 
     return (
         <>
-            <p>Cart:</p>
-            {cartProductsInfo ?
+            {cartHasProducts ?
                 <>
+                    <p>Cart:</p>
                     {/* Iterate over cartProductsInfo[] and display each product's properties */}
                     {cartProductsInfo.map((product, index) =>
                         <div key={index}>
@@ -163,20 +120,15 @@ export default function Cart() {
                             <button onClick={() => deleteProduct(product.productID)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
                         </div>
                     )}
+                    <p>Number of Items: {cart.num_items}</p>
+                    <p>Subtotal: {cart.subtotal}</p>
+                    <p>Taxes: {cart.taxes}</p>
+                    <p>Total: {cart.total}</p>
+                    <Link href={"/checkout-shipping"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to checkout</Link>
                 </>
                 :
-                <p>No products in Cart!</p>}
-            <p>Number of Items: {cart.num_items}</p>
-            <p>Subtotal: {cart.subtotal}</p>
-            <p>Taxes: {cart.taxes}</p>
-            <p>Total: {cart.total}</p>
-            {/* TODO: Conditionally render the checkout button if the user has product(s) in cart */}
-            {cartProductsInfo ?
-                <Link href={"/checkout-shipping"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to checkout</Link>
-                :
-                <></>
+                <p>Cart is empty!</p>
             }
-
         </>
     )
 }
