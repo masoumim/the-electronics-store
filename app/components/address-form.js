@@ -11,16 +11,16 @@ import { checkBackendSignIn, getUserInfo, addPrimaryShippingAddress, editPrimary
 const auth = getFirebaseAuth();
 
 export default function AddressForm({ formType }) {
-    const [inputFirstName, setInputFirstName] = useState("");             // Form 'First Name' input from user
-    const [inputLastName, setInputLastName] = useState("");               // Form 'First Name' input from user
-    const [inputStreetNumber, setInputStreetNumber] = useState("");
-    const [inputStreetName, setInputStreetName] = useState("");
-    const [inputUnit, setInputUnit] = useState("");
-    const [inputCity, setInputCity] = useState("");
-    const [inputProvince, setInputProvince] = useState("");
-    const [inputCountry, setInputCountry] = useState("");
-    const [inputPostalCode, setInputPostalCode] = useState("");
-    const [inputPhoneNumber, setInputPhoneNumber] = useState("");
+    const [inputFirstName, setInputFirstName] = useState("");             // Form input: 'First Name'
+    const [inputLastName, setInputLastName] = useState("");               // Form input: 'Last Name'
+    const [inputStreetNumber, setInputStreetNumber] = useState("");       // Form input: 'Street Number'
+    const [inputStreetName, setInputStreetName] = useState("");           // Form input: 'Street Name'
+    const [inputUnit, setInputUnit] = useState("");                       // Form input: 'Street Unit'
+    const [inputCity, setInputCity] = useState("");                       // Form input: 'City'
+    const [inputProvince, setInputProvince] = useState("");               // Form input: 'Province'
+    const [inputCountry, setInputCountry] = useState("");                 // Form input: 'Country'
+    const [inputPostalCode, setInputPostalCode] = useState("");           // Form input: 'Postal Code'
+    const [inputPhoneNumber, setInputPhoneNumber] = useState("");         // Form input: 'Phone Number'
 
 
     const [user, setUser] = useState({}); // TODO: Delete this?
