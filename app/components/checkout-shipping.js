@@ -19,8 +19,8 @@ export default function CheckoutShipping() {
     const cartProducts = contactsCtx[2];                                                // State object representing user's cart
     const setCartProducts = contactsCtx[3];                                             // Setter to set cart
     const [cartProductsInfo, setCartProductsInfo] = useState([]);                       // Array of cart product(s) info (name, price, description etc)  
-    const [shippingAddressSelected, setShippingAddressSelected] = useState(false);      // Used for conditionally rendering the 'proceed to payment' button
-    
+    const [hasPrimaryShippingAddress, setHasPrimaryShippingAddress] = useState(false);  // Used for conditionally rendering the 'proceed to payment' button
+
     // Form input
     const [inputFirstName, setInputFirstName] = useState("");                           // Form input: 'First Name'
     const [inputLastName, setInputLastName] = useState("");                             // Form input: 'Last Name'
@@ -77,13 +77,13 @@ export default function CheckoutShipping() {
     }, [])
 
 
-    // On page load, get the user's primary address, if user has a primary address we set the 'primaryShippingAddress' boolean to true
+    // On page load, get the user's primary address, if user has a primary shipping address we set the 'hasPrimaryShippingAddress' boolean to true
     // Otherwise, we set it to false. 
     useEffect(() => {
         async function fetchData() {
             // Fetch address                      
             const fetchedAddress = await getPrimaryShippingAddress();
-            
+
             if (fetchedAddress) {
                 const addressObj = {};
                 addressObj.address = fetchedAddress.address;
@@ -94,15 +94,14 @@ export default function CheckoutShipping() {
                 addressObj.postalCode = fetchedAddress.postal_code;
                 addressObj.phoneNumber = fetchedAddress.phone_number;
                 setPrimaryShippingAddress(addressObj);
+                setHasPrimaryShippingAddress(true);
+
+            } else {
+                setHasPrimaryShippingAddress(false);
             }
         }
         fetchData();
     }, [])
-
-
-    
-
-
 
 
     function handleSubmit() {
@@ -121,26 +120,36 @@ export default function CheckoutShipping() {
 
     return (
         <>
-
-            {/* TODO: Render two radio buttons. Radio 1 is for 'my saved address' and Radio 2 renders a form for entering an alternative shipping address*/}
-            {/* TODO: If the primary address is selected, conditionally render the shipping details*/}
+            {/* Render two radio buttons. 
+            Radio 1 is for choosing the user's Primary Shipping Address. 
+            Radio 2 is for choosing an Alternate Shipping Address - selecting it renders a form for entering an alternative shipping address*/}
+            <label htmlFor="address-primary" className="text-red-600">Use primary address</label>
+            <input onChange={handleInput} type="radio" id="address-primary" name="address-primary" />
+            <br />
+            <label htmlFor="address-alternate" className="text-red-600">Use alternate address</label>
+            <input onChange={handleInput} type="radio" id="address-alternate" name="address-alternate" />
+            <br />
             <b>Shipping Info:</b>
             <br />
-            <label for="address-primary" className="text-red-600">Use primary address</label>
-            <input type="radio" id="address-primary" name="address-primary" value="use-primary" />
-
-            <label for="address-alternate" className="text-red-600">Use alternate address</label>
-            <input type="radio" id="address-primary" name="address-primary" value="use-alternate" />
-
-
-
-
-
-
-
-
+            {/* If the primary address is selected, conditionally render the shipping details*/}
+            {hasPrimaryShippingAddress ?
+                <>
+                    <p>Address: {primaryShippingAddress.address}</p>
+                    <p>Unit: {primaryShippingAddress.unit}</p>
+                    <p>City: {primaryShippingAddress.city}</p>
+                    <p>Province: {primaryShippingAddress.province}</p>
+                    <p>Country: {primaryShippingAddress.country}</p>
+                    <p>Postal Code: {primaryShippingAddress.postalCode}</p>
+                    <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
+                    <Link href={"/edit-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</Link>
+                </>
+                :
+                <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
+            }
 
             {/* Alternate Address Form */}
+            <br />
+            <br />
             <form onSubmit={handleSubmit} className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
@@ -252,7 +261,7 @@ export default function CheckoutShipping() {
 
 
 
-            {shippingAddressSelected ?
+            {hasPrimaryShippingAddress ?
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
                 :
                 <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
