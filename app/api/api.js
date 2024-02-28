@@ -141,13 +141,39 @@ export async function editPrimaryShippingAddress(address) {
     return res.json()
 }
 
-// Get Primary Address
+// Get Primary Shipping Address
 export async function getPrimaryShippingAddress() {
     const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         throw res.Error;
     }
     return res.json();
+}
+
+// Get Alternate Shipping Address
+export async function getAlternateShippingAddress() {
+    // const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`);
+    // if (!res.ok) {
+    //     throw res.Error;
+    // }
+    // return res.json();
+
+    
+    
+    
+    
+    
+    
+    // testing
+    // const res = await fetch(`route-handlers/test?api_base_url=${apiBaseUrl}`);
+    // if (!res.ok) {
+    //     throw res.Error;
+    // }
+    // return res.json();            
+    // const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`); // < -- This call is failing for some reason...
+    const res = await fetch(`route-handlers/test?api_base_url=${apiBaseUrl}`);
+    console.log(res);
+    return "Hello World"
 }
 
 // Add a Billing Address

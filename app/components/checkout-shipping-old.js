@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getProduct, deleteProductFromCart, getPrimaryShippingAddress, getAlternateShippingAddress } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getProduct, deleteProductFromCart, getPrimaryShippingAddress } from "../api/api.js";
 import CartProduct from "./cart-product.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
@@ -13,17 +13,16 @@ import Link from "next/link.js";
 const auth = getFirebaseAuth();
 
 export default function CheckoutShipping() {
-    const contactsCtx = useContext(ctx);                                                        // The Context object
-    const cart = contactsCtx[0];                                                                // State object representing user's cart
-    const setCart = contactsCtx[1];                                                             // Setter to set cart
-    const cartProducts = contactsCtx[2];                                                        // State object representing user's cart
-    const setCartProducts = contactsCtx[3];                                                     // Setter to set cart
-    const [cartProductsInfo, setCartProductsInfo] = useState([]);                               // Array of cart product(s) info (name, price, description etc)  
-    const [hasPrimaryShippingAddress, setHasPrimaryShippingAddress] = useState(false);          // Used for conditionally rendering the 'proceed to payment' button
-    const [hasAlternateShippingAddress, setHasAlternateShippingAddress] = useState(false);      // Used for conditionally rendering the 'save alternate address' button
-    const [primaryAddressSelected, setPrimaryAddressSelected] = useState(false);                // Used to set the 'Use primary address' radio button
-    const [alternateAddressSelected, setAlternateAddressSelected] = useState(false);            // Used to set the 'Use alternate address' radio button
-    const [alternateAddressFormFilled, setAlternateAddressFormFilled] = useState(false);        // Used to conditionally render the 'Save Alternate Address' button
+    const contactsCtx = useContext(ctx);                                                // The Context object
+    const cart = contactsCtx[0];                                                        // State object representing user's cart
+    const setCart = contactsCtx[1];                                                     // Setter to set cart
+    const cartProducts = contactsCtx[2];                                                // State object representing user's cart
+    const setCartProducts = contactsCtx[3];                                             // Setter to set cart
+    const [cartProductsInfo, setCartProductsInfo] = useState([]);                       // Array of cart product(s) info (name, price, description etc)  
+    const [hasPrimaryShippingAddress, setHasPrimaryShippingAddress] = useState(false);  // Used for conditionally rendering the 'proceed to payment' button
+    const [primaryAddressSelected, setPrimaryAddressSelected] = useState(false);        // Used to set the 'Use primary address' radio button
+    const [alternateAddressSelected, setAlternateAddressSelected] = useState(false);    // Used to set the 'Use alternate address' radio button
+    const [alternateAddressFormFilled, setAlternateAddressFormFilled] = useState(false);       // Used conditionally render the 'Save Alternate Address' button
 
     // Form input
     const [inputFirstName, setInputFirstName] = useState("");                           // Form input: 'First Name'
@@ -40,7 +39,7 @@ export default function CheckoutShipping() {
 
     const router = useRouter();
 
-
+    const [clickable, setClickable] = useState(false);
 
     // If a user is signed-in, get cart info. Otherwise, redirect user to /sign-in page
     useEffect(() => {
@@ -79,167 +78,57 @@ export default function CheckoutShipping() {
         fetchData();
     }, [])
 
-    // 1. Redirects user to home if they don't have any items in cart
+
+    // Check if the Alternate Address Form is filled
+    useEffect(() => {
+        if (alternateAddressFormFilled) {
+            setClickable(true);
+        }
+        else {
+            setClickable(false);
+        }
+    });
+
+
+    // On page load, get the user's primary address, if user has a primary shipping address we set the 'hasPrimaryShippingAddress' boolean to true
+    // Otherwise, we set it to false. 
     useEffect(() => {
         async function fetchData() {
-            // Fetch cart                      
-            const fetchedCart = await getCartInfo();
-            if (fetchedCart.num_items === 0) router.push('/');
+            // Fetch address                      
+            const fetchedAddress = await getPrimaryShippingAddress();
+
+            if (fetchedAddress) {
+                const addressObj = {};
+                addressObj.address = fetchedAddress.address;
+                addressObj.unit = fetchedAddress.unit;
+                addressObj.city = fetchedAddress.city;
+                addressObj.province = fetchedAddress.province;
+                addressObj.country = fetchedAddress.country;
+                addressObj.postalCode = fetchedAddress.postal_code;
+                addressObj.phoneNumber = fetchedAddress.phone_number;
+                setPrimaryShippingAddress(addressObj);
+                setHasPrimaryShippingAddress(true);
+
+                // Set the 'Use Primary Shipping Address' Radio button to be selected
+                setPrimaryAddressSelected(true);
+
+
+
+            } else {
+                setHasPrimaryShippingAddress(false);
+            }
         }
         fetchData();
     }, [])
 
-    // TEST: COMBINE STEP 2 (FETCH PRIMARY SHIPPING ADDRESS) AND STEP 3 (FETCH ALTERNATE SHIPPING ADDRESS) IN ONE USEEFFECT
-    // EXAMPLE:
-    // useEffect(() => {
-    //     const fetchContent = async () => {
-    //         try {
-    //             //...
-    //             return responseData.content;
-    //         } catch (err) { }
-    //     };
-
-    //     const fetchSectors = async (firstId) => {
-    //         try {
-    //             //...
-    //             return responseData.sectors;
-    //         } catch (err) { }
-    //     };
-
-    //     const fetchBoth = async () => {
-    //         const tempLoadedContent = await fetchContent();
-    //         const tempLoadedSectors = await fetchSectors(tempLoadedContent[0].id);
-    //         setLoadedContent(tempLoadedContent);
-    //         setLoadedSectors(tempLoadedSectors);
-    //     };
-
-    //     fetchBoth();
-    // }, []);
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // // 2. Check if the the user has a Primary Shipping Address 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         // Fetch address                      
-    //         const fetchedAddress = await getPrimaryShippingAddress();
-
-    //         if (fetchedAddress) {
-    //             const addressObj = {};
-    //             addressObj.address = fetchedAddress.address;
-    //             addressObj.unit = fetchedAddress.unit;
-    //             addressObj.city = fetchedAddress.city;
-    //             addressObj.province = fetchedAddress.province;
-    //             addressObj.country = fetchedAddress.country;
-    //             addressObj.postalCode = fetchedAddress.postal_code;
-    //             addressObj.phoneNumber = fetchedAddress.phone_number;
-    //             setPrimaryShippingAddress(addressObj); // The user's primary shipping address
-    //             setHasPrimaryShippingAddress(true); // Used for conditionally rendering the 'proceed to payment' button
-
-    //             // Set the 'Use Primary Shipping Address' Radio button to be selected
-    //             setPrimaryAddressSelected(true);
-    //         } else {
-    //             setHasPrimaryShippingAddress(false);
-    //         }
-    //     }
-    //     fetchData();
-    // }, [])
-
-    // // 3. Check if the user has an Alternate Shipping Address    
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         // Fetch address                      
-    //         const fetchedAddress = await getAlternateShippingAddress(); // <-- this has no problems calling an empty getAlternateShippingAddress() and getting inside the func...
-
-    //         if (fetchedAddress) {
-    //             setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
-    //         } else {
-    //             setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
-    //         }
-    //     }
-    //     fetchData();
-    // }, [])
-
-
-    // // 4. TODO: Create useEffect that populates the alternate address form with the user's alternate shipping address and then calls setAlternateAddressFormFilled(true)
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         // Fetch address                      
-    //         const fetchedAddress = await getAlternateShippingAddress();
-
-    //         if (fetchedAddress) {
-    //             const addressObj = {};
-    //             addressObj.address = fetchedAddress.address;
-    //             addressObj.unit = fetchedAddress.unit;
-    //             addressObj.city = fetchedAddress.city;
-    //             addressObj.province = fetchedAddress.province;
-    //             addressObj.country = fetchedAddress.country;
-    //             addressObj.postalCode = fetchedAddress.postal_code;
-    //             addressObj.phoneNumber = fetchedAddress.phone_number;
-    //             setAlternateAddressFormFilled(addressObj);
-    //             setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
-    //         } else {
-    //             setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
-    //         }
-    //     }
-    //     fetchData();
-    // }, [])
-
-
-    // // Check if the Alternate Address Form is filled. 
-    // // If so, set the boolean which which will render the 
-    // useEffect(() => {
-
-    //     // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
-    //     const formInputs = [
-    //         inputFirstName,
-    //         inputLastName,
-    //         inputStreetNumber,
-    //         inputStreetName,
-    //         inputCity,
-    //         inputProvince,
-    //         inputCountry,
-    //         inputPostalCode,
-    //         inputPhoneNumber
-    //     ]
-
-    //     // Check each input value to check that it has a value
-    //     const formInputsCheck = formInputs.every((element) => {
-    //         return element != "";
-    //     })
-
-    //     // If every form field has a value, activate the button
-    //     if (formInputsCheck) {
-    //         setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
-    //     }
-    //     else {
-    //         setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
-    //     }
-    // });
 
 
 
-    // TODO: Form submit handler
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    function handleSubmit() {
 
-        const user = auth.currentUser;
-
-        // TODO: Handle form submission
     }
 
-
-    // TODO: Handle form input
+    // Handle form input
     const handleInput = (e) => {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
@@ -276,7 +165,39 @@ export default function CheckoutShipping() {
                 setInputUnit(fieldValue);
                 break;
         }
+
+        // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
+        const formInputs = [
+            inputFirstName,
+            inputLastName,
+            inputStreetNumber,
+            inputStreetName,
+            inputCity,
+            inputProvince,
+            inputCountry,
+            inputPostalCode,
+            inputPhoneNumber
+        ]
+
+        // Check each input value to check that it has a value
+        const formInputsCheck = formInputs.every((element) => {
+            return element != "";
+        })
+
+        // If every form field has a value, activate the button
+        if (formInputsCheck) {
+            setAlternateAddressFormFilled(true);
+        }
+        else {
+            setAlternateAddressFormFilled(false);
+        }
     }
+
+
+
+
+
+
 
     return (
         <>
@@ -293,7 +214,7 @@ export default function CheckoutShipping() {
             <br />
             <br />
             <b>Primary Shipping Address:</b>
-            {/* If the user has a primary shipping address, conditionally render the shipping address details*/}
+            {/* If the primary address is selected, conditionally render the shipping details*/}
             {hasPrimaryShippingAddress ?
                 <>
                     <p>Address: {primaryShippingAddress.address}</p>
@@ -303,7 +224,7 @@ export default function CheckoutShipping() {
                     <p>Country: {primaryShippingAddress.country}</p>
                     <p>Postal Code: {primaryShippingAddress.postalCode}</p>
                     <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
-                    <Link href={"/edit-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit Primary Shipping Address</Link>
+                    <Link href={"/edit-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit Address</Link>
                 </>
                 :
                 <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Primary Shipping Address</Link>
@@ -415,20 +336,18 @@ export default function CheckoutShipping() {
 
 
 
-            {hasAlternateShippingAddress ?
+            {clickable ?
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
                 :
                 <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
             }
             <br />
             <br />
-            {/* TODO: This needs to be fixed. For the 'proceed to payment' button to be active, we should check if the user has a primary shipping address OR an alternate shipping address*/}
-            {hasPrimaryShippingAddress || hasAlternateShippingAddress ?
+            {hasPrimaryShippingAddress ?
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
                 :
                 <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
             }
         </>
     )
-
 }
