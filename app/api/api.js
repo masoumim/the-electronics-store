@@ -152,28 +152,11 @@ export async function getPrimaryShippingAddress() {
 
 // Get Alternate Shipping Address
 export async function getAlternateShippingAddress() {
-    // const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`);
-    // if (!res.ok) {
-    //     throw res.Error;
-    // }
-    // return res.json();
-
-    
-    
-    
-    
-    
-    
-    // testing
-    // const res = await fetch(`route-handlers/test?api_base_url=${apiBaseUrl}`);
-    // if (!res.ok) {
-    //     throw res.Error;
-    // }
-    // return res.json();            
-    // const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`); // < -- This call is failing for some reason...
-    const res = await fetch(`route-handlers/test?api_base_url=${apiBaseUrl}`);
-    console.log(res);
-    return "Hello World"
+    const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`);
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
 }
 
 // Add a Billing Address
@@ -203,4 +186,22 @@ export async function getBillingAddress() {
         throw res.Error;
     }
     return res.json();
+}
+
+// Get Checkout Session
+export async function getCheckoutSession() {
+    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    if (!res.ok) {                            
+        return false;
+    }    
+    return true;
+}
+
+// Create Checkout Session
+export async function createCheckoutSession() {
+    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "POST" })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
 }
