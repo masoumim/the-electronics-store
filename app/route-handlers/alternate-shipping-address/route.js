@@ -11,7 +11,7 @@ export async function GET(request) {
     // Call the backend route
     const res = await fetch(`${apiBaseURL}/checkout/shipping/alt-address`);
     if (!res.ok) {
-        throw new Error('Failed to fetch data')
+        throw new Error('Failed to fetch data');
     }
     const data = await res.json();
     if (data) return Response.json(data);

@@ -9,6 +9,7 @@ import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShipping
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
+
 const auth = getFirebaseAuth();
 
 export default function CheckoutShipping() {
@@ -130,7 +131,7 @@ export default function CheckoutShipping() {
 
             // 4. Fetch Alternate Shipping Address                        
             const fetchedAlternateAddress = await getAlternateShippingAddress();
-            if (fetchedAlternateAddress) {
+            if (fetchedAlternateAddress) {                
                 const addressObj = {};
                 addressObj.address = fetchedAlternateAddress.address;
                 addressObj.unit = fetchedAlternateAddress.unit;
@@ -139,7 +140,24 @@ export default function CheckoutShipping() {
                 addressObj.country = fetchedAlternateAddress.country;
                 addressObj.postalCode = fetchedAlternateAddress.postal_code;
                 addressObj.phoneNumber = fetchedAlternateAddress.phone_number;
-                setAlternateShippingAddress(addressObj)
+
+                // Populate Alternate Address Form if user has Alternate Shipping Address
+                setInputFirstName(fetchedAlternateAddress.first_name);
+                setInputLastName(fetchedAlternateAddress.last_name);
+                // Extract the 'street number' and 'street name' from fetchedAlternateAddress.address string
+                const address = fetchedAlternateAddress.address;
+                const addressArray = address.split(" ");
+                const streetName = address.replace(addressArray[0], "").trim();
+                setInputStreetNumber(addressArray[0]);
+                setInputStreetName(streetName);
+                setInputUnit(fetchedAlternateAddress.unit);
+                setInputCity(fetchedAlternateAddress.city);
+                setInputProvince(fetchedAlternateAddress.province);
+                setInputCountry(fetchedAlternateAddress.country);
+                setInputPostalCode(fetchedAlternateAddress.postal_code);
+                setInputPhoneNumber(fetchedAlternateAddress.phone_number);
+
+                setAlternateShippingAddress(addressObj);
                 setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
 
             } else {
@@ -246,7 +264,7 @@ export default function CheckoutShipping() {
             addressObj.country = inputCountry;
             addressObj.postalCode = inputPostalCode
             addressObj.phoneNumber = inputPhoneNumber;
-            
+
             await addAlternateShippingAddress(addressObj);
             setAlternateShippingAddress(addressObj);
         }
