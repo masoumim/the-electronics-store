@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage } from "../api/api.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
@@ -92,8 +92,8 @@ export default function CheckoutShipping() {
     }, [])
 
 
-    // On page load, establish checkout session if it hasn't been created yet.
-    // Then fetch the primary and alternate shipping addresses.
+    // On page load, establish a checkout session if it hasn't been created yet.
+    // Then, fetch the primary and alternate shipping addresses.
     useEffect(() => {
         async function fetchData() {
             // 1. Redirects user to home if they don't have any items in cart                    
@@ -101,14 +101,15 @@ export default function CheckoutShipping() {
             if (fetchedCart.num_items === 0) router.push('/');
 
             // 2. Check if user has a Checkout Session, If not, create one!
+            // Note* When a new Checkout Session is created, the default value for 'stage' is set to 'shipping' by the DB.
             const foundCheckoutSession = await getCheckoutSession();
             if (!foundCheckoutSession) {
                 await createCheckoutSession();
                 setHasCheckoutSession(true);
-
-                // Update the Checkout Session's Stage:
-                await updateCheckoutSessionStage("shipping");
             }
+
+            // Update the Checkout Session's Stage: I don't need this here but I am just going to use it for testing!
+            // await updateCheckoutSessionStage("foobar");
 
             // 3. Fetch Primary Shipping Address                 
             const fetchedPrimaryAddress = await getPrimaryShippingAddress();
@@ -124,14 +125,14 @@ export default function CheckoutShipping() {
                 setPrimaryShippingAddress(addressObj); // The user's primary shipping address
                 setHasPrimaryShippingAddress(true); // Used for conditionally rendering the 'proceed to payment' button
                 // Set the 'Use Primary Shipping Address' Radio button to be selected
-                setPrimaryAddressSelected(true);
+                // setPrimaryAddressSelected(true);
             } else {
                 setHasPrimaryShippingAddress(false);
             }
 
             // 4. Fetch Alternate Shipping Address                        
             const fetchedAlternateAddress = await getAlternateShippingAddress();
-            if (fetchedAlternateAddress) {                
+            if (fetchedAlternateAddress) {
                 const addressObj = {};
                 addressObj.address = fetchedAlternateAddress.address;
                 addressObj.unit = fetchedAlternateAddress.unit;
@@ -157,7 +158,7 @@ export default function CheckoutShipping() {
                 setInputPostalCode(fetchedAlternateAddress.postal_code);
                 setInputPhoneNumber(fetchedAlternateAddress.phone_number);
 
-                setAlternateShippingAddress(addressObj);
+                setAlternateShippingAddress(addressObj); // Set the user's alternate shipping address
                 setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
 
             } else {
@@ -244,6 +245,14 @@ export default function CheckoutShipping() {
             case "unit":
                 setInputUnit(fieldValue);
                 break;
+            case "address-primary":
+                setPrimaryAddressSelected(true);
+                setAlternateAddressSelected(false);
+                break;
+            case "address-alternate":
+                setAlternateAddressSelected(true);
+                setPrimaryAddressSelected(false);
+                break;
         }
     }
 
@@ -281,16 +290,14 @@ export default function CheckoutShipping() {
             addressObj.country = inputCountry;
             addressObj.postalCode = inputPostalCode
             addressObj.phoneNumber = inputPhoneNumber;
-            setAlternateShippingAddress(addressObj);
-
             await updateAlternateShippingAddress(addressObj);
+            setAlternateShippingAddress(addressObj);
         }
     }
 
 
 
-    // TODO: JUST BEFORE WE GO TO BILLING, WE NEED TO CONFIRM THE CHECKOUT SESSION HAS A SHIPPING ADDRESS
-    // AND THEN WE HAVE TO CALL /CHECKOUT/SHIPPING/{ADDRESSID} IN ORDER TO UPDATE THE CHECKOUT SESSION'S SHIPPING ADDRESS
+
 
     return (
         <>
@@ -298,10 +305,10 @@ export default function CheckoutShipping() {
             Radio 1 is for choosing the user's Primary Shipping Address. 
             Radio 2 is for choosing an Alternate Shipping Address - selecting it renders a form for entering an alternative shipping address*/}
             <label htmlFor="address-primary" className="text-red-600">Use primary address</label>
-            <input onChange={handleInput} type="radio" checked={primaryAddressSelected} id="address-primary" name="address-primary" />
+            <input onChange={handleInput} type="radio" checked={primaryAddressSelected} disabled={!hasPrimaryShippingAddress} id="address-primary" name="address-primary" />
             <br />
             <label htmlFor="address-alternate" className="text-red-600">Use alternate address</label>
-            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} id="address-alternate" name="address-alternate" />
+            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" />
             <br />
             <b>Shipping Info</b>
             <br />
@@ -436,6 +443,8 @@ export default function CheckoutShipping() {
             }
             <br />
             <br />
+            {/* // TODO: JUST BEFORE WE GO TO BILLING, WE NEED TO CONFIRM THE CHECKOUT SESSION HAS A SHIPPING ADDRESS
+    // AND THEN WE HAVE TO CALL /CHECKOUT/SHIPPING/{ADDRESSID} IN ORDER TO UPDATE THE CHECKOUT SESSION'S SHIPPING ADDRESS */}
             {hasPrimaryShippingAddress || hasAlternateShippingAddress ?
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
                 :

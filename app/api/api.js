@@ -207,6 +207,15 @@ export async function getBillingAddress() {
     return res.json();
 }
 
+// Create Checkout Session
+export async function createCheckoutSession() {
+    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "POST" })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json()
+}
+
 // Get Checkout Session
 export async function getCheckoutSession() {
     const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "GET" });
@@ -216,11 +225,11 @@ export async function getCheckoutSession() {
     return res.json();
 }
 
-// Create Checkout Session
-export async function createCheckoutSession() {
-    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "POST" })
+// Update Checkout Session Stage
+export async function updateCheckoutSessionStage(stageName) {
+    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(stageName), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
-    return res.json()
+    return res.json();
 }
