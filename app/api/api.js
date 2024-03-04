@@ -233,3 +233,21 @@ export async function updateCheckoutSessionStage(stageName) {
     }
     return res.json();
 }
+
+// Add a Shipping Address to the Checkout Session
+export async function addCheckoutShippingAddress(addressID) {
+    const res = await fetch(`route-handlers/checkout-session-shipping?api_base_url=${apiBaseUrl}&shipping_address=${addressID}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
+}
+
+// Update the Checkout Session's Shipping Address
+export async function updateCheckoutShippingAddress(addressID) {
+    const res = await fetch(`route-handlers/checkout-session-shipping?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(addressID), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
+}

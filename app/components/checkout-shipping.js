@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, updateCheckoutShippingAddress, addCheckoutShippingAddress } from "../api/api.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
@@ -23,7 +23,7 @@ export default function CheckoutShipping() {
     const [hasAlternateShippingAddress, setHasAlternateShippingAddress] = useState(false);      // Used for conditionally rendering the 'save alternate address' button
     const [primaryAddressSelected, setPrimaryAddressSelected] = useState(false);                // Used to set the 'Use primary address' radio button
     const [alternateAddressSelected, setAlternateAddressSelected] = useState(false);            // Used to set the 'Use alternate address' radio button
-    const [alternateAddressFormFilled, setAlternateAddressFormFilled] = useState(false);        // Used to conditionally render the 'Save Alternate Shipping Address' button
+    // const [alternateAddressFormFilled, setAlternateAddressFormFilled] = useState(false);     // Used to conditionally render the 'Save Alternate Shipping Address' button
     const [hasCheckoutSession, setHasCheckoutSession] = useState(false);                        // Used to prevent fetching user's Alternate Shipping Address before a Checkout Session has been created
 
     // Form input
@@ -199,7 +199,7 @@ export default function CheckoutShipping() {
         }
     });
 
-    // TODO: Form submit handler
+    // TODO: Form submit handler - I may not need this.. delete?
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -295,6 +295,26 @@ export default function CheckoutShipping() {
         }
     }
 
+    // Redirects user to the Payment / Billing page
+    async function proceedToPayment() {
+        // Before we go to the Payment / Billing page, we ADD the Checkout Session's Shipping Address        
+        if (primaryAddressSelected) {
+            // Get the Primary Shipping Address
+            const primaryShippingAddress = await getPrimaryShippingAddress();                    
+            await addCheckoutShippingAddress(primaryShippingAddress.id);
+        }
+        if (alternateAddressSelected) {
+            const alternateShippingAddress = await getAlternateShippingAddress();
+            await addCheckoutShippingAddress(alternateShippingAddress.id);
+        }
+
+        
+        // TODO: Update user's checkout session stage to: PAYMENT
+        
+        
+        // TODO: Redirect to Payment / Billing Page:
+
+    }
 
 
 
@@ -443,10 +463,8 @@ export default function CheckoutShipping() {
             }
             <br />
             <br />
-            {/* // TODO: JUST BEFORE WE GO TO BILLING, WE NEED TO CONFIRM THE CHECKOUT SESSION HAS A SHIPPING ADDRESS
-    // AND THEN WE HAVE TO CALL /CHECKOUT/SHIPPING/{ADDRESSID} IN ORDER TO UPDATE THE CHECKOUT SESSION'S SHIPPING ADDRESS */}
-            {hasPrimaryShippingAddress || hasAlternateShippingAddress ?
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
+            {primaryAddressSelected || alternateAddressSelected ?
+                <button onClick={proceedToPayment} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
                 :
                 <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
             }
