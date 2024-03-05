@@ -22,6 +22,11 @@ export default function AddressForm({ formType }) {
     const [inputPostalCode, setInputPostalCode] = useState("");           // Form input: 'Postal Code'
     const [inputPhoneNumber, setInputPhoneNumber] = useState("");         // Form input: 'Phone Number'
 
+    const [displayAddAddressButton, setDisplayAddAddressButton] = useState(false);
+    const [displayDisabledAddAddressButton, setDisplayDisabledAddAddressButton] = useState(false);
+    const [displaySaveAddressButton, setDisplaySaveAddressButton] = useState(false);
+    const [displayDisabledSaveAddressButton, setDisplayDisabledSaveAddressButton] = useState(false);
+
 
     const [user, setUser] = useState({}); // TODO: Delete this?
     const router = useRouter();
@@ -147,10 +152,53 @@ export default function AddressForm({ formType }) {
         fetchData();
     }, [])
 
+    // Checks if the address form is filled. If so, enable the buttons 'Add Shipping Address' or 'Save Changes'
+    // Depending on the formType ('edit' or 'add')
+    useEffect(() => {
+
+        // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
+        const formInputs = [
+            inputFirstName,
+            inputLastName,
+            inputStreetNumber,
+            inputStreetName,
+            inputCity,
+            inputProvince,
+            inputCountry,
+            inputPostalCode,
+            inputPhoneNumber
+        ]
+
+        // Check each input to see if it has a value
+        const formInputsCheck = formInputs.every((element) => {
+            return element != "";
+        })
+
+        // Set which button to display
+        if (formType === 'add') {
+            if (formInputsCheck) {
+                setDisplayAddAddressButton(true);
+                setDisplayDisabledAddAddressButton(false);
+            } else {
+                setDisplayAddAddressButton(false);
+                setDisplayDisabledAddAddressButton(true);
+            }
+        }
+        else {
+            // formType === 'edit'
+            if (formInputsCheck){
+                setDisplaySaveAddressButton(true);
+                setDisplayDisabledSaveAddressButton(false);
+            }else{
+                setDisplaySaveAddressButton(false);
+                setDisplayDisabledSaveAddressButton(true);
+            }            
+        }
+    });
+
     // Form Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         console.log("handleSubmit called!");
         console.log(inputFirstName);
         console.log(inputLastName);
@@ -319,14 +367,33 @@ export default function AddressForm({ formType }) {
                         <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
-                {formType === "add" ?
+                {displayAddAddressButton ?
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Add Shipping Address
                     </button>
                     :
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Save changes
+                    <></>
+                }
+                {displayDisabledAddAddressButton ?
+                    <button type="submit" disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Add Shipping Address
                     </button>
+                    :
+                    <></>
+                }
+                {displaySaveAddressButton ?
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Address
+                    </button>
+                    :
+                    <></>
+                }
+                {displayDisabledSaveAddressButton ?
+                    <button type="submit" disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Address
+                    </button>
+                    :
+                    <></>
                 }
             </form>
         </>

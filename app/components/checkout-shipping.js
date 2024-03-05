@@ -315,10 +315,7 @@ export default function CheckoutShipping() {
         // TODO: Redirect to Payment / Billing Page:
 
     }
-
-
-
-
+    
     return (
         <>
             {/* Render two radio buttons. 
@@ -451,11 +448,6 @@ export default function CheckoutShipping() {
                     </div>
                 </div>
             </form>
-
-
-
-
-
             {hasAlternateShippingAddress ?
                 <button onClick={saveAlternateShippingAddress} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
                 :
@@ -470,5 +462,4 @@ export default function CheckoutShipping() {
             }
         </>
     )
-
 }
