@@ -17,11 +17,11 @@ export default function AddressForm({ formType }) {
     const [inputStreetName, setInputStreetName] = useState("");           // Form input: 'Street Name'
     const [inputUnit, setInputUnit] = useState("");                       // Form input: 'Street Unit'
     const [inputCity, setInputCity] = useState("");                       // Form input: 'City'
-    const [inputProvince, setInputProvince] = useState("");               // Form input: 'Province'
+    const [inputProvince, setInputProvince] = useState("");            // Form input: 'Province'
     const [inputCountry, setInputCountry] = useState("");                 // Form input: 'Country'
     const [inputPostalCode, setInputPostalCode] = useState("");           // Form input: 'Postal Code'
     const [inputPhoneNumber, setInputPhoneNumber] = useState("");         // Form input: 'Phone Number'
-    
+
     const [displayAddAddressButton, setDisplayAddAddressButton] = useState(false);                      // Bool to display the 'Add Address' Button
     const [displayDisabledAddAddressButton, setDisplayDisabledAddAddressButton] = useState(false);      // Bool to disable the 'Add Address' Button
     const [displaySaveAddressButton, setDisplaySaveAddressButton] = useState(false);                    // Bool to display the 'Save Address' Button
@@ -124,7 +124,7 @@ export default function AddressForm({ formType }) {
                     // Set the form data using the address                
                     setInputFirstName(fetchedAddress.first_name);
                     setInputLastName(fetchedAddress.last_name);
-                    
+
                     // Extract the 'street number' and 'street name' from fetchedAddress.address string
                     const address = fetchedAddress.address;
                     const addressArray = address.split(" ");
@@ -174,7 +174,7 @@ export default function AddressForm({ formType }) {
 
         // Set which button to display
         if (formType === 'add') {
-            if (formInputsCheck) {
+            if (formInputsCheck && inputProvince !== "default") {
                 setDisplayAddAddressButton(true);
                 setDisplayDisabledAddAddressButton(false);
             } else {
@@ -184,13 +184,13 @@ export default function AddressForm({ formType }) {
         }
         else {
             // formType === 'edit'
-            if (formInputsCheck){
+            if (formInputsCheck && inputProvince !== "default") {
                 setDisplaySaveAddressButton(true);
                 setDisplayDisabledSaveAddressButton(false);
-            }else{
+            } else {
                 setDisplaySaveAddressButton(false);
                 setDisplayDisabledSaveAddressButton(true);
-            }            
+            }
         }
     });
 
@@ -315,7 +315,8 @@ export default function AddressForm({ formType }) {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
                             *Province
                         </label>
-                        <select name="province" id="province" onChange={handleInput} value={inputProvince}>
+                        <select name="province" id="province" required onChange={handleInput} value={inputProvince}>
+                            <option value="default">Select a province</option>
                             <option value="AB">Alberta</option>
                             <option value="BC">British Columbia</option>
                             <option value="MB">Manitoba</option>
@@ -354,7 +355,7 @@ export default function AddressForm({ formType }) {
                         <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
-                
+
                 {/* BUTTONS */}
                 {displayAddAddressButton ?
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

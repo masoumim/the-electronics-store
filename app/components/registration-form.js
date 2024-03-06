@@ -120,8 +120,8 @@ export default function RegistrationForm() {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                             Password
                         </label>
-                        <input onChange={handleInput} required value={inputPassword} name="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
-                        <p className="text-gray-600 text-xs italic"></p>
+                        <input onChange={handleInput} required value={inputPassword} minLength={6} name="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
+                        <p className="text-gray-600 text-xs italic">Password must be at least 6 characters long</p>
                     </div>
                 </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

@@ -200,7 +200,7 @@ export default function BillingForm({ formType }) {
 
         // Set which button to display
         if (formType === 'add') {
-            if (formInputsCheck) {
+            if (formInputsCheck  && inputProvince !== "default") {
                 setDisplayAddAddressButton(true);
                 setDisplayDisabledAddAddressButton(false);
             } else {
@@ -210,7 +210,7 @@ export default function BillingForm({ formType }) {
         }
         else {
             // formType === 'edit'
-            if (formInputsCheck) {
+            if (formInputsCheck && inputProvince !== "default") {
                 setDisplaySaveAddressButton(true);
                 setDisplayDisabledSaveAddressButton(false);
             } else {
@@ -412,7 +412,8 @@ export default function BillingForm({ formType }) {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
                             *Province
                         </label>
-                        <select name="province" id="province" onChange={handleInput} disabled={disableFormInput} value={inputProvince}>
+                        <select name="province" id="province" required onChange={handleInput} value={inputProvince}>
+                            <option value="default">Select a province</option>
                             <option value="AB">Alberta</option>
                             <option value="BC">British Columbia</option>
                             <option value="MB">Manitoba</option>
