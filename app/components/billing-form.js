@@ -11,22 +11,26 @@ import { checkBackendSignIn, getUserInfo, addBillingAddress, editBillingAddress,
 const auth = getFirebaseAuth();
 
 export default function BillingForm({ formType }) {
-    const [inputFirstName, setInputFirstName] = useState("");             // Form 'First Name' input from user
-    const [inputLastName, setInputLastName] = useState("");               // Form 'First Name' input from user
-    const [inputStreetNumber, setInputStreetNumber] = useState("");
-    const [inputStreetName, setInputStreetName] = useState("");
-    const [inputUnit, setInputUnit] = useState("");
-    const [inputCity, setInputCity] = useState("");
-    const [inputProvince, setInputProvince] = useState("");
-    const [inputCountry, setInputCountry] = useState("");
-    const [inputPostalCode, setInputPostalCode] = useState("");
-    const [inputPhoneNumber, setInputPhoneNumber] = useState("");
+    const [inputFirstName, setInputFirstName] = useState("");             // Form input: 'First Name'
+    const [inputLastName, setInputLastName] = useState("");               // Form input: 'Last Name'
+    const [inputStreetNumber, setInputStreetNumber] = useState("");       // Form input: 'Street Number'
+    const [inputStreetName, setInputStreetName] = useState("");           // Form input: 'Street Name'
+    const [inputUnit, setInputUnit] = useState("");                       // Form input: 'Street Unit'
+    const [inputCity, setInputCity] = useState("");                       // Form input: 'City'
+    const [inputProvince, setInputProvince] = useState("");               // Form input: 'Province'
+    const [inputCountry, setInputCountry] = useState("");                 // Form input: 'Country'
+    const [inputPostalCode, setInputPostalCode] = useState("");           // Form input: 'Postal Code'
+    const [inputPhoneNumber, setInputPhoneNumber] = useState("");         // Form input: 'Phone Number'
 
-    const [inputSameAsShippingCheckBox, setInputSameAsShippingCheckBox] = useState(false);
-    const [disableFormInput, setDisableFormInput] = useState(false);
-    const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});
+    const [inputSameAsShippingCheckBox, setInputSameAsShippingCheckBox] = useState(false);              // The 'Same as shipping address' checkbox
+    const [disableFormInput, setDisableFormInput] = useState(false);                                    // Bool to disable / enable the form's input fields
+    const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});                           // The Primary Shipping Address
+    const [displayAddAddressButton, setDisplayAddAddressButton] = useState(false);                      // Bool to display the 'Add Address' Button
+    const [displayDisabledAddAddressButton, setDisplayDisabledAddAddressButton] = useState(false);      // Bool to disable the 'Add Address' Button
+    const [displaySaveAddressButton, setDisplaySaveAddressButton] = useState(false);                    // Bool to display the 'Save Address' Button
+    const [displayDisabledSaveAddressButton, setDisplayDisabledSaveAddressButton] = useState(false);    // Bool to disable the 'Save Address' Button
 
-    const [user, setUser] = useState({}); // TODO: Delete this?
+    const [user, setUser] = useState({}); // The current user
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -174,6 +178,48 @@ export default function BillingForm({ formType }) {
         fetchData();
     }, [])
 
+    // Checks if the billing address form is filled. If so, enable the buttons 'Add Billing Address' or 'Save Address' depending on the passed in prop 'formType' ('edit' or 'add')
+    useEffect(() => {
+        // Activate the 'Add Billing Address' or 'Save Address' button if all fields are filled out        
+        const formInputs = [
+            inputFirstName,
+            inputLastName,
+            inputStreetNumber,
+            inputStreetName,
+            inputCity,
+            inputProvince,
+            inputCountry,
+            inputPostalCode,
+            inputPhoneNumber
+        ]
+
+        // Check each input to see if it has a value
+        const formInputsCheck = formInputs.every((element) => {
+            return element != "";
+        })
+
+        // Set which button to display
+        if (formType === 'add') {
+            if (formInputsCheck) {
+                setDisplayAddAddressButton(true);
+                setDisplayDisabledAddAddressButton(false);
+            } else {
+                setDisplayAddAddressButton(false);
+                setDisplayDisabledAddAddressButton(true);
+            }
+        }
+        else {
+            // formType === 'edit'
+            if (formInputsCheck) {
+                setDisplaySaveAddressButton(true);
+                setDisplayDisabledSaveAddressButton(false);
+            } else {
+                setDisplaySaveAddressButton(false);
+                setDisplayDisabledSaveAddressButton(true);
+            }
+        }
+    });
+
     // Form Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -262,17 +308,23 @@ export default function BillingForm({ formType }) {
                     setDisableFormInput(true);
                     setInputSameAsShippingCheckBox(fieldValue);
 
-                    // Set input values to empty string
-                    setInputFirstName("");
-                    setInputLastName("");
-                    setInputStreetNumber("");
-                    setInputStreetName("");
-                    setInputUnit("");
-                    setInputCity("");
-                    setInputProvince("");
-                    setInputCountry("");
-                    setInputPostalCode("");
-                    setInputPhoneNumber("");
+                    // Set the form input values to be the user's shipping address info
+                    const fetchedShippingAddress = await getPrimaryShippingAddress();
+                    setInputFirstName(fetchedShippingAddress.first_name);
+                    setInputLastName(fetchedShippingAddress.last_name);
+                    
+                    // Extract the 'street number' and 'street name' from fetchedAddress.address string
+                    const address = fetchedShippingAddress.address;
+                    const addressArray = address.split(" ");
+                    const streetName = address.replace(addressArray[0], "").trim();
+                    setInputStreetNumber(addressArray[0]);
+                    setInputStreetName(streetName);
+                    setInputUnit(fetchedShippingAddress.unit);
+                    setInputCity(fetchedShippingAddress.city);
+                    setInputProvince(fetchedShippingAddress.province);
+                    setInputCountry(fetchedShippingAddress.country);
+                    setInputPostalCode(fetchedShippingAddress.postal_code);
+                    setInputPhoneNumber(fetchedShippingAddress.phone_number);
                 }
                 else {
                     setDisableFormInput(false);
@@ -282,7 +334,8 @@ export default function BillingForm({ formType }) {
                     const fetchedAddress = await getBillingAddress();
                     if (fetchedAddress) {
                         setInputFirstName(fetchedAddress.first_name);
-                        setInputLastName(fetchedAddress.last_name);
+                        setInputLastName(fetchedAddress.last_name);                        
+                        
                         // Extract the 'street number' and 'street name' from fetchedAddress.address string
                         const address = fetchedAddress.address;
                         const addressArray = address.split(" ");
@@ -398,15 +451,37 @@ export default function BillingForm({ formType }) {
                         <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
-                {formType === "add" ?
+
+                {/* BUTTONS */}
+                {displayAddAddressButton ?
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Add Billing Address
                     </button>
                     :
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Save changes
-                    </button>
+                    <></>
                 }
+                {displayDisabledAddAddressButton ?
+                    <button type="submit" disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Add Billing Address
+                    </button>
+                    :
+                    <></>
+                }
+                {displaySaveAddressButton ?
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Address
+                    </button>
+                    :
+                    <></>
+                }
+                {displayDisabledSaveAddressButton ?
+                    <button type="submit" disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Address
+                    </button>
+                    :
+                    <></>
+                }
+
                 {primaryShippingAddress.address ?
                     <>
                         <label htmlFor="same-as-shipping-checkbox">Same as shipping address</label>

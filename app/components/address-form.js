@@ -21,12 +21,11 @@ export default function AddressForm({ formType }) {
     const [inputCountry, setInputCountry] = useState("");                 // Form input: 'Country'
     const [inputPostalCode, setInputPostalCode] = useState("");           // Form input: 'Postal Code'
     const [inputPhoneNumber, setInputPhoneNumber] = useState("");         // Form input: 'Phone Number'
-
-    const [displayAddAddressButton, setDisplayAddAddressButton] = useState(false);
-    const [displayDisabledAddAddressButton, setDisplayDisabledAddAddressButton] = useState(false);
-    const [displaySaveAddressButton, setDisplaySaveAddressButton] = useState(false);
-    const [displayDisabledSaveAddressButton, setDisplayDisabledSaveAddressButton] = useState(false);
-
+    
+    const [displayAddAddressButton, setDisplayAddAddressButton] = useState(false);                      // Bool to display the 'Add Address' Button
+    const [displayDisabledAddAddressButton, setDisplayDisabledAddAddressButton] = useState(false);      // Bool to disable the 'Add Address' Button
+    const [displaySaveAddressButton, setDisplaySaveAddressButton] = useState(false);                    // Bool to display the 'Save Address' Button
+    const [displayDisabledSaveAddressButton, setDisplayDisabledSaveAddressButton] = useState(false);    // Bool to disable the 'Save Address' Button
 
     const [user, setUser] = useState({}); // TODO: Delete this?
     const router = useRouter();
@@ -125,6 +124,7 @@ export default function AddressForm({ formType }) {
                     // Set the form data using the address                
                     setInputFirstName(fetchedAddress.first_name);
                     setInputLastName(fetchedAddress.last_name);
+                    
                     // Extract the 'street number' and 'street name' from fetchedAddress.address string
                     const address = fetchedAddress.address;
                     const addressArray = address.split(" ");
@@ -152,10 +152,8 @@ export default function AddressForm({ formType }) {
         fetchData();
     }, [])
 
-    // Checks if the address form is filled. If so, enable the buttons 'Add Shipping Address' or 'Save Changes'
-    // Depending on the formType ('edit' or 'add')
+    // Checks if the address form is filled. If so, enable the buttons 'Add Shipping Address' or 'Save Changes' depending on the passed in prop 'formType' ('edit' or 'add')
     useEffect(() => {
-
         // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
         const formInputs = [
             inputFirstName,
@@ -199,17 +197,6 @@ export default function AddressForm({ formType }) {
     // Form Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("handleSubmit called!");
-        console.log(inputFirstName);
-        console.log(inputLastName);
-        console.log(inputStreetNumber);
-        console.log(inputStreetName);
-        console.log(inputCity);
-        console.log(inputProvince);
-        console.log(inputCountry);
-        console.log(inputPostalCode);
-        console.log(inputPhoneNumber);
-        console.log(inputUnit);
 
         const address = {};
         address.firstName = inputFirstName;
@@ -367,6 +354,8 @@ export default function AddressForm({ formType }) {
                         <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
                     </div>
                 </div>
+                
+                {/* BUTTONS */}
                 {displayAddAddressButton ?
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Add Shipping Address
