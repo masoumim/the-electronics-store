@@ -225,9 +225,9 @@ export async function getCheckoutSession() {
     return res.json();
 }
 
-// Update Checkout Session Stage
+// Update Checkout Session Stage (look right below at addCheckoutShippingAddress which uses a query param. use a query parm too for this method but instead of POST use PUT)
 export async function updateCheckoutSessionStage(stageName) {
-    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(stageName), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}&stage=${stageName}`, { method: "PUT" });
     if (!res.ok) {
         throw res.Error;
     }

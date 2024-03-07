@@ -108,9 +108,6 @@ export default function CheckoutShipping() {
                 setHasCheckoutSession(true);
             }
 
-            // Update the Checkout Session's Stage: I don't need this here but I am just going to use it for testing!
-            // await updateCheckoutSessionStage("foobar");
-
             // 3. Fetch Primary Shipping Address                 
             const fetchedPrimaryAddress = await getPrimaryShippingAddress();
             if (fetchedPrimaryAddress) {
@@ -124,8 +121,6 @@ export default function CheckoutShipping() {
                 addressObj.phoneNumber = fetchedPrimaryAddress.phone_number;
                 setPrimaryShippingAddress(addressObj); // The user's primary shipping address
                 setHasPrimaryShippingAddress(true); // Used for conditionally rendering the 'proceed to payment' button
-                // Set the 'Use Primary Shipping Address' Radio button to be selected
-                // setPrimaryAddressSelected(true);
             } else {
                 setHasPrimaryShippingAddress(false);
             }
@@ -199,13 +194,9 @@ export default function CheckoutShipping() {
         }
     });
 
-    // TODO: Form submit handler - I may not need this.. delete?
+    // Form submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const user = auth.currentUser;
-
-        // TODO: Handle form submission
     }
 
 
@@ -300,7 +291,7 @@ export default function CheckoutShipping() {
         // Before we go to the Payment / Billing page, we ADD the Checkout Session's Shipping Address        
         if (primaryAddressSelected) {
             // Get the Primary Shipping Address
-            const primaryShippingAddress = await getPrimaryShippingAddress();                    
+            const primaryShippingAddress = await getPrimaryShippingAddress();
             await addCheckoutShippingAddress(primaryShippingAddress.id);
         }
         if (alternateAddressSelected) {
@@ -308,15 +299,16 @@ export default function CheckoutShipping() {
             await addCheckoutShippingAddress(alternateShippingAddress.id);
         }
 
-        
-        // TODO: Update user's checkout session stage to: PAYMENT
-        
-        
-        
-        // TODO: Redirect to Payment / Billing Page:
+
+        // Update user's checkout session stage to: PAYMENT
+        const checkoutSession = await getCheckoutSession();
+        await updateCheckoutSessionStage("payment");
+
+        // Redirect to Payment / Billing Page:
+        router.push('/checkout-payment');
 
     }
-    
+
     return (
         <>
             {/* Render two radio buttons. 

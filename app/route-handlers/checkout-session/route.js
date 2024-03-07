@@ -38,12 +38,10 @@ export async function PUT(request) {
     // Get the base URL (either localhost or Heroku)
     const { searchParams } = new URL(request.url);
     const apiBaseURL = searchParams.get('api_base_url');
-
-    // Get the address info from the request body
-    const bodyData = await request.json();
+    const stageName = searchParams.get('stage');
 
     // Call the backend PUT /checkout route which will update the Checkout Session Stage
-    const res = await fetch(`${apiBaseURL}/checkout/stage/stage-name`, { method: "PUT", body: JSON.stringify(bodyData), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`${apiBaseURL}/checkout/stage/${stageName}`, { method: "PUT" });
     if (!res.ok) {
         throw res.Error;
     }
