@@ -14,7 +14,34 @@ const auth = getFirebaseAuth();
 
 export default function CheckoutPayment() {
 
-    return (
+    
+    // STRIPE TEST: 
+    const stripe = require('stripe')('sk_test_51OsEAbRuVIAoskgq73WAKzLQSk4xfAvCfpw5oUmmlw7mUNMiaVFqoRqJPrf8yZY2lNNMjXgN3k3jeoBdrFjD7v8600EaAjEsmY');
+    stripe.products.create({
+        name: 'Starter Subscription',
+        description: '$12/Month subscription',
+    }).then(product => {
+        stripe.prices.create({
+            unit_amount: 1200,
+            currency: 'usd',
+            recurring: {
+                interval: 'month',
+            },
+            product: product.id,
+        }).then(price => {
+            console.log('Success! Here is your starter subscription product id: ' + product.id);
+            console.log('Success! Here is your starter subscription price id: ' + price.id);
+        });
+    });
+
+    return (<>
         <p>Checkout: Payment</p>
+        <p>=====================================</p>
+        <p>Stripe Test:</p>
+        <p>------------</p>
+        
+        <p>=====================================</p>
+
+    </>
     )
 }
