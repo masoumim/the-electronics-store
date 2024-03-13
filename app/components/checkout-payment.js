@@ -1,4 +1,5 @@
 // checkout-payment.js - This component handles the Payment step (2 of 4) of the checkout process.
+// This includes entering credit card information and confirming billing address.
 
 'use client'
 import { useState, useEffect, useContext } from "react";
@@ -8,31 +9,26 @@ import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, updateCheckoutShippingAddress, addCheckoutShippingAddress } from "../api/api.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
+import { loadStripe } from "@stripe/stripe-js";
 
 
 const auth = getFirebaseAuth();
 
 export default function CheckoutPayment() {
 
-    
-    // STRIPE TEST: 
-    const stripe = require('stripe')('sk_test_51OsEAbRuVIAoskgq73WAKzLQSk4xfAvCfpw5oUmmlw7mUNMiaVFqoRqJPrf8yZY2lNNMjXgN3k3jeoBdrFjD7v8600EaAjEsmY');
-    stripe.products.create({
-        name: 'Starter Subscription',
-        description: '$12/Month subscription',
-    }).then(product => {
-        stripe.prices.create({
-            unit_amount: 1200,
-            currency: 'usd',
-            recurring: {
-                interval: 'month',
-            },
-            product: product.id,
-        }).then(price => {
-            console.log('Success! Here is your starter subscription product id: ' + product.id);
-            console.log('Success! Here is your starter subscription price id: ' + price.id);
-        });
-    });
+    // STRIPE TEST:
+    let stripe;
+
+    useEffect(() => {
+        async function getStripeObject() {
+            stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+        }
+        getStripeObject();
+    }, [])
+
+    // const elements = stripe.elements();
+    // const cardElement = elements.create('card');
+    // cardElement.mount('#card-element');
 
     return (<>
         <p>Checkout: Payment</p>
@@ -41,6 +37,20 @@ export default function CheckoutPayment() {
         <p>------------</p>
         
         <p>=====================================</p>
+
+
+
+
+
+        <input id="cardholder-name" type="text"></input>
+        <div id="card-element"></div>
+        <div id="card-result"></div>
+        <button id="card-button">Save Card</button>
+
+
+
+
+
 
     </>
     )

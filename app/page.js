@@ -3,12 +3,12 @@
 import "server-only"
 import AllProducts from "./components/all-products"
 export default function Home() {
-  
-  
+
+
   return (
     <>
-      <p>*Main page content goes here*</p>
-      <AllProducts/>
+      <p>*Main page content goes here*</p>      
+      <AllProducts />
     </>
   )
 }
