@@ -16,15 +16,15 @@ const auth = getFirebaseAuth();
 
 export default function CheckoutPayment() {
 
-    // STRIPE TEST:
-    let stripe;
+    // STRIPE TEST: THIS WORKS! IT RETURNS A STRIPE OBJECT
+    // let stripe;
 
-    useEffect(() => {
-        async function getStripeObject() {
-            stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-        }
-        getStripeObject();
-    }, [])
+    // useEffect(() => {
+    //     async function getStripeObject() {
+    //         stripe = await loadStripe(process.env.STRIPE_SECRET_KEY);
+    //     }
+    //     getStripeObject();
+    // }, [])
 
     // const elements = stripe.elements();
     // const cardElement = elements.create('card');

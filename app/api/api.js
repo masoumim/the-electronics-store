@@ -251,3 +251,12 @@ export async function updateCheckoutShippingAddress(addressID) {
     }
     return res.json();
 }
+
+// TEST!!! STRIPE - Add Products
+export async function stripeAddProducts() {
+    const res = await fetch(`route-handlers/stripe-add-products`, { method: "POST" });
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
+}

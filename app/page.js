@@ -2,12 +2,12 @@
 
 import "server-only"
 import AllProducts from "./components/all-products"
-export default function Home() {
 
+export default function Home() {
 
   return (
     <>
-      <p>*Main page content goes here*</p>      
+      <p>*Main page content goes here*</p>
       <AllProducts />
     </>
   )
