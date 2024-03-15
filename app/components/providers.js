@@ -11,31 +11,9 @@ The Providers component below accepts a 'children' prop from the RootLayout comp
 This children prop represents every component in the component tree, hence the ability to share a state variable in a global way.
 */
 
-// "use client"
-
-// import { createContext, useState } from 'react';
-
-// // Create the context
-// export const ctx = createContext();
-
-// // Create and export the 'Providers' component
-// export default function Providers({ children }) {
-
-//     // Create the shared state objects    
-//     const [cart, setCart] = useState({});
-//     const [cartProducts, setCartProducts] = useState(null);
-
-//     return (
-//         <ctx.Provider value={[cart, setCart, cartProducts, setCartProducts]}>
-//             {children}
-//         </ctx.Provider>
-//     );
-// }
-
 "use client"
 
-import { createContext, useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import { createContext, useState } from 'react';
 
 // Create the context
 export const ctx = createContext();
@@ -46,19 +24,9 @@ export default function Providers({ children }) {
     // Create the shared state objects    
     const [cart, setCart] = useState({});
     const [cartProducts, setCartProducts] = useState(null);
-    const [stripe, setStripe] = useState(null);
-
-    useEffect(() => {
-        const initStripe = async () => {
-            const stripePromise = loadStripe(process.env.STRIPE_SECRET_KEY);
-            const stripeObj = await stripePromise;
-            setStripe(stripeObj);
-        };
-        initStripe();
-    }, []);
 
     return (
-        <ctx.Provider value={[cart, setCart, cartProducts, setCartProducts, stripe, setStripe]}>
+        <ctx.Provider value={[cart, setCart, cartProducts, setCartProducts]}>
             {children}
         </ctx.Provider>
     );

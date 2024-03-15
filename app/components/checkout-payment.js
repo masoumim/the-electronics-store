@@ -10,32 +10,30 @@ import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShipping
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 import { loadStripe } from "@stripe/stripe-js";
+import { stripeAddProduct } from "../api/api.js";
 
 
 const auth = getFirebaseAuth();
 
 export default function CheckoutPayment() {
 
-    // STRIPE TEST: THIS WORKS! IT RETURNS A STRIPE OBJECT
-    // let stripe;
-
+    
+    // // TESTING ADD PRODUCT TO STRIPE
     // useEffect(() => {
-    //     async function getStripeObject() {
-    //         stripe = await loadStripe(process.env.STRIPE_SECRET_KEY);
+    //     async function fetchData() {
+    //         const testProduct = {}
+    //         testProduct.name = "test product 1"
+    //         await stripeAddProduct(testProduct);
     //     }
-    //     getStripeObject();
+    //     fetchData();
     // }, [])
-
-    // const elements = stripe.elements();
-    // const cardElement = elements.create('card');
-    // cardElement.mount('#card-element');
 
     return (<>
         <p>Checkout: Payment</p>
         <p>=====================================</p>
         <p>Stripe Test:</p>
         <p>------------</p>
-        
+
         <p>=====================================</p>
 
 

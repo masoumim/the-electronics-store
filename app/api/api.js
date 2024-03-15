@@ -252,11 +252,19 @@ export async function updateCheckoutShippingAddress(addressID) {
     return res.json();
 }
 
-// TEST!!! STRIPE - Add Products
-export async function stripeAddProducts() {
-    const res = await fetch(`route-handlers/stripe-add-products`, { method: "POST" });
-    if (!res.ok) {
-        throw res.Error;
+
+// Add Product to the Stripe product catalogue
+export async function stripeAddProduct(productData) {
+    const response = await fetch(`route-handlers/stripe-add-product`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productData),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Stripe Product Add Failed: ${errorData.message || response.statusText}`);
     }
-    return res.json();
-}
+  
+    return response.json();
+  }
