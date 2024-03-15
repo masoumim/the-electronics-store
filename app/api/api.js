@@ -256,15 +256,31 @@ export async function updateCheckoutShippingAddress(addressID) {
 // Add Product to the Stripe product catalogue
 export async function stripeAddProduct(productData) {
     const response = await fetch(`route-handlers/stripe-add-product`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productData),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productData),
     });
-  
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Stripe Product Add Failed: ${errorData.message || response.statusText}`);
+        const errorData = await response.json();
+        throw new Error(`Stripe Product Add Failed: ${errorData.message || response.statusText}`);
     }
-  
+
     return response.json();
-  }
+}
+
+// Create Stripe Checkout Session
+export async function createStripeCheckoutSession() {
+    const response = await fetch(`route-handlers/create-stripe-checkout-session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Stripe Create Checkout Session Failed: ${errorData.message || response.statusText}`);
+    }
+
+    return response.json(response);
+}

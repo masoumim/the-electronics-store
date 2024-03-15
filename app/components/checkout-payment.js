@@ -10,46 +10,75 @@ import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShipping
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 import { loadStripe } from "@stripe/stripe-js";
-import { stripeAddProduct } from "../api/api.js";
+import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
+
+
+import { stripeAddProduct, createStripeCheckoutSession } from "../api/api.js";
 
 
 const auth = getFirebaseAuth();
 
+// export default function CheckoutPayment() {
+
+//     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+//     const [clientSecret, setClientSecret] = useState('');
+
+//     // Create a Stripe Checkout Session
+//     useEffect(() => {
+//         // Create a Checkout Session as soon as the page loads
+//         fetch("/create-stripe-checkout-session", {
+//             method: "POST",
+//         })
+//             .then((res) => res.json())
+//             .then((data) => setClientSecret(data.clientSecret));
+//     }, []);
+
+//     const options = { clientSecret };
+
+
+//     return (
+//         <div id="checkout">
+//             {clientSecret && (
+//                 <EmbeddedCheckoutProvider
+//                     stripe={stripePromise}
+//                     options={options}
+//                 >
+//                     <EmbeddedCheckout />
+//                 </EmbeddedCheckoutProvider>
+//             )}
+//         </div>
+//     )
+// }
+
 export default function CheckoutPayment() {
 
-    
-    // // TESTING ADD PRODUCT TO STRIPE
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const testProduct = {}
-    //         testProduct.name = "test product 1"
-    //         await stripeAddProduct(testProduct);
-    //     }
-    //     fetchData();
-    // }, [])
+    const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+    const [clientSecret, setClientSecret] = useState('');
 
-    return (<>
-        <p>Checkout: Payment</p>
-        <p>=====================================</p>
-        <p>Stripe Test:</p>
-        <p>------------</p>
+    // Create a Stripe Checkout Session
+    useEffect(() => {
+        async function fetchData() {
+            // Create a Checkout Session as soon as the page loads        
+            const returnedClientSecret = await createStripeCheckoutSession();
+            setClientSecret(returnedClientSecret);
+        }
+        fetchData();
 
-        <p>=====================================</p>
+    }, []);
+
+    const options = { clientSecret };
 
 
-
-
-
-        <input id="cardholder-name" type="text"></input>
-        <div id="card-element"></div>
-        <div id="card-result"></div>
-        <button id="card-button">Save Card</button>
-
-
-
-
-
-
-    </>
+    return (
+        <div id="checkout">
+            {clientSecret && (
+                <EmbeddedCheckoutProvider
+                    stripe={stripePromise}
+                    options={options}
+                >
+                    <EmbeddedCheckout />
+                </EmbeddedCheckoutProvider>
+            )}
+        </div>
     )
 }
