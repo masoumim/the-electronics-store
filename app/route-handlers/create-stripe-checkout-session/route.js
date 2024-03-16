@@ -3,6 +3,7 @@
 import 'server-only'
 
 // Route Handler for route: /route-handlers/create-stripe-checkout-session
+// TODO: Iterate through the user's cart items and add them to the line_items array
 export async function POST() {
 
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);

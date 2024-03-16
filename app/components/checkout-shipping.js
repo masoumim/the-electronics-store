@@ -285,10 +285,10 @@ export default function CheckoutShipping() {
             setAlternateShippingAddress(addressObj);
         }
     }
-
-    // Redirects user to the Payment / Billing page
-    async function proceedToPayment() {
-        // Before we go to the Payment / Billing page, we ADD the Checkout Session's Shipping Address        
+        
+    // Redirects user to the Billing page
+    async function proceedToBilling() {
+        // Before we go to the Billing page, we ADD the Checkout Session's Shipping Address        
         if (primaryAddressSelected) {
             // Get the Primary Shipping Address
             const primaryShippingAddress = await getPrimaryShippingAddress();
@@ -298,15 +298,13 @@ export default function CheckoutShipping() {
             const alternateShippingAddress = await getAlternateShippingAddress();
             await addCheckoutShippingAddress(alternateShippingAddress.id);
         }
-
-
-        // Update user's checkout session stage to: PAYMENT
+        
+        // Update user's checkout session stage to: BILLING
         const checkoutSession = await getCheckoutSession();
-        await updateCheckoutSessionStage("payment");
+        await updateCheckoutSessionStage("billing");
 
-        // Redirect to Payment / Billing Page:
-        router.push('/checkout-payment');
-
+        // Redirect to Billing Page:
+        router.push('/checkout-billing');
     }
 
     return (
@@ -449,7 +447,7 @@ export default function CheckoutShipping() {
             <br />
             <br />
             {primaryAddressSelected || alternateAddressSelected ?
-                <button onClick={proceedToPayment} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
+                <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
                 :
                 <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
             }

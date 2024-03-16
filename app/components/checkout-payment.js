@@ -1,5 +1,5 @@
-// checkout-payment.js - This component handles the Payment step (2 of 4) of the checkout process.
-// This includes entering credit card information and confirming billing address.
+// checkout-payment.js - This component handles the Payment step (3 of 4) of the checkout process.
+// This component uses Stripe for the UI and payment processing
 
 'use client'
 import { useState, useEffect, useContext } from "react";
@@ -11,44 +11,9 @@ import { ctx } from "./providers.js";
 import Link from "next/link.js";
 import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
-
-
 import { stripeAddProduct, createStripeCheckoutSession } from "../api/api.js";
 
-
 const auth = getFirebaseAuth();
-
-// export default function CheckoutPayment() {
-
-//     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-//     const [clientSecret, setClientSecret] = useState('');
-
-//     // Create a Stripe Checkout Session
-//     useEffect(() => {
-//         // Create a Checkout Session as soon as the page loads
-//         fetch("/create-stripe-checkout-session", {
-//             method: "POST",
-//         })
-//             .then((res) => res.json())
-//             .then((data) => setClientSecret(data.clientSecret));
-//     }, []);
-
-//     const options = { clientSecret };
-
-
-//     return (
-//         <div id="checkout">
-//             {clientSecret && (
-//                 <EmbeddedCheckoutProvider
-//                     stripe={stripePromise}
-//                     options={options}
-//                 >
-//                     <EmbeddedCheckout />
-//                 </EmbeddedCheckoutProvider>
-//             )}
-//         </div>
-//     )
-// }
 
 export default function CheckoutPayment() {
 
@@ -60,21 +25,18 @@ export default function CheckoutPayment() {
         async function fetchData() {
             // Create a Checkout Session as soon as the page loads        
             const returnedClientSecret = await createStripeCheckoutSession();
-            setClientSecret(returnedClientSecret);
+            setClientSecret(returnedClientSecret.client_secret);
         }
         fetchData();
 
     }, []);
 
-    const options = { clientSecret };
-
-
     return (
         <div id="checkout">
             {clientSecret && (
                 <EmbeddedCheckoutProvider
-                    stripe={stripePromise}
-                    options={options}
+                    stripe={stripePromise.then(stripe => stripe)} // Use resolved Stripe object
+                    options={{ clientSecret }} // Pass options correctly
                 >
                     <EmbeddedCheckout />
                 </EmbeddedCheckoutProvider>
