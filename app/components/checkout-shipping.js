@@ -447,9 +447,9 @@ export default function CheckoutShipping() {
             <br />
             <br />
             {primaryAddressSelected || alternateAddressSelected ?
-                <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
+                <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
                 :
-                <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Payment</button>
+                <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
             }
         </>
     )

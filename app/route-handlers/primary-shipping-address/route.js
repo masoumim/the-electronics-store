@@ -32,6 +32,9 @@ export async function POST(request) {
         throw res.Error;
     }
 
+    console.log('!!!!!! TRYING TO ADD PRIMARY SHIPPING ADDRESS !!!!!!!');
+    console.log(res);
+
     const data = await res.json();
     return Response.json(data);
 }
