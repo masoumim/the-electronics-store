@@ -25,6 +25,7 @@ export default function CheckoutPayment() {
         async function fetchData() {
             // Create a Checkout Session as soon as the page loads        
             const returnedClientSecret = await createStripeCheckoutSession();
+            console.log(returnedClientSecret);
             setClientSecret(returnedClientSecret.client_secret);
         }
         fetchData();

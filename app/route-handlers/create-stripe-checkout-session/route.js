@@ -6,18 +6,19 @@ import 'server-only'
 // Route Handler for route: /route-handlers/create-stripe-checkout-session
 // TODO: Iterate through the user's cart items and add them to the line_items array
 export async function POST() {
+    console.log('!!!!!! INSIDE create-stripe-checkout-session POST() !!!!!!!');
 
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+    console.log('!!!!!! calling create-stripe-checkout-session getCartInfo() !!!!!!!');
     // Get each cart product and create an object that matches a Stripe Product
+    
+    // TODO: Replace this! I can't call this from here! Instead PASS the cart info into this POST() function.
     const cartInfo = await getCartInfo();
 
+    console.log('!!!!!! create-stripe-checkout-session cart info !!!!!!!');
     console.log(cartInfo);
     
-    
-    
-    
- 
     // const session = await stripe.checkout.sessions.create({
     //     line_items: [{
     //         price_data: {

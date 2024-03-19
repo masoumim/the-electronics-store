@@ -10,13 +10,14 @@ import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
 
+
 const auth = getFirebaseAuth();
 
 export default function CheckoutBilling() {
 
     const [billingAddress, setBillingAddress] = useState({});
     const [hasBillingAddress, setHasBillingAddress] = useState(false);
-
+    const router = useRouter();
 
     // Fetch users Billing Address
     useEffect(() => {
