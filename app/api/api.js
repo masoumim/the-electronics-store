@@ -266,11 +266,11 @@ export async function stripeAddProduct(productData) {
 }
 
 // Create Stripe Checkout Session
-export async function createStripeCheckoutSession() {
+export async function createStripeCheckoutSession(myLineItems) {
     const response = await fetch(`route-handlers/create-stripe-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(),
+        body: JSON.stringify(myLineItems),
     });
 
     if (!response.ok) {

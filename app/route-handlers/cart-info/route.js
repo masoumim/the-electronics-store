@@ -2,9 +2,7 @@ import 'server-only'
 
 // Route Handler for route: /route-handlers/cart-info
 // Gets Cart info from the backend
-export async function GET(request) {    
-    console.log(`?????? INSIDE /route-handlers/cart-info ???????`);
-    
+export async function GET(request) {        
     // Get the base URL (either localhost or Heroku)
     const { searchParams } = new URL(request.url);
     const apiBaseURL = searchParams.get('api_base_url');

@@ -1,39 +1,21 @@
 // This route handler creates a Stripe Checkout Session
 
-import { getCartInfo } from '@/app/api/api';
 import 'server-only'
 
 // Route Handler for route: /route-handlers/create-stripe-checkout-session
-// TODO: Iterate through the user's cart items and add them to the line_items array
-export async function POST() {
-    console.log('!!!!!! INSIDE create-stripe-checkout-session POST() !!!!!!!');
-
+export async function POST(request) {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-    console.log('!!!!!! calling create-stripe-checkout-session getCartInfo() !!!!!!!');
-    // Get each cart product and create an object that matches a Stripe Product
-    
-    // TODO: Replace this! I can't call this from here! Instead PASS the cart info into this POST() function.
-    const cartInfo = await getCartInfo();
+    const bodyData = await request.json();
+    const returnURL = process.env.NODE_ENV === "development" ? "http://localhost:3000/checkout-review" : "https://electronics-store-8382b35f5fca.herokuapp.com/checkout-review";
 
-    console.log('!!!!!! create-stripe-checkout-session cart info !!!!!!!');
-    console.log(cartInfo);
-    
-    // const session = await stripe.checkout.sessions.create({
-    //     line_items: [{
-    //         price_data: {
-    //             currency: 'cad',
-    //             product_data: {
-    //                 name: 'PlayStation 5',
-    //             },
-    //             unit_amount: 51999,
-    //         },
-    //         quantity: 1,
-    //     }],
-    //     mode: 'payment',
-    //     ui_mode: 'embedded',
-    //     return_url: 'http://localhost:3000'
-    // });
+    // Create the Stripe Checkout Session    
+    const session = await stripe.checkout.sessions.create({
+        line_items: bodyData,
+        mode: 'payment',
+        ui_mode: 'embedded',
+        return_url: returnURL
+    });
 
-    // return Response.json(session);
+    return Response.json(session);
 }

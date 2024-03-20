@@ -9,8 +9,6 @@ import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShipping
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
-
-
 const auth = getFirebaseAuth();
 
 export default function CheckoutBilling() {
