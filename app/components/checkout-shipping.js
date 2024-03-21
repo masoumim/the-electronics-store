@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, updateCheckoutShippingAddress, addCheckoutShippingAddress } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, addCheckoutShippingAddress } from "../api/api.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
@@ -22,9 +22,9 @@ export default function CheckoutShipping() {
     const [hasPrimaryShippingAddress, setHasPrimaryShippingAddress] = useState(false);          // Used for conditionally rendering the 'proceed to payment' button
     const [hasAlternateShippingAddress, setHasAlternateShippingAddress] = useState(false);      // Used for conditionally rendering the 'save alternate address' button
     const [primaryAddressSelected, setPrimaryAddressSelected] = useState(false);                // Used to set the 'Use primary address' radio button
-    const [alternateAddressSelected, setAlternateAddressSelected] = useState(false);            // Used to set the 'Use alternate address' radio button
-    // const [alternateAddressFormFilled, setAlternateAddressFormFilled] = useState(false);     // Used to conditionally render the 'Save Alternate Shipping Address' button
+    const [alternateAddressSelected, setAlternateAddressSelected] = useState(false);            // Used to set the 'Use alternate address' radio button    
     const [hasCheckoutSession, setHasCheckoutSession] = useState(false);                        // Used to prevent fetching user's Alternate Shipping Address before a Checkout Session has been created
+    const [userLoggedIn, setUserLoggedIn] = useState(false);                                    // Used to control fetches to getCartInfo(). Fetch won't execute if userLoggedIn is false.
 
     // Form input
     const [inputFirstName, setInputFirstName] = useState("");                           // Form input: 'First Name'
@@ -43,7 +43,6 @@ export default function CheckoutShipping() {
 
     const router = useRouter();
 
-
     // If a user is signed-in, get cart info. Otherwise, redirect user to /sign-in page
     useEffect(() => {
         async function fetchData() {
@@ -57,6 +56,7 @@ export default function CheckoutShipping() {
                     const cartInfo = await getCartInfo();
                     setCart(cartInfo);
                     setCartProducts(cartInfo.cart_product);
+                    setUserLoggedIn(true);
                 }
             } else {
                 // Get the current signed-in user using onAuthStateChanged                
@@ -69,6 +69,7 @@ export default function CheckoutShipping() {
                             const cartInfo = await getCartInfo();
                             setCart(cartInfo);
                             setCartProducts(cartInfo.cart_product);
+                            setUserLoggedIn(true);
                         }
                     }
                     else {
@@ -85,22 +86,19 @@ export default function CheckoutShipping() {
     useEffect(() => {
         async function fetchData() {
             // Fetch cart                      
-            const fetchedCart = await getCartInfo();
-            if (fetchedCart.num_items === 0) router.push('/');
+            if (userLoggedIn) {
+                const fetchedCart = await getCartInfo();
+                if (fetchedCart.num_items === 0) router.push('/');
+            }
         }
         fetchData();
-    }, [])
-
+    }, [userLoggedIn])
 
     // On page load, establish a checkout session if it hasn't been created yet.
     // Then, fetch the primary and alternate shipping addresses.
     useEffect(() => {
         async function fetchData() {
-            // 1. Redirects user to home if they don't have any items in cart                    
-            const fetchedCart = await getCartInfo();
-            if (fetchedCart.num_items === 0) router.push('/');
-
-            // 2. Check if user has a Checkout Session, If not, create one!
+            // 1. Check if user has a Checkout Session, If not, create one!
             // Note* When a new Checkout Session is created, the default value for 'stage' is set to 'shipping' by the DB.
             const foundCheckoutSession = await getCheckoutSession();
             if (!foundCheckoutSession) {
@@ -108,7 +106,7 @@ export default function CheckoutShipping() {
                 setHasCheckoutSession(true);
             }
 
-            // 3. Fetch Primary Shipping Address                 
+            // 2. Fetch Primary Shipping Address                 
             const fetchedPrimaryAddress = await getPrimaryShippingAddress();
             if (fetchedPrimaryAddress) {
                 const addressObj = {};
@@ -125,7 +123,7 @@ export default function CheckoutShipping() {
                 setHasPrimaryShippingAddress(false);
             }
 
-            // 4. Fetch Alternate Shipping Address                        
+            // 3. Fetch Alternate Shipping Address                        
             const fetchedAlternateAddress = await getAlternateShippingAddress();
             if (fetchedAlternateAddress) {
                 const addressObj = {};
@@ -285,7 +283,7 @@ export default function CheckoutShipping() {
             setAlternateShippingAddress(addressObj);
         }
     }
-        
+
     // Redirects user to the Billing page
     async function proceedToBilling() {
         // Before we go to the Billing page, we ADD the Checkout Session's Shipping Address        
@@ -298,7 +296,7 @@ export default function CheckoutShipping() {
             const alternateShippingAddress = await getAlternateShippingAddress();
             await addCheckoutShippingAddress(alternateShippingAddress.id);
         }
-        
+
         // Update user's checkout session stage to: BILLING
         const checkoutSession = await getCheckoutSession();
         await updateCheckoutSessionStage("billing");

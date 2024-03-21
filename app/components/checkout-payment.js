@@ -2,16 +2,14 @@
 // This component uses Stripe for the UI and payment processing
 
 'use client'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, updateCheckoutShippingAddress, addCheckoutShippingAddress, getProduct } from "../api/api.js";
-import { ctx } from "./providers.js";
-import Link from "next/link.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, updateCheckoutSessionStage, getProduct } from "../api/api.js";
 import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
-import { stripeAddProduct, createStripeCheckoutSession } from "../api/api.js";
+import { createStripeCheckoutSession } from "../api/api.js";
 
 const auth = getFirebaseAuth();
 
@@ -20,19 +18,77 @@ export default function CheckoutPayment() {
     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
     const [clientSecret, setClientSecret] = useState('');
     const [cartProducts, setCartProducts] = useState([]);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);   // Used to control fetches to getCheckoutSession(). Fetch won't execute if userLoggedIn is false.   
+    const router = useRouter();
+
+    // If a user isn't signed in, redirect to /sign-in page
+    useEffect(() => {
+        async function fetchData() {
+            // Get the current signed-in user            
+            const user = auth.currentUser;
+            if (user) {
+                // Confirm user is signed in on the backend                                
+                const backendUser = await checkBackendSignIn();
+                if (backendUser) {
+                    setUserLoggedIn(true);
+                }
+            } else {
+                // Get the current signed-in user using onAuthStateChanged                
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        // Check that user is signed-in in the backend                        
+                        const backendUser = await checkBackendSignIn();
+                        if (backendUser) {
+                            setUserLoggedIn(true);
+                        }
+                    }
+                    else {
+                        // Redirect user to /sign-in page
+                        router.push('/sign-in')
+                    }
+                })
+            }
+        }
+        fetchData();
+    }, [])
+
+    // Redirects user to home if they don't have any items in cart
+    useEffect(() => {
+        async function fetchData() {
+            // Fetch cart                      
+            if (userLoggedIn) {
+                const fetchedCart = await getCartInfo();
+                if (fetchedCart.num_items === 0) router.push('/');
+            }
+        }
+        fetchData();
+    }, [userLoggedIn])
+
+    // Make sure the user has a Checkout Session and the Checkout Session Stage is PAYMENT, otherwise, redirect user to Home
+    useEffect(() => {
+        async function fetchData() {
+            if (userLoggedIn) {
+                const currentCheckoutSession = await getCheckoutSession();
+                if (!currentCheckoutSession || currentCheckoutSession.stage !== 'payment') router.push('/');
+            }
+        }
+        fetchData();
+    }, [userLoggedIn])
 
     // On page load, get the cart products and set the state variable 'cartProducts'
     useEffect(() => {
-        async function fetchData() {                      
-            const cartInfo = await getCartInfo();
-            setCartProducts(cartInfo.cart_product);
+        async function fetchData() {
+            if (userLoggedIn) {
+                const cartInfo = await getCartInfo();
+                setCartProducts(cartInfo.cart_product);
+            }
         }
         fetchData();
-    }, []);
+    }, [userLoggedIn]);
 
-    // Create a Checkout Session as soon as the page loads
+    // Create a Stripe Checkout Session as soon as the page loads
     useEffect(() => {
-        async function fetchData() {                        
+        async function fetchData() {
             const myLineItems = [];
 
             if (cartProducts.length > 0) {
@@ -54,8 +110,11 @@ export default function CheckoutPayment() {
                 }
 
                 // Create the Stripe Checkout Session
-                const returnedClientSecret = await createStripeCheckoutSession(myLineItems);                
+                const returnedClientSecret = await createStripeCheckoutSession(myLineItems);
                 setClientSecret(returnedClientSecret.client_secret);
+
+                // Set the user's Checkout Session Stage to REVIEW
+                await updateCheckoutSessionStage('review');
             }
         }
         fetchData();

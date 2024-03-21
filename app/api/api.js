@@ -248,6 +248,23 @@ export async function updateCheckoutShippingAddress(addressID) {
     return res.json();
 }
 
+// Add a Billing Address to the Checkout Session
+export async function addCheckoutBillingAddress(addressID) {
+    const res = await fetch(`route-handlers/checkout-session-billing?api_base_url=${apiBaseUrl}&billing_address=${addressID}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
+}
+
+// Update the Checkout Session's Billing Address
+export async function updateCheckoutBillingAddress(addressID) {
+    const res = await fetch(`route-handlers/checkout-session-billing?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(addressID), headers: { "Content-Type": "application/json" } })
+    if (!res.ok) {
+        throw res.Error;
+    }
+    return res.json();
+}
 
 // Add Product to the Stripe product catalogue
 export async function stripeAddProduct(productData) {
