@@ -297,3 +297,23 @@ export async function createStripeCheckoutSession(myLineItems) {
 
     return response.json(response);
 }
+
+// Create an Order
+export async function createOrder(order) {
+    const response = await fetch(`route-handlers/order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Error creating order: ${errorData.message || response.statusText}`);
+    }
+    return response.json();
+}
+
+// TODO: Get an order
+
+
+
