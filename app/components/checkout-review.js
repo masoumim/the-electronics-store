@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getProduct, getBillingAddress } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getProduct, getBillingAddress, createOrder } from "../api/api.js";
 const auth = getFirebaseAuth();
 
 export default function CheckoutReview() {
@@ -126,7 +126,7 @@ export default function CheckoutReview() {
     useEffect(() => {
         async function fetchData() {
             // 1. Create order
-            // await createOrder(order);
+            await createOrder();
             // Order table fields: user_id, total, subtotal, taxes, num_items, shipping_address_id, billing_address_id
             
             // 2. For each product in the user's checkout session (or cart?), create an Order Product (order_product table)

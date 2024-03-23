@@ -299,11 +299,10 @@ export async function createStripeCheckoutSession(myLineItems) {
 }
 
 // Create an Order
-export async function createOrder(order) {
-    const response = await fetch(`route-handlers/order`, {
+export async function createOrder() {
+    const response = await fetch(`route-handlers/order?api_base_url=${apiBaseUrl}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
+        headers: { "Content-Type": "application/json" }
     });
 
     if (!response.ok) {
@@ -313,7 +312,7 @@ export async function createOrder(order) {
     return response.json();
 }
 
-// TODO: Get an order
+// TODO: Get all orders
 
 
 
