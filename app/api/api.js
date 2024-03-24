@@ -306,10 +306,11 @@ export async function createOrder() {
     });
 
     if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Error creating order: ${errorData.message || response.statusText}`);
+        throw new Error(`Error creating order: ${response.statusText}`);
     }
-    return response.json();
+
+    // If the request was successful, you can return a success message or the status code
+    return { message: 'Order created successfully', status: response.status };
 }
 
 // TODO: Get all orders

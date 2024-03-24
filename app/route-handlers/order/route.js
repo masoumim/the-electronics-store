@@ -10,14 +10,12 @@ export async function POST(request) {
     const { searchParams } = new URL(request.url);
     const apiBaseURL = searchParams.get('api_base_url');
 
-    // Call the backend
-    console.log('!!! calling /orders/create on backend !!!');
-    console.log(`apiBaseURL = ${apiBaseURL}`);
+    // Call the backend API to create an order
     const res = await fetch(`${apiBaseURL}/orders/create`, { method: "POST", headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.statusText;
     }
 
-    const data = await res.json();
-    return Response.json(data);
+    // Return a new Response object with a success status code and message
+    return new Response('Order created successfully', { status: 200 });
 }
