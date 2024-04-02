@@ -121,19 +121,10 @@ export default function CheckoutReview() {
         fetchData();
     }, [checkoutSessionInfo])
 
-    // TODO: Create an ORDER and add it to user's order history
-    // TODO: Clear user's cart 
-    // TODO: Delete user's checkout session.
     // Create an Order
     useEffect(() => {
         async function fetchData() {
-            // 1. Create order
             await createOrder();
-                
-            // 2. For each product in the user's checkout session (or cart?), create an Order Product (order_product table)
-            // Order_Product table fields: order_id, product_id, quantity
-
-            
         }
         fetchData();
     }, [])
