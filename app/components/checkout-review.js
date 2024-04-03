@@ -121,13 +121,24 @@ export default function CheckoutReview() {
         fetchData();
     }, [checkoutSessionInfo])
 
+    // // Create an Order
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         await createOrder();
+    //     }
+    //     fetchData();
+    // }, [])
+
     // Create an Order
     useEffect(() => {
         async function fetchData() {
-            await createOrder();
+            // We need to make sure the user is logged in, the checkout session info is available, the order products are available, and the shipping and billing addresses are available before creating the order
+            if (userLoggedIn && checkoutSessionInfo && orderProducts.length > 0 && orderShippingAddress && orderBillingAddress) {
+                await createOrder();
+            }
         }
         fetchData();
-    }, [])
+    }, [userLoggedIn, checkoutSessionInfo, orderProducts, orderShippingAddress, orderBillingAddress])
 
     return (
         <>
