@@ -298,22 +298,47 @@ export async function createStripeCheckoutSession(myLineItems) {
     return response.json(response);
 }
 
+// // Create an Order
+// export async function createOrder() {
+//     console.log('Starting createOrder');
+//     const response = await fetch(`route-handlers/order?api_base_url=${apiBaseUrl}`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" }
+//     });
+
+//     if (!response.ok) {
+//         throw new Error(`Error creating order: ${response.statusText}`);
+//     }
+
+//     console.log('Finished createOrder');
+
+//     // If the request was successful, you can return a success message or the status code
+//     return { message: 'Order created successfully', status: response.status };
+// }
+
 // Create an Order
-export async function createOrder() {
-    const response = await fetch(`route-handlers/order?api_base_url=${apiBaseUrl}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-    });
+export let createOrder = (function () {
+    let executed = false;
+    return async function () {
+        if (!executed) {
+            executed = true;
+            console.log('Starting createOrder');
+            const response = await fetch(`route-handlers/order?api_base_url=${apiBaseUrl}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            });
 
-    if (!response.ok) {
-        throw new Error(`Error creating order: ${response.statusText}`);
+            if (!response.ok) {
+                throw new Error(`Error creating order: ${response.statusText}`);
+            }
+
+            console.log('Finished createOrder');
+
+            // If the request was successful, you can return a success message or the status code
+            return { message: 'Order created successfully', status: response.status };
+        }
     }
-
-    // If the request was successful, you can return a success message or the status code
-    return { message: 'Order created successfully', status: response.status };
-}
-
-// TODO: Get all orders
+})();
 
 
 

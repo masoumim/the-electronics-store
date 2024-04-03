@@ -20,6 +20,7 @@ export default function CheckoutReview() {
     const [checkoutSessionInfo, setCheckoutSessionInfo] = useState();
     const [orderShippingAddress, setOrderShippingAddress] = useState({});
     const [orderBillingAddress, setOrderBillingAddress] = useState({});
+    const [orderCreated, setOrderCreated] = useState(false);
     const router = useRouter();
 
     // If a user isn't signed in, redirect to /sign-in page
@@ -85,24 +86,15 @@ export default function CheckoutReview() {
     // Get info about each product the user purchased
     useEffect(() => {
         async function fetchData() {
-            // Get info on each product and store it in array 
-            const productsArray = [];
-            orderProducts.forEach(async product => {
-                // Fetch the product info
-                const fetchedProduct = await getProduct(product.product_id)
-                console.log(fetchedProduct);
-                // Store info in an object
-                const prodObj = {};
-                prodObj.id = fetchedProduct.id;
-                prodObj.name = fetchedProduct.name;
-                prodObj.price = fetchedProduct.price;
+            const productsArray = await Promise.all(orderProducts.map(async product => {
+                const fetchedProduct = await getProduct(product.product_id);
+                return {
+                    id: fetchedProduct.id,
+                    name: fetchedProduct.name,
+                    price: fetchedProduct.price
+                };
+            }));
 
-                // Store the object in array
-                productsArray.push(prodObj);
-            }
-            )
-
-            // Set 'products' state variable using the productsArray
             setProducts(productsArray);
         }
         fetchData();
@@ -121,24 +113,19 @@ export default function CheckoutReview() {
         fetchData();
     }, [checkoutSessionInfo])
 
-    // // Create an Order
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         await createOrder();
-    //     }
-    //     fetchData();
-    // }, [])
 
-    // Create an Order
+    // Create the order
     useEffect(() => {
         async function fetchData() {
             // We need to make sure the user is logged in, the checkout session info is available, the order products are available, and the shipping and billing addresses are available before creating the order
-            if (userLoggedIn && checkoutSessionInfo && orderProducts.length > 0 && orderShippingAddress && orderBillingAddress) {
+            if (!orderCreated && userLoggedIn && checkoutSessionInfo && orderProducts.length > 0 && orderShippingAddress && orderBillingAddress) {
+                console.log('Creating order with:', userLoggedIn, checkoutSessionInfo, orderProducts, orderShippingAddress, orderBillingAddress, orderCreated);
                 await createOrder();
+                setOrderCreated(true);
             }
         }
         fetchData();
-    }, [userLoggedIn, checkoutSessionInfo, orderProducts, orderShippingAddress, orderBillingAddress])
+    }, [userLoggedIn, checkoutSessionInfo, orderProducts, orderShippingAddress, orderBillingAddress, orderCreated]) // Add orderCreated to the dependency array
 
     return (
         <>
