@@ -12,10 +12,21 @@ export async function POST(request) {
 
     // Call the backend /register route and send the user registration info to the route
     const res = await fetch(`${apiBaseURL}/register`, { method: "POST", body: JSON.stringify(bodyData), headers: { "Content-Type": "application/json" } })
-    if (!res.ok) {
-        throw res.Error;
-    }
 
     const data = await res.json();
+
+    // Check if the response is not ok
+    if (!res.ok) {
+        // Check if the error message is about an existing user
+        if (data === "Registration failed. User with that email address already exists.") {
+            // Handle this specific error message
+            // You can replace this with any action you want to perform in this case
+            console.error(data);
+        }
+        throw new Error(data);
+    }
+
     return Response.json(data);
 }
+
+

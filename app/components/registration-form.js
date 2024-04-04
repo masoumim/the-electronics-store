@@ -15,6 +15,7 @@ export default function RegistrationForm() {
     const [inputLastName, setInputLastName] = useState("");               // Form 'First Name' input from user
     const [inputEmail, setInputEmail] = useState("");                   // Form 'email' input from user
     const [inputPassword, setInputPassword] = useState("");             // Form 'password' input from user
+    const [errorMessage, setErrorMessage] = useState("");              // Error message from backend
     const router = useRouter();
 
     // If a user is signed-in, redirect them back to /account
@@ -58,19 +59,29 @@ export default function RegistrationForm() {
                 const user = userCredential.user;
 
                 // Add user on backend
-                const addedUserBackend = await registerUser(inputFirstName, inputLastName, inputEmail, user.uid);
+                try {
+                    const addedUserBackend = await registerUser(inputFirstName, inputLastName, inputEmail, user.uid);
 
-                // Sign-in user on backend
-                console.log('calling signInNewUserBackend(addedUserBackend) where addedUserBackend = ');
-                console.log(addedUserBackend);
-                await signInNewUserBackend(addedUserBackend);
+                    // Sign-in user on backend
+                    console.log('calling signInNewUserBackend(addedUserBackend) where addedUserBackend = ');
+                    console.log(addedUserBackend);
+                    await signInNewUserBackend(addedUserBackend);
 
-                // Redirect to /account
-                router.push('/account');
+                    // Redirect to /account
+                    router.push('/account');
+                } catch (error) {
+                    setErrorMessage(error.message);
+                    setTimeout(() => setErrorMessage(''), 3000);  // Clear the error message after 3 seconds
+                }
             })
             .catch((error) => {
-                console.log(error);
-                throw error;
+                if (error.code === 'auth/email-already-in-use') {
+                    setErrorMessage('The email address is already in use by another account.');
+                    setTimeout(() => setErrorMessage(''), 3000);  // Clear the error message after 3 seconds
+                } else {
+                    console.log(error);
+                    throw error;
+                }
             });
     }
 
@@ -127,6 +138,8 @@ export default function RegistrationForm() {
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Sign Up
                 </button>
+                {/* Display error message if there is one */}
+                {errorMessage && <p className="text-red-500 text-xs italic mt-4">{errorMessage}</p>}
             </form>
         </>
     )

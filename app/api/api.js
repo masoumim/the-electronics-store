@@ -79,10 +79,20 @@ export async function sendIdToken(idToken) {
 export async function registerUser(firstName, lastName, email, uid) {
     const data = { firstName, lastName, email, uid }
     const res = await fetch(`route-handlers/register?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
+
+    const responseData = await res.json();
+
+    // Check if the response is not ok
     if (!res.ok) {
-        throw res.Error;
+        // Check if the error message is about an existing user
+        if (responseData === "Registration failed. User with that email address already exists.") {
+            // Handle this specific error message
+            // You can replace this with any action you want to perform in this case
+            console.error(responseData);
+        }
+        throw new Error(responseData);
     }
-    return res.json()
+    return responseData;
 }
 
 // Sign-in newly registered user on the backend
@@ -298,24 +308,6 @@ export async function createStripeCheckoutSession(myLineItems) {
     return response.json(response);
 }
 
-// // Create an Order
-// export async function createOrder() {
-//     console.log('Starting createOrder');
-//     const response = await fetch(`route-handlers/order?api_base_url=${apiBaseUrl}`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" }
-//     });
-
-//     if (!response.ok) {
-//         throw new Error(`Error creating order: ${response.statusText}`);
-//     }
-
-//     console.log('Finished createOrder');
-
-//     // If the request was successful, you can return a success message or the status code
-//     return { message: 'Order created successfully', status: response.status };
-// }
-
 // Create an Order
 export let createOrder = (function () {
     let executed = false;
@@ -340,5 +332,11 @@ export let createOrder = (function () {
     }
 })();
 
-
-
+// Get Orders
+export async function getOrders() {
+    const res = await fetch(`route-handlers/order-history?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    if (!res.ok) {
+        throw new Error('Error fetching orders');
+    }
+    return res.json();
+}
