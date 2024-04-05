@@ -340,3 +340,12 @@ export async function getOrders() {
     }
     return res.json();
 }
+
+// Get Computer products
+export async function getComputers() {
+    const response = await fetch(`route-handlers/computers?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    if (!response.ok) {
+        throw new Error('Error fetching computers');
+    }
+    return response.json();
+}
