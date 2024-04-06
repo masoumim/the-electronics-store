@@ -2,16 +2,15 @@
 
 'use client'
 import { useState, useEffect } from "react";
-import { getComputers } from "../api/api"; // Get the function to fetch all products under "Computers" category
-import ComputerProduct from './computer-product'; // replace with the actual path to your ComputerProduct component
+import { getComputers } from "../api/api";
+import StoreProduct from './store-product';
 
 export default function Computers() {
-    const [products, setProducts] = useState([]);       // Array of products
+    const [products, setProducts] = useState([]);
 
-    // Fetch the products when the component mounts
     useEffect(() => {
         async function fetchData() {
-            const data = await getComputers(); // modify this function to fetch all products under "Computers"
+            const data = await getComputers();
             setProducts(data);
         }
         fetchData();
@@ -22,7 +21,7 @@ export default function Computers() {
         <p>Computers:</p>
         {products.length > 0 ? 
             products.map((product, index) =>
-                <ComputerProduct key={index} {...product} /> // replace with the actual props your ComputerProduct component expects
+                <StoreProduct key={index} {...product} />
             )
             :
             <p>No products found!</p>
