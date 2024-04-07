@@ -349,3 +349,12 @@ export async function getComputers() {
     }
     return response.json();
 }
+
+// Get Gaming products
+export async function getGaming() {
+    const response = await fetch(`route-handlers/gaming?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    if (!response.ok) {
+        throw new Error('Error fetching gaming products');
+    }
+    return response.json();
+}
