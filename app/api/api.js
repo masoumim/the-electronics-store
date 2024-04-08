@@ -358,3 +358,12 @@ export async function getGaming() {
     }
     return response.json();
 }
+
+// Get Home Electronics products
+export async function getHomeElectronics() {
+    const response = await fetch(`route-handlers/home-electronics?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    if (!response.ok) {
+        throw new Error('Error fetching home electronics products');
+    }
+    return response.json();
+}
