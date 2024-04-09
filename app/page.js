@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <>
       <p>*Main page content goes here*</p>
-      <AllProducts />
     </>
   )
 }

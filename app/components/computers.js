@@ -1,31 +1,38 @@
 // computers.js: Fetch all products under "Computers" category
 
 'use client'
-import { useState, useEffect } from "react";
-import { getComputers } from "../api/api";
-import StoreProduct from './store-product';
+import React, { useState, useEffect } from 'react';
+import ProductCardFull from './product-card-full';
+import { getComputers } from '../api/api';
 
-export default function Computers() {
-    const [products, setProducts] = useState([]);
+const Computers = () => {
+  const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        async function fetchData() {
-            const data = await getComputers();
-            setProducts(data);
-        }
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const fetchedProducts = await getComputers();
+      setProducts(fetchedProducts);
+    };
 
-    return (
-        <>
-        <p>Computers:</p>
-        {products.length > 0 ? 
-            products.map((product, index) =>
-                <StoreProduct key={index} {...product} />
-            )
-            :
-            <p>No products found!</p>
-        }
-        </>
-    );
-}
+    fetchProducts();
+  }, []);
+
+  return (
+    <div>
+      {products.map(product => (
+        <ProductCardFull 
+          key={product.id}
+          image={product.image}
+          name={product.name}
+          price={product.price}
+          onSale={product.onSale}
+          discountedPrice={product.discountedPrice}
+          productCode={product.productCode}
+          inStock={product.inStock}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default Computers;
