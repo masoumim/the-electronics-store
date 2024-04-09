@@ -367,3 +367,12 @@ export async function getHomeElectronics() {
     }
     return response.json();
 }
+
+// Get Cameras & Drones products
+export async function getCamerasDrones() {
+    const response = await fetch(`route-handlers/cameras-drones?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    if (!response.ok) {
+        throw new Error('Error fetching cameras and drones products');
+    }
+    return response.json();
+}
