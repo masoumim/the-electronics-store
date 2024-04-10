@@ -20,15 +20,15 @@ const Computers = () => {
   return (
     <div>
       {products.map(product => (
-        <ProductCardFull 
+        <ProductCardFull
           key={product.id}
-          image={product.image}
+          image={product.img_filename}
           name={product.name}
           price={product.price}
-          onSale={product.onSale}
-          discountedPrice={product.discountedPrice}
-          productCode={product.productCode}
-          inStock={product.inStock}
+          onSale={product.discount_type !== 'none'}
+          discountedPrice={product.price * (1 - product.discount_percent / 100)}
+          productCode={product.item_code}
+          inStock={product.inventory > 0}
         />
       ))}
     </div>

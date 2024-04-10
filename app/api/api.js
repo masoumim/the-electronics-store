@@ -31,13 +31,30 @@ export async function getCartInfo() {
 }
 
 // Add Product to Cart
-export async function addProductToCart(productID) {
-    const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+export async function addProductToCart(productID) {    
+    const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ productId: productID })
+    });
     if (!res.ok) {
-        throw res.Error;
+        const error = await res.text(); // read the response body as text
+        throw new Error(error);
     }
     return res.json()
 }
+
+
+// Add Product to Cart
+// export async function addProductToCart(productID) {
+//     const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+//     if (!res.ok) {
+//         throw res.Error;
+//     }
+//     return res.json()
+// }
 
 // Remove Product from Cart
 export async function removeProductFromCart(productID) {

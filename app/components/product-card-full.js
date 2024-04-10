@@ -9,7 +9,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn } from "../api/api.js";
+import { checkBackendSignIn, addProductToCart } from "../api/api.js";
 import { ctx } from "./providers.js";
 
 const auth = getFirebaseAuth();
@@ -17,6 +17,7 @@ const auth = getFirebaseAuth();
 const ProductCardFull = ({ image, name, price, onSale, discountedPrice, productCode, inStock }) => {
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
+    const [user, setUser] = useState(null);
     const contactsCtx = useContext(ctx); // The Context object
     const cart = contactsCtx[0]; // State object representing user's cart
     const setCart = contactsCtx[1]; // Setter to set cart
@@ -28,8 +29,8 @@ const ProductCardFull = ({ image, name, price, onSale, discountedPrice, productC
             if (user) {
                 // Confirm user is signed in on the backend                                 
                 const backendUser = await checkBackendSignIn();
-                if (!backendUser) {
-                    router.push('/sign-in');
+                if (backendUser) {
+                    setUser(user);
                 }
             } else {
                 // Get the current signed-in user using onAuthStateChanged                
@@ -37,13 +38,9 @@ const ProductCardFull = ({ image, name, price, onSale, discountedPrice, productC
                     if (user) {
                         // Check that user is signed-in in the backend                        
                         const backendUser = await checkBackendSignIn();
-                        if (!backendUser) {
-                            router.push('/sign-in');
+                        if (backendUser) {
+                            setUser(user);
                         }
-                    }
-                    else {
-                        // Redirect user to /sign-in page
-                        router.push('/sign-in')
                     }
                 })
             }
@@ -52,8 +49,25 @@ const ProductCardFull = ({ image, name, price, onSale, discountedPrice, productC
     }, [])
 
     // Add product to cart
-    const handleAddToCart = () => {
-        setShowModal(true);
+    const handleAddToCart = async () => {
+        if (user) {
+            try {
+                // Add the product to the cart
+                await addProductToCart(productCode);
+
+                // Update the cart in the state
+                setCart(prevCart => {
+                    return [...prevCart, { image, name, price, onSale, discountedPrice, productCode, inStock }];
+                });
+
+                setShowModal(true);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        } else {
+            // Redirect to sign-in page
+            router.push('/sign-in');
+        }
     };
 
     // Continue shopping
