@@ -46,16 +46,6 @@ export async function addProductToCart(productID) {
     return res.json()
 }
 
-
-// Add Product to Cart
-// export async function addProductToCart(productID) {
-//     const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
-//     if (!res.ok) {
-//         throw res.Error;
-//     }
-//     return res.json()
-// }
-
 // Remove Product from Cart
 export async function removeProductFromCart(productID) {
     const res = await fetch(`route-handlers/cart-remove-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);

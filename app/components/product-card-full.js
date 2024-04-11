@@ -14,7 +14,7 @@ import { ctx } from "./providers.js";
 
 const auth = getFirebaseAuth();
 
-const ProductCardFull = ({ image, name, price, onSale, discountedPrice, productCode, inStock }) => {
+const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, productCode, inStock }) => {
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
     const [user, setUser] = useState(null);
@@ -53,11 +53,14 @@ const ProductCardFull = ({ image, name, price, onSale, discountedPrice, productC
         if (user) {
             try {
                 // Add the product to the cart
-                await addProductToCart(productCode);
+                await addProductToCart(id);
 
                 // Update the cart in the state
                 setCart(prevCart => {
-                    return [...prevCart, { image, name, price, onSale, discountedPrice, productCode, inStock }];
+                    return {
+                        ...prevCart,
+                        [id]: { image, name, price, onSale, discountedPrice, productCode, inStock }
+                    };
                 });
 
                 setShowModal(true);

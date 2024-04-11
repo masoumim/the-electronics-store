@@ -22,6 +22,7 @@ const Computers = () => {
       {products.map(product => (
         <ProductCardFull
           key={product.id}
+          id={product.id}
           image={product.img_filename}
           name={product.name}
           price={product.price}
