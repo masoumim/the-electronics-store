@@ -85,7 +85,7 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
 
     return (
         <div className="product-card">
-            <img src={image} alt={name} />
+            <img src={image} alt={name} className="object-cover h-64 w-64" />
             <h2>{name}</h2>
             {onSale ? <p className="price discounted">{discountedPrice}</p> : <p className="price">{price}</p>}
             <p className="product-code">{productCode}</p>
