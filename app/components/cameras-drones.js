@@ -1,31 +1,39 @@
 // cameras-drones.js: Fetch all products under "Cameras & Drones" category
 
 'use client'
-import { useState, useEffect } from "react";
-import { getCamerasDrones } from "../api/api"; // Make sure to implement this function in your API module
-import StoreProduct from './store-product';
+import React, { useState, useEffect } from 'react';
+import ProductCardFull from './product-card-full';
+import { getCamerasDrones } from '../api/api';
 
-export default function CamerasDrones() {
-    const [products, setProducts] = useState([]);
+const CamerasDrones = () => {
+  const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        async function fetchData() {
-            const data = await getCamerasDrones();
-            setProducts(data);
-        }
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const fetchedProducts = await getCamerasDrones();
+      setProducts(fetchedProducts);
+    };
 
-    return (
-        <>
-        <p>Cameras & Drones:</p>
-        {products.length > 0 ? 
-            products.map((product, index) =>
-                <StoreProduct key={index} {...product} />
-            )
-            :
-            <p>No products found!</p>
-        }
-        </>
-    );
-}
+    fetchProducts();
+  }, []);
+
+  return (
+    <div>
+      {products.map(product => (
+        <ProductCardFull
+          key={product.id}
+          id={product.id}
+          image={product.img_url}
+          name={product.name}
+          price={product.price}
+          onSale={product.discount_type !== 'none'}
+          discountedPrice={product.price * (1 - product.discount_percent / 100)}
+          productCode={product.item_code}
+          inStock={product.inventory > 0}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default CamerasDrones;
