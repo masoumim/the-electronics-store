@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductCardFull from './product-card-full';
 import { getComputers } from '../api/api';
+import Breadcrumbs from './breadcrumbs';
 
 const Computers = () => {
   const [products, setProducts] = useState([]);
@@ -19,6 +20,7 @@ const Computers = () => {
 
   return (
     <div>
+      <Breadcrumbs category="computers" />
       {products.map(product => (
         <ProductCardFull
           key={product.id}

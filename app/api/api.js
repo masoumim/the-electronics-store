@@ -383,3 +383,21 @@ export async function getCamerasDrones() {
     }
     return response.json();
 }
+
+// Get Products by Category Code
+export async function getProductsByCategory(categoryCode) {
+    const response = await fetch(`/route-handlers/get-products-by-category?api_base_url=${apiBaseUrl}&category=${categoryCode}`, { method: "GET" });    
+    if (!response.ok) {
+        throw new Error('Error fetching products by category');
+    }
+    return response.json();
+}
+
+// Get Products containing Category Code
+export async function getProductsContainingCategory(categoryCode) {
+    const response = await fetch(`/route-handlers/get-products-containing-category?api_base_url=${apiBaseUrl}&category=${categoryCode}`, { method: "GET" });
+    if (!response.ok) {
+        throw new Error('Error fetching products containing category');
+    }
+    return response.json();
+}
