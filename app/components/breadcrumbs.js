@@ -1,6 +1,8 @@
 // TODO: breadcrumbs.js - This component displays the breadcrumbs for the current page
-
 'use client'
+
+import Home from "../page";
+import HomeElectronics from "./home-electronics";
 
 // The breadcrumbsData object contains the data for the breadcrumbs based on the current page
 const breadcrumbsData = {
@@ -48,6 +50,70 @@ const breadcrumbsData = {
         { href: "/", label: "Home" },
         { href: "/gaming", label: "Gaming" },
         { href: "/gaming/consoles", label: "Consoles" }
+    ],
+    gamingConsolesPlaystation: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/consoles", label: "Consoles" },
+        { href: "/gaming/consoles/playstation", label: "Playstation" }
+    ],
+    gamingConsolesNintendo: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/consoles", label: "Consoles" },
+        { href: "/gaming/consoles/nintendo", label: "Nintendo" }
+    ],
+    gamingConsolesXbox: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/consoles", label: "Consoles" },
+        { href: "/gaming/consoles/xbox", label: "Xbox" }
+    ],
+    gamingAccessories: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/accessories", label: "Accessories" }
+    ],
+    gamingAccessoriesHeadsets: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/accessories", label: "Accessories" },
+        { href: "/gaming/accessories/headsets", label: "Headsets" }
+    ],
+    gamingAccessoriesControllers: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/accessories", label: "Accessories" },
+        { href: "/gaming/accessories/controllers", label: "Controllers" }
+    ],
+    HomeElectronics: [
+        { href: "/", label: "Home" },
+        { href: "/home-electronics", label: "Home Electronics" }
+    ],
+    HomeElectronicsTelevisions: [
+        { href: "/", label: "Home" },
+        { href: "/home-electronics", label: "Home Electronics" },
+        { href: "/home-electronics/televisions", label: "Televisions" }
+    ],
+    HomeElectronicsSpeakers: [
+        { href: "/", label: "Home" },
+        { href: "/home-electronics", label: "Home Electronics" },
+        { href: "/home-electronics/speakers", label: "Speakers" }
+    ],
+    HomeElectronicsHomeSecurity: [
+        { href: "/", label: "Home" },
+        { href: "/home-electronics", label: "Home Electronics" },
+        { href: "/home-electronics/home-security", label: "Home Security" }
+    ],
+    HomeElectronicsMediaStreamers: [
+        { href: "/", label: "Home" },
+        { href: "/home-electronics", label: "Home Electronics" },
+        { href: "/home-electronics/media-streamers", label: "Media Streamers" }
+    ],
+    HomeElectronicsAppliances: [
+        { href: "/", label: "Home" },
+        { href: "/home-electronics", label: "Home Electronics" },
+        { href: "/home-electronics/appliances", label: "Appliances" }
     ],
 };
 
