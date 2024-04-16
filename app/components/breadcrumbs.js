@@ -19,7 +19,20 @@ const breadcrumbsData = {
         { href: "/computers/desktops", label: "Desktops" },
         { href: "/computers/desktops/parts", label: "Parts" }
     ],
-    // ... Similar arrays for other product paths
+    computersDesktopsPartsCpus: [
+        { href: "/", label: "Home" },
+        { href: "/computers", label: "Computers" },
+        { href: "/computers/desktops", label: "Desktops" },
+        { href: "/computers/desktops/parts", label: "Parts" },
+        { href: "/computers/desktops/parts/cpus", label: "CPUs" }
+    ],
+    computerDesktopPartsMem: [
+        { href: "/", label: "Home" },
+        { href: "/computers", label: "Computers" },
+        { href: "/computers/desktops", label: "Desktops" },
+        { href: "/computers/desktops/parts", label: "Parts" },
+        { href: "/computers/desktops/parts/ram", label: "MEM" }
+    ],
 };
 
 
