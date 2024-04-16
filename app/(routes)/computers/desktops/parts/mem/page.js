@@ -3,7 +3,7 @@ import 'server-only';
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import Mem from '@/app/components/mem';
 
-export default function ComputerPartsCpu() {
+export default function ComputerPartsMem() {
     return (
         <>
             <Breadcrumbs category="computerDesktopPartsMem" />

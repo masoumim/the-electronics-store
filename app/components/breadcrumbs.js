@@ -33,6 +33,13 @@ const breadcrumbsData = {
         { href: "/computers/desktops/parts", label: "Parts" },
         { href: "/computers/desktops/parts/ram", label: "MEM" }
     ],
+    computerDesktopPartsHdd: [
+        { href: "/", label: "Home" },
+        { href: "/computers", label: "Computers" },
+        { href: "/computers/desktops", label: "Desktops" },
+        { href: "/computers/desktops/parts", label: "Parts" },
+        { href: "/computers/desktops/parts/hdd", label: "HDD" }
+    ],
 };
 
 
