@@ -40,6 +40,15 @@ const breadcrumbsData = {
         { href: "/computers/desktops/parts", label: "Parts" },
         { href: "/computers/desktops/parts/hdd", label: "HDD" }
     ],
+    gaming: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" }
+    ],
+    gamingConsoles: [
+        { href: "/", label: "Home" },
+        { href: "/gaming", label: "Gaming" },
+        { href: "/gaming/consoles", label: "Consoles" }
+    ],
 };
 
 

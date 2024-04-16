@@ -6,7 +6,7 @@ import ProductCardFull from "./product-card-full";
 
 const { useEffect, useState } = require("react");
 
-const Parts = () => {
+export default function Parts() {
 
     const [products, setProducts] = useState([]);
 
@@ -41,5 +41,3 @@ const Parts = () => {
     )
 
 }
-
-export default Parts;

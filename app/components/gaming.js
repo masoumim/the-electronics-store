@@ -4,8 +4,9 @@
 import React, { useState, useEffect } from 'react';
 import ProductCardFull from './product-card-full';
 import { getGaming } from '../api/api';
+import Breadcrumbs from './breadcrumbs';
 
-const Gaming = () => {
+export default function Gaming() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const Gaming = () => {
 
   return (
     <div>
+      <Breadcrumbs category="gaming" />
       {products.map(product => (
         <ProductCardFull
           key={product.id}
@@ -35,5 +37,3 @@ const Gaming = () => {
     </div>
   );
 };
-
-export default Gaming;
