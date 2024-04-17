@@ -2,6 +2,7 @@
 'use client'
 
 import Home from "../page";
+import CamerasDrones from "./cameras-drones";
 import HomeElectronics from "./home-electronics";
 
 // The breadcrumbsData object contains the data for the breadcrumbs based on the current page
@@ -115,8 +116,36 @@ const breadcrumbsData = {
         { href: "/home-electronics", label: "Home Electronics" },
         { href: "/home-electronics/appliances", label: "Appliances" }
     ],
-};
-
+    CamerasDrones: [
+        { href: "/", label: "Home" },
+        { href: "/cameras-drones", label: "Cameras & Drones" }
+    ],
+    Drones: [
+        { href: "/", label: "Home" },
+        { href: "/cameras-drones", label: "Cameras & Drones" },
+        { href: "/cameras-drones/drones", label: "Drones" }
+    ],
+    CamerasMemory: [
+        { href: "/", label: "Home" },
+        { href: "/cameras-drones", label: "Cameras & Drones" },
+        { href: "/cameras-drones/memory", label: "Memory" }
+    ],
+    CamerasAction: [
+        { href: "/", label: "Home" },
+        { href: "/cameras-drones", label: "Cameras & Drones" },
+        { href: "/cameras-drones/action", label: "Action" }
+    ],
+    CamerasDsl: [
+        { href: "/", label: "Home" },
+        { href: "/cameras-drones", label: "Cameras & Drones" },
+        { href: "/cameras-drones/dsl", label: "DSLR" }
+    ],
+    CamerasPointAndShoot: [
+        { href: "/", label: "Home" },
+        { href: "/cameras-drones", label: "Cameras & Drones" },
+        { href: "/cameras-drones/point-and-shoot", label: "Point & Shoot" }
+    ],
+}
 
 export default function Breadcrumbs({ category }) {
 
