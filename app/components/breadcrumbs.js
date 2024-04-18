@@ -1,9 +1,5 @@
-// TODO: breadcrumbs.js - This component displays the breadcrumbs for the current page
+// breadcrumbs.js - This component displays the breadcrumbs for the current page
 'use client'
-
-import Home from "../page";
-import CamerasDrones from "./cameras-drones";
-import HomeElectronics from "./home-electronics";
 
 // The breadcrumbsData object contains the data for the breadcrumbs based on the current page
 const breadcrumbsData = {
@@ -42,6 +38,11 @@ const breadcrumbsData = {
         { href: "/computers/desktops", label: "Desktops" },
         { href: "/computers/desktops/parts", label: "Parts" },
         { href: "/computers/desktops/parts/hdd", label: "HDD" }
+    ],
+    computersLaptops: [
+        { href: "/", label: "Home" },
+        { href: "/computers", label: "Computers" },
+        { href: "/computers/laptops", label: "Laptops" }
     ],
     gaming: [
         { href: "/", label: "Home" },
