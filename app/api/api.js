@@ -14,7 +14,7 @@ export async function getProducts() {
 
 // Get product by product ID
 export async function getProduct(productID) {
-    const res = await fetch(`route-handlers/product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    const res = await fetch(`/route-handlers/product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
     }

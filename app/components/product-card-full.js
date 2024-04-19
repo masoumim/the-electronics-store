@@ -11,6 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, addProductToCart } from "../api/api.js";
 import { ctx } from "./providers.js";
+import Link from 'next/link.js';
 
 const auth = getFirebaseAuth();
 
@@ -86,7 +87,8 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
     return (
         <div className="product-card">
             <img src={image} alt={name} className="object-cover h-64 w-64" />
-            <h2>{name}</h2>
+            {/* TODO: Make the route below dynamic */}
+            <Link href={`/computers/laptops/${id}`}>{name}</Link>
             {onSale ? <p className="price discounted">{discountedPrice}</p> : <p className="price">{price}</p>}
             <p className="product-code">{productCode}</p>
             <p className="stock-status">{inStock ? "In Stock" : "Out of Stock"}</p>
