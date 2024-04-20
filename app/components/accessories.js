@@ -8,14 +8,24 @@ import ProductCardFull from './product-card-full';
 export default function Accessories() {
     const [products, setProducts] = useState([]);
 
+    // Fetch all gaming accessory products that contain the category code for headsets and controllers
     useEffect(() => {
         const fetchProducts = async () => {
-            const fetchedProducts = await getProductsContainingCategory("GAMACC");
-            setProducts(fetchedProducts);
+            const headsetProducts = await getProductsContainingCategory("ACCHEA");
+            const controllerProducts = await getProductsContainingCategory("ACCCON");
+            
+            // Add an accessoryType property to each product
+            headsetProducts.forEach(product => product.accessoryType = 'headsets');
+            controllerProducts.forEach(product => product.accessoryType = 'controllers');
+            
+            // Combine all products
+            const allProducts = [...headsetProducts, ...controllerProducts];
+            
+            setProducts(allProducts);
         };
         fetchProducts();
     }, []);
-
+    
     return (
         <div>
             {/* Display the Accessories products */}
@@ -30,6 +40,7 @@ export default function Accessories() {
                     discountedPrice={product.price * (1 - product.discount_percent / 100)}
                     productCode={product.item_code}
                     inStock={product.inventory > 0}
+                    url={`/gaming/accessories/${product.accessoryType}/${product.id}`}
                 />
             ))} 
         </div>
