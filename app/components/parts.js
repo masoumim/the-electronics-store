@@ -10,10 +10,22 @@ export default function Parts() {
 
     const [products, setProducts] = useState([]);
 
+    // Fetch all products containing the category code for memory, hdd, and cpu
     useEffect(() => {
         const fetchProducts = async () => {
-            const fetchedProducts = await getProductsContainingCategory("COMDESPAR");
-            setProducts(fetchedProducts);
+            const memoryProducts = await getProductsContainingCategory("PARMEM");
+            const hddProducts = await getProductsContainingCategory("PARHAR");
+            const cpuProducts = await getProductsContainingCategory("PARCPU");
+
+            // Add a partType property to each product
+            memoryProducts.forEach(product => product.partType = 'memory');
+            hddProducts.forEach(product => product.partType = 'hdd');
+            cpuProducts.forEach(product => product.partType = 'cpu');
+
+            // Combine all products
+            const allProducts = [...memoryProducts, ...hddProducts, ...cpuProducts];
+
+            setProducts(allProducts);
         };
 
         fetchProducts();
@@ -34,10 +46,10 @@ export default function Parts() {
                         discountedPrice={product.price * (1 - product.discount_percent / 100)}
                         productCode={product.item_code}
                         inStock={product.inventory > 0}
+                        url={`/computers/desktops/parts/${product.partType}/${product.id}`}
                     />
                 ))}
             </div>
         </>
     )
-
 }

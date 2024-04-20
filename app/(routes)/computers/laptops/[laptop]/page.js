@@ -2,12 +2,9 @@
 import 'server-only';
 import ProductPage from '@/app/components/product-page';
 
-
 export default function LaptopPage({ params }) {
     return (
         <div>
-            <p>test product page</p>
-            {params.laptop}
             <ProductPage id={params.laptop} />
         </div>
     );

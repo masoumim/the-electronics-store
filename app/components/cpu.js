@@ -13,7 +13,7 @@ export default function Cpu() {
             const fetchedProducts = await getProductsByCategory("COMDESPARCPU");
             setProducts(fetchedProducts);
         };
-
+        
         fetchProducts();
     }, []);
 
@@ -32,6 +32,7 @@ export default function Cpu() {
                         discountedPrice={product.price * (1 - product.discount_percent / 100)}
                         productCode={product.item_code}
                         inStock={product.inventory > 0}
+                        url={`/computers/desktops/parts/cpu/${product.id}`}
                     />
                 ))}                     
             </div>

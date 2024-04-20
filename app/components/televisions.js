@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProductsByCategory } from '../api/api';
 import ProductCardFull from './product-card-full';
-import Breadcrumbs from './breadcrumbs';
 
 export default function Televisions() {
     const [products, setProducts] = useState([]);

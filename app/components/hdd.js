@@ -30,6 +30,7 @@ export default function Hdd() {
                     discountedPrice={product.price * (1 - product.discount_percent / 100)}
                     productCode={product.item_code}
                     inStock={product.inventory > 0}
+                    url={`/computers/desktops/parts/hdd/${product.id}`}
                 />
             ))} 
         </div>
