@@ -3,7 +3,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import ProductCardFull from './product-card-full';
-import { getComputers } from '../api/api';
+import { getProductsByCategory, getProductsContainingCategory } from '../api/api';
 import Breadcrumbs from './breadcrumbs';
 
 const Computers = () => {
@@ -15,35 +15,28 @@ const Computers = () => {
     const fetchProducts = async () => {
       // TODO: The function getComputers() gets all computers
       // I need methods to get desktops, laptops, and parts...
-      const desktopProducts = await getComputers("COMDES");
-      const laptopProducts = await getComputers("COMLAP");
-      const partsProducts = await getComputers("COMPAR");
+      const desktopProducts = await getProductsByCategory("COMDES");
+      const laptopProducts = await getProductsByCategory("COMLAP");
+      const desktopPartsMemory = await getProductsContainingCategory("COMDESPARMEM");
+      const desktopPartsCPU = await getProductsContainingCategory("COMDESPARCPU");
+      const desktopPartsHDD = await getProductsContainingCategory("COMDESPARHAR");
 
-      // Add a computerProductType property to each product
-      desktopProducts.forEach(product => product.computerProductType = 'desktops');
-      laptopProducts.forEach(product => product.computerProductType = 'laptops');
-      partsProducts.forEach(product => product.computerProductType = 'parts');
+      // Add a ProductType property to each product
+      desktopProducts.forEach(product => product.ProductType = 'desktops');
+      laptopProducts.forEach(product => product.ProductType = 'laptops');
+      desktopPartsMemory.forEach(product => product.ProductType = 'memory');
+      desktopPartsCPU.forEach(product => product.ProductType = 'cpu');
+      desktopPartsHDD.forEach(product => product.ProductType = 'hdd');
+
 
       // Combine all products
-      const allProducts = [...desktopProducts, ...laptopProducts, ...partsProducts];
+      const allProducts = [...desktopProducts, ...laptopProducts, ...desktopPartsMemory, ...desktopPartsCPU, ...desktopPartsHDD];
 
       setProducts(allProducts);
     };
 
     fetchProducts();
   }, []);
-
-
-
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const fetchedProducts = await getComputers();
-  //     setProducts(fetchedProducts);
-  //   };
-
-  //   fetchProducts();
-  // }, []);
 
   return (
     <div>
@@ -59,7 +52,9 @@ const Computers = () => {
           discountedPrice={product.price * (1 - product.discount_percent / 100)}
           productCode={product.item_code}
           inStock={product.inventory > 0}
-          url={`/computers/${product.computerProductType}/${product.id}`}
+          url={product.ProductType === 'desktops' || product.ProductType === 'laptops'
+            ? `/computers/${product.ProductType}/${product.id}`
+            : `/computers/desktops/parts/${product.ProductType}/${product.id}`}
         />
       ))}
     </div>

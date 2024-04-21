@@ -23,14 +23,14 @@ const breadcrumbsData = {
         { href: "/computers", label: "Computers" },
         { href: "/computers/desktops", label: "Desktops" },
         { href: "/computers/desktops/parts", label: "Parts" },
-        { href: "/computers/desktops/parts/cpus", label: "CPUs" }
+        { href: "/computers/desktops/parts/cpu", label: "CPUs" }
     ],
     computerDesktopPartsMem: [
         { href: "/", label: "Home" },
         { href: "/computers", label: "Computers" },
         { href: "/computers/desktops", label: "Desktops" },
         { href: "/computers/desktops/parts", label: "Parts" },
-        { href: "/computers/desktops/parts/ram", label: "Memory" }
+        { href: "/computers/desktops/parts/memory", label: "Memory" }
     ],
     computerDesktopPartsHdd: [
         { href: "/", label: "Home" },
