@@ -30,8 +30,9 @@ export default function Playstation() {
                     discountedPrice={product.price * (1 - product.discount_percent / 100)}
                     productCode={product.item_code}
                     inStock={product.inventory > 0}
+                    url={`/gaming/consoles/playstation/${product.id}`}
                 />
-            ))} 
+            ))}
         </div>
     )
 }

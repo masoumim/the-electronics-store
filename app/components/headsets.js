@@ -30,6 +30,7 @@ export default function Headsets() {
                     discountedPrice={product.price * (1 - product.discount_percent / 100)}
                     productCode={product.item_code}
                     inStock={product.inventory > 0}
+                    url={`/gaming/accessories/headsets/${product.id}`}
                 />
             ))} 
         </div>

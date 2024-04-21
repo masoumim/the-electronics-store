@@ -8,13 +8,12 @@ import Breadcrumbs from './breadcrumbs';
 
 const Computers = () => {
   const [products, setProducts] = useState([]);
-  const [computerProductType, setComputerProductType] = useState('');
 
   // Fetch all products containing the code for desktop, laptop and desktop parts
   useEffect(() => {
     const fetchProducts = async () => {
-      // TODO: The function getComputers() gets all computers
-      // I need methods to get desktops, laptops, and parts...
+
+      // Fetch all products in the computers category
       const desktopProducts = await getProductsByCategory("COMDES");
       const laptopProducts = await getProductsByCategory("COMLAP");
       const desktopPartsMemory = await getProductsContainingCategory("COMDESPARMEM");
@@ -27,7 +26,6 @@ const Computers = () => {
       desktopPartsMemory.forEach(product => product.ProductType = 'memory');
       desktopPartsCPU.forEach(product => product.ProductType = 'cpu');
       desktopPartsHDD.forEach(product => product.ProductType = 'hdd');
-
 
       // Combine all products
       const allProducts = [...desktopProducts, ...laptopProducts, ...desktopPartsMemory, ...desktopPartsCPU, ...desktopPartsHDD];
