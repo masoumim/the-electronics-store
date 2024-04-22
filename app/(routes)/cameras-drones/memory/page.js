@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function CamerasMemoryPage() {
     return (
         <>
-            <Breadcrumbs category="CamerasMemory" />
+            <Breadcrumbs category="camerasMemory" />
             <CamerasMemory />
         </>
     );

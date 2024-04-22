@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function CamerasPointAndShootPage() {
     return (
         <>
-            <Breadcrumbs category="CamerasPointAndShoot" />
+            <Breadcrumbs category="camerasPointAndShoot" />
             <CamerasPointAndShoot />
         </>
     );

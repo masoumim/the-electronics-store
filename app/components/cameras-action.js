@@ -30,6 +30,7 @@ export default function CamerasAction() {
                     discountedPrice={product.price * (1 - product.discount_percent / 100)}
                     productCode={product.item_code}
                     inStock={product.inventory > 0}
+                    url={`/cameras-drones/action/${product.id}`}
                 />
             ))}
         </div>

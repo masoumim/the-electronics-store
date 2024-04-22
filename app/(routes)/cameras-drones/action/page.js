@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function CamerasActionPage() {
     return (
         <>
-            <Breadcrumbs category="CamerasAction" />
+            <Breadcrumbs category="camerasAction" />
             <CamerasAction />
         </>
     );

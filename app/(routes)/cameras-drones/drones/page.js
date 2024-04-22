@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function DronesPage() {
     return (
         <>
-            <Breadcrumbs category="Drones" />
+            <Breadcrumbs category="drones" />
             <Drones />
         </>
     );

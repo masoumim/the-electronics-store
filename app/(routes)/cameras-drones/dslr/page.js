@@ -2,10 +2,10 @@ import 'server-only';
 import CamerasDslr from '@/app/components/cameras-dslr';
 import Breadcrumbs from '@/app/components/breadcrumbs';
 
-export default function CamerasDslPage() {
+export default function CamerasDslrPage() {
     return (
         <>
-            <Breadcrumbs category="CamerasDsl" />
+            <Breadcrumbs category="camerasDslr" />
             <CamerasDslr />
         </>
     );

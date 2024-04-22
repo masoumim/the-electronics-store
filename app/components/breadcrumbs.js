@@ -136,10 +136,10 @@ const breadcrumbsData = {
         { href: "/cameras-drones", label: "Cameras & Drones" },
         { href: "/cameras-drones/action", label: "Action" }
     ],
-    camerasDsl: [
+    camerasDslr: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" },
-        { href: "/cameras-drones/dsl", label: "DSLR" }
+        { href: "/cameras-drones/dslr", label: "DSLR" }
     ],
     camerasPointAndShoot: [
         { href: "/", label: "Home" },
