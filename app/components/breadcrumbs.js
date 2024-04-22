@@ -88,60 +88,60 @@ const breadcrumbsData = {
         { href: "/gaming/accessories", label: "Accessories" },
         { href: "/gaming/accessories/controllers", label: "Controllers" }
     ],
-    HomeElectronics: [
+    homeElectronics: [
         { href: "/", label: "Home" },
         { href: "/home-electronics", label: "Home Electronics" }
     ],
-    HomeElectronicsTelevisions: [
+    homeElectronicsTelevisions: [
         { href: "/", label: "Home" },
         { href: "/home-electronics", label: "Home Electronics" },
         { href: "/home-electronics/televisions", label: "Televisions" }
     ],
-    HomeElectronicsSpeakers: [
+    homeElectronicsSpeakers: [
         { href: "/", label: "Home" },
         { href: "/home-electronics", label: "Home Electronics" },
         { href: "/home-electronics/speakers", label: "Speakers" }
     ],
-    HomeElectronicsHomeSecurity: [
+    homeElectronicsHomeSecurity: [
         { href: "/", label: "Home" },
         { href: "/home-electronics", label: "Home Electronics" },
         { href: "/home-electronics/home-security", label: "Home Security" }
     ],
-    HomeElectronicsMediaStreamers: [
+    homeElectronicsMediaStreamers: [
         { href: "/", label: "Home" },
         { href: "/home-electronics", label: "Home Electronics" },
         { href: "/home-electronics/media-streamers", label: "Media Streamers" }
     ],
-    HomeElectronicsAppliances: [
+    homeElectronicsAppliances: [
         { href: "/", label: "Home" },
         { href: "/home-electronics", label: "Home Electronics" },
         { href: "/home-electronics/appliances", label: "Appliances" }
     ],
-    CamerasDrones: [
+    camerasDrones: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" }
     ],
-    Drones: [
+    drones: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" },
         { href: "/cameras-drones/drones", label: "Drones" }
     ],
-    CamerasMemory: [
+    camerasMemory: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" },
         { href: "/cameras-drones/memory", label: "Memory" }
     ],
-    CamerasAction: [
+    camerasAction: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" },
         { href: "/cameras-drones/action", label: "Action" }
     ],
-    CamerasDsl: [
+    camerasDsl: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" },
         { href: "/cameras-drones/dsl", label: "DSLR" }
     ],
-    CamerasPointAndShoot: [
+    camerasPointAndShoot: [
         { href: "/", label: "Home" },
         { href: "/cameras-drones", label: "Cameras & Drones" },
         { href: "/cameras-drones/point-and-shoot", label: "Point & Shoot" }

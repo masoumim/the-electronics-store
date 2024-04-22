@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function SpeakersPage() {
     return (
         <>
-            <Breadcrumbs category="HomeElectronicsSpeakers" />
+            <Breadcrumbs category="homeElectronicsSpeakers" />
             <Speakers />
         </>
     );

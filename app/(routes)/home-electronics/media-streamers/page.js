@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function MediaStreamersPage() {
     return (
         <>
-            <Breadcrumbs category="HomeElectronicsMediaStreamers" />
+            <Breadcrumbs category="homeElectronicsMediaStreamers" />
             <MediaStreamers />
         </>
     );

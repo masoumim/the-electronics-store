@@ -5,7 +5,7 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 export default function AppliancesPage() {
     return (
         <>
-            <Breadcrumbs category="HomeElectronicsAppliances" />
+            <Breadcrumbs category="homeElectronicsAppliances" />
             <Appliances />
         </>
     );

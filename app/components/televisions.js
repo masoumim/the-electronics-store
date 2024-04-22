@@ -30,6 +30,7 @@ export default function Televisions() {
                     discountedPrice={product.price * (1 - product.discount_percent / 100)}
                     productCode={product.item_code}
                     inStock={product.inventory > 0}
+                    url={`/home-electronics/televisions/${product.id}`}
                 />
             ))} 
         </div>
