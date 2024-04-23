@@ -6,9 +6,6 @@ import 'server-only'
 // Font import
 import { Inter } from 'next/font/google'
 
-// Import global CSS file
-import './globals.css'
-
 // Import components
 import HeaderTitle from './components/header-title'
 import HeaderSignInAndCart from './components/header-signin-cart'
