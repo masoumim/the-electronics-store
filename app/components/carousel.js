@@ -13,25 +13,19 @@ export default function CarouselComponent() {
             <Splide options={{
                 type: 'loop',
                 perPage: 1,
-                focus: 'center',                
+                focus: 'center',
             }}>
                 <SplideSlide>
-                    <img src="https://picsum.photos/1200/600" alt="Slide 1" />
+                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_1.png" alt="An add for AMD Ryzen products" />
                 </SplideSlide>
                 <SplideSlide>
-                    <img src="https://picsum.photos/1200/600" alt="Slide 2" />
+                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_2.png" alt="An add announcing the PS5 is in stock" />
                 </SplideSlide>
                 <SplideSlide>
-                    <img src="https://picsum.photos/1200/600" alt="Slide 3" />
+                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_3.png" alt="Slide 3" />
                 </SplideSlide>
                 {/* Add more SplideSlide components for additional slides */}
             </Splide>
         </div>
     );
 }
-
-
-
-
-
-
