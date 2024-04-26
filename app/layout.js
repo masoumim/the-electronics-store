@@ -3,12 +3,15 @@
 
 import 'server-only'
 
+import '@/app/globals.css'
+
 // Font import
 import { Inter } from 'next/font/google'
 
+
+
 // Import components
-import HeaderTitle from './components/header-title'
-import HeaderSignInAndCart from './components/header-signin-cart'
+import HeaderInteractive from './components/header-interactive'
 import Navbar from './components/navbar'
 import Providers from './components/providers'
 
@@ -24,9 +27,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <HeaderTitle />
-        <HeaderSignInAndCart />
+      <body className={inter.className}>        
+        <HeaderInteractive />
         <nav>
           <Navbar />
         </nav>

@@ -17,11 +17,12 @@ const auth = getFirebaseAuth();
 
 const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, productCode, inStock, url = '/' }) => {
     const router = useRouter();
-    const [showModal, setShowModal] = useState(false);
     const [user, setUser] = useState(null);
     const contactsCtx = useContext(ctx); // The Context object
     const cart = contactsCtx[0]; // State object representing user's cart
     const setCart = contactsCtx[1]; // Setter to set cart
+
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -63,8 +64,6 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
                         [id]: { image, name, price, onSale, discountedPrice, productCode, inStock }
                     };
                 });
-
-                setShowModal(true);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -72,16 +71,11 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
             // Redirect to sign-in page
             router.push('/sign-in');
         }
+        setShowModal(true);
     };
 
-    // Continue shopping
-    const handleContinueShopping = () => {
+    const handleCloseModal = () => {
         setShowModal(false);
-    };
-
-    // Go to cart
-    const handleGoToCart = () => {
-        router.push('/cart');
     };
 
     return (
@@ -92,11 +86,16 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
             <p className="product-code">{productCode}</p>
             <p className="stock-status">{inStock ? "In Stock" : "Out of Stock"}</p>
             <button onClick={handleAddToCart} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add to Cart</button>
+
             {showModal && (
-                <div className="modal">
-                    <p>Do you want to go to cart or continue shopping?</p>
-                    <button onClick={handleGoToCart} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go to Cart</button>
-                    <button onClick={handleContinueShopping} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Continue Shopping</button>
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="bg-white p-4 rounded shadow-lg">
+                        <p>Do you want to go to cart or continue shopping?</p>
+                        <Link href="/cart">
+                            <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go to Cart</button>
+                        </Link>
+                        <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Continue Shopping</button>
+                    </div>
                 </div>
             )}
         </div>

@@ -5,7 +5,7 @@ const apiBaseUrl = process.env.NODE_ENV === "development" ? "http://localhost:80
 
 // Get all products
 export async function getProducts() {
-    const res = await fetch(`route-handlers/products?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/products?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -23,7 +23,7 @@ export async function getProduct(productID) {
 
 // Get Cart info
 export async function getCartInfo() {
-    const res = await fetch(`route-handlers/cart-info?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/cart-info?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         return res.json();
     }
@@ -32,7 +32,7 @@ export async function getCartInfo() {
 
 // Add Product to Cart
 export async function addProductToCart(productID) {    
-    const res = await fetch(`route-handlers/cart-add-product?api_base_url=${apiBaseUrl}`, {
+    const res = await fetch(`/route-handlers/cart-add-product?api_base_url=${apiBaseUrl}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export async function addProductToCart(productID) {
 
 // Remove Product from Cart
 export async function removeProductFromCart(productID) {
-    const res = await fetch(`route-handlers/cart-remove-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    const res = await fetch(`/route-handlers/cart-remove-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -57,7 +57,7 @@ export async function removeProductFromCart(productID) {
 
 // Delete Product from Cart
 export async function deleteProductFromCart(productID) {
-    const res = await fetch(`route-handlers/cart-delete-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
+    const res = await fetch(`/route-handlers/cart-delete-product?api_base_url=${apiBaseUrl}&product_id=${productID}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -66,7 +66,7 @@ export async function deleteProductFromCart(productID) {
 
 // Get user profile info
 export async function getUserInfo() {
-    const res = await fetch(`route-handlers/user-info?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/user-info?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         return res.json();
     }
@@ -75,7 +75,7 @@ export async function getUserInfo() {
 
 // Send user ID Token to backend to authorize user on server
 export async function sendIdToken(idToken) {
-    const res = await fetch(`route-handlers/backend-auth?api_base_url=${apiBaseUrl}&id_token=${idToken}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/backend-auth?api_base_url=${apiBaseUrl}&id_token=${idToken}`, { method: "POST", headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -85,7 +85,7 @@ export async function sendIdToken(idToken) {
 // Register a new user in the backend
 export async function registerUser(firstName, lastName, email, uid) {
     const data = { firstName, lastName, email, uid }
-    const res = await fetch(`route-handlers/register?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/register?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
 
     const responseData = await res.json();
 
@@ -104,7 +104,7 @@ export async function registerUser(firstName, lastName, email, uid) {
 
 // Sign-in newly registered user on the backend
 export async function signInNewUserBackend(newUser) {
-    const res = await fetch(`route-handlers/sign-in-new-backend?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(newUser), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/sign-in-new-backend?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(newUser), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -113,7 +113,7 @@ export async function signInNewUserBackend(newUser) {
 
 // Delete a user in the backend
 export async function deleteUserBackend(uid) {
-    const res = await fetch(`route-handlers/user-delete?api_base_url=${apiBaseUrl}&uid=${uid}`, { method: "DELETE" });
+    const res = await fetch(`/route-handlers/user-delete?api_base_url=${apiBaseUrl}&uid=${uid}`, { method: "DELETE" });
     if (!res.ok) {
         throw res.Error;
     }
@@ -122,7 +122,7 @@ export async function deleteUserBackend(uid) {
 
 // Sign user out of the backend
 export async function signOutBackend() {
-    const res = await fetch(`route-handlers/signout-backend?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/signout-backend?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -131,7 +131,7 @@ export async function signOutBackend() {
 
 // Check if user is signed-in on the backend
 export async function checkBackendSignIn() {
-    const res = await fetch(`route-handlers/check-backend-sign-in?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/check-backend-sign-in?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -140,7 +140,7 @@ export async function checkBackendSignIn() {
 
 // Add a Primary Address
 export async function addPrimaryShippingAddress(address) {
-    const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -149,7 +149,7 @@ export async function addPrimaryShippingAddress(address) {
 
 // Edit a Primary Address
 export async function editPrimaryShippingAddress(address) {
-    const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -158,7 +158,7 @@ export async function editPrimaryShippingAddress(address) {
 
 // Get Primary Shipping Address
 export async function getPrimaryShippingAddress() {
-    const res = await fetch(`route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/primary-shipping-address?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -167,7 +167,7 @@ export async function getPrimaryShippingAddress() {
 
 // Get Alternate Shipping Address
 export async function getAlternateShippingAddress() {
-    const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         // throw res.Error;
         return false;
@@ -177,7 +177,7 @@ export async function getAlternateShippingAddress() {
 
 // Add Alternate Shipping Address
 export async function addAlternateShippingAddress(address) {
-    const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -186,7 +186,7 @@ export async function addAlternateShippingAddress(address) {
 
 // Update Alternate Shipping Address
 export async function updateAlternateShippingAddress(address) {
-    const res = await fetch(`route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -195,7 +195,7 @@ export async function updateAlternateShippingAddress(address) {
 
 // Add a Billing Address
 export async function addBillingAddress(address) {
-    const res = await fetch(`route-handlers/billing-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/billing-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -204,7 +204,7 @@ export async function addBillingAddress(address) {
 
 // Edit a Billing Address
 export async function editBillingAddress(address) {
-    const res = await fetch(`route-handlers/billing-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/billing-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -213,7 +213,7 @@ export async function editBillingAddress(address) {
 
 // Get Billing Address
 export async function getBillingAddress() {
-    const res = await fetch(`route-handlers/billing-address?api_base_url=${apiBaseUrl}`);
+    const res = await fetch(`/route-handlers/billing-address?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
         throw res.Error;
     }
@@ -222,7 +222,7 @@ export async function getBillingAddress() {
 
 // Create Checkout Session
 export async function createCheckoutSession() {
-    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "POST" })
+    const res = await fetch(`/route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "POST" })
     if (!res.ok) {
         throw res.Error;
     }
@@ -231,7 +231,7 @@ export async function createCheckoutSession() {
 
 // Get Checkout Session
 export async function getCheckoutSession() {
-    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    const res = await fetch(`/route-handlers/checkout-session?api_base_url=${apiBaseUrl}`, { method: "GET" });
     if (!res.ok) {
         return false;
     }
@@ -240,7 +240,7 @@ export async function getCheckoutSession() {
 
 // Update Checkout Session Stage
 export async function updateCheckoutSessionStage(stageName) {
-    const res = await fetch(`route-handlers/checkout-session?api_base_url=${apiBaseUrl}&stage=${stageName}`, { method: "PUT" });
+    const res = await fetch(`/route-handlers/checkout-session?api_base_url=${apiBaseUrl}&stage=${stageName}`, { method: "PUT" });
     if (!res.ok) {
         throw res.Error;
     }
@@ -249,7 +249,7 @@ export async function updateCheckoutSessionStage(stageName) {
 
 // Add a Shipping Address to the Checkout Session
 export async function addCheckoutShippingAddress(addressID) {
-    const res = await fetch(`route-handlers/checkout-session-shipping?api_base_url=${apiBaseUrl}&shipping_address=${addressID}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/checkout-session-shipping?api_base_url=${apiBaseUrl}&shipping_address=${addressID}`, { method: "POST", headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -258,7 +258,7 @@ export async function addCheckoutShippingAddress(addressID) {
 
 // Update the Checkout Session's Shipping Address
 export async function updateCheckoutShippingAddress(addressID) {
-    const res = await fetch(`route-handlers/checkout-session-shipping?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(addressID), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/checkout-session-shipping?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(addressID), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -267,7 +267,7 @@ export async function updateCheckoutShippingAddress(addressID) {
 
 // Add a Billing Address to the Checkout Session
 export async function addCheckoutBillingAddress(addressID) {
-    const res = await fetch(`route-handlers/checkout-session-billing?api_base_url=${apiBaseUrl}&billing_address=${addressID}`, { method: "POST", headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/checkout-session-billing?api_base_url=${apiBaseUrl}&billing_address=${addressID}`, { method: "POST", headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -276,7 +276,7 @@ export async function addCheckoutBillingAddress(addressID) {
 
 // Update the Checkout Session's Billing Address
 export async function updateCheckoutBillingAddress(addressID) {
-    const res = await fetch(`route-handlers/checkout-session-billing?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(addressID), headers: { "Content-Type": "application/json" } })
+    const res = await fetch(`/route-handlers/checkout-session-billing?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(addressID), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
         throw res.Error;
     }
@@ -285,7 +285,7 @@ export async function updateCheckoutBillingAddress(addressID) {
 
 // Add Product to the Stripe product catalogue
 export async function stripeAddProduct(productData) {
-    const response = await fetch(`route-handlers/stripe-add-product`, {
+    const response = await fetch(`/route-handlers/stripe-add-product`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(productData),
@@ -301,7 +301,7 @@ export async function stripeAddProduct(productData) {
 
 // Create Stripe Checkout Session
 export async function createStripeCheckoutSession(myLineItems) {
-    const response = await fetch(`route-handlers/create-stripe-checkout-session`, {
+    const response = await fetch(`/route-handlers/create-stripe-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(myLineItems),
@@ -322,7 +322,7 @@ export let createOrder = (function () {
         if (!executed) {
             executed = true;
             console.log('Starting createOrder');
-            const response = await fetch(`route-handlers/order?api_base_url=${apiBaseUrl}`, {
+            const response = await fetch(`/route-handlers/order?api_base_url=${apiBaseUrl}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" }
             });
@@ -341,7 +341,7 @@ export let createOrder = (function () {
 
 // Get Orders
 export async function getOrders() {
-    const res = await fetch(`route-handlers/order-history?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    const res = await fetch(`/route-handlers/order-history?api_base_url=${apiBaseUrl}`, { method: "GET" });
     if (!res.ok) {
         throw new Error('Error fetching orders');
     }
@@ -350,7 +350,7 @@ export async function getOrders() {
 
 // Get Computer products
 export async function getComputers() {
-    const response = await fetch(`route-handlers/computers?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    const response = await fetch(`/route-handlers/computers?api_base_url=${apiBaseUrl}`, { method: "GET" });
     if (!response.ok) {
         throw new Error('Error fetching computers');
     }
@@ -359,7 +359,7 @@ export async function getComputers() {
 
 // Get Gaming products
 export async function getGaming() {
-    const response = await fetch(`route-handlers/gaming?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    const response = await fetch(`/route-handlers/gaming?api_base_url=${apiBaseUrl}`, { method: "GET" });
     if (!response.ok) {
         throw new Error('Error fetching gaming products');
     }
@@ -368,7 +368,7 @@ export async function getGaming() {
 
 // Get Home Electronics products
 export async function getHomeElectronics() {
-    const response = await fetch(`route-handlers/home-electronics?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    const response = await fetch(`/route-handlers/home-electronics?api_base_url=${apiBaseUrl}`, { method: "GET" });
     if (!response.ok) {
         throw new Error('Error fetching home electronics products');
     }
@@ -377,7 +377,7 @@ export async function getHomeElectronics() {
 
 // Get Cameras & Drones products
 export async function getCamerasDrones() {
-    const response = await fetch(`route-handlers/cameras-drones?api_base_url=${apiBaseUrl}`, { method: "GET" });
+    const response = await fetch(`/route-handlers/cameras-drones?api_base_url=${apiBaseUrl}`, { method: "GET" });
     if (!response.ok) {
         throw new Error('Error fetching cameras and drones products');
     }

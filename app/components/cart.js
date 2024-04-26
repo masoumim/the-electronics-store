@@ -13,11 +13,11 @@ import Link from "next/link.js";
 const auth = getFirebaseAuth();
 
 export default function Cart() {
-    const contactsCtx = useContext(ctx);                                // The Context object
-    const cart = contactsCtx[0];                                        // State object representing user's cart
-    const setCart = contactsCtx[1];                                     // Setter to set cart
-    const cartProducts = contactsCtx[2];                                // State object representing user's cart
-    const setCartProducts = contactsCtx[3];                             // Setter to set cart
+    const cartCtx = useContext(ctx);                                    // The Context object
+    const cart = cartCtx[0];                                            // State object representing user's cart
+    const setCart = cartCtx[1];                                         // Setter to set cart
+    const cartProducts = cartCtx[2];                                    // State object representing user's cart
+    const setCartProducts = cartCtx[3];                                 // Setter to set cart
     const [cartProductsInfo, setCartProductsInfo] = useState([]);       // Array of cart product(s) info (name, price, description etc)
     const [cartHasProducts, setCartHasProducts] = useState(false);      // Boolean used for conditionally rendering the cart products and 'Proceed to checkout' button
     const router = useRouter();

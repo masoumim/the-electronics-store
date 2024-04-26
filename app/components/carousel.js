@@ -22,9 +22,8 @@ export default function CarouselComponent() {
                     <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_2.png" alt="An add announcing the PS5 is in stock" />
                 </SplideSlide>
                 <SplideSlide>
-                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_3.png" alt="Slide 3" />
-                </SplideSlide>
-                {/* Add more SplideSlide components for additional slides */}
+                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_3.png" alt="An add depicting the GoPro Hero 11" />
+                </SplideSlide>                
             </Splide>
         </div>
     );
