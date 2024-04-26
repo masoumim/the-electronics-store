@@ -27,14 +27,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>        
+      <body className={inter.className}>
         <HeaderInteractive />
         <nav>
           <Navbar />
         </nav>
-        <Providers>
-          {children}
-        </Providers>
+        <div style={{ maxWidth: '1200px', width: '100%' }} className="mx-auto bg-white">
+          <Providers>
+            {children}
+          </Providers>
+        </div>
       </body>
     </html>
   )

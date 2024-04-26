@@ -18,12 +18,10 @@ export default function Laptops() {
     }, []);
 
     return (
-        <>
-            <div>
-                <h1>Laptops</h1>
-                {products.map(product => (
+        <div className="container flex flex-wrap justify-center mx-auto">
+            {products.map(product => (
+                <div className="product-card p-5 rounded-md shadow-sm max-w-sm mx-auto m-2" key={product.id}>
                     <ProductCardFull
-                        key={product.id}
                         id={product.id}
                         image={product.img_url}
                         name={product.name}
@@ -34,8 +32,8 @@ export default function Laptops() {
                         inStock={product.inventory > 0}
                         url={`/computers/laptops/${product.id}`}
                     />
-                ))}
-            </div>
-        </>
-    )
+                </div>
+            ))}
+        </div>
+    );
 }

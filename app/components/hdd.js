@@ -17,22 +17,22 @@ export default function Hdd() {
     }, []);
 
     return (
-        <div>
-            {/* Display the HDD products */}
+        <div className="container flex flex-wrap justify-center mx-auto">
             {products.map(product => (
-                <ProductCardFull
-                    key={product.id}
-                    id={product.id}
-                    image={product.img_url}
-                    name={product.name}
-                    price={product.price}
-                    onSale={product.discount_type !== 'none'}
-                    discountedPrice={product.price * (1 - product.discount_percent / 100)}
-                    productCode={product.item_code}
-                    inStock={product.inventory > 0}
-                    url={`/computers/desktops/parts/hdd/${product.id}`}
-                />
-            ))} 
+                <div className="product-card p-5 rounded-md shadow-sm max-w-sm mx-auto m-2" key={product.id}>
+                    <ProductCardFull
+                        id={product.id}
+                        image={product.img_url}
+                        name={product.name}
+                        price={product.price}
+                        onSale={product.discount_type !== 'none'}
+                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                        productCode={product.item_code}
+                        inStock={product.inventory > 0}
+                        url={`/computers/desktops/parts/hdd/${product.id}`}
+                    />
+                </div>
+            ))}
         </div>
-    )
+    );
 }
