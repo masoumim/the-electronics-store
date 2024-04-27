@@ -13,36 +13,38 @@ export default function Accessories() {
         const fetchProducts = async () => {
             const headsetProducts = await getProductsContainingCategory("ACCHEA");
             const controllerProducts = await getProductsContainingCategory("ACCCON");
-            
+
             // Add an accessoryType property to each product
             headsetProducts.forEach(product => product.accessoryType = 'headsets');
             controllerProducts.forEach(product => product.accessoryType = 'controllers');
-            
+
             // Combine all products
             const allProducts = [...headsetProducts, ...controllerProducts];
-            
+
             setProducts(allProducts);
         };
         fetchProducts();
     }, []);
-    
+
     return (
         <div>
-            {/* Display the Accessories products */}
-            {products.map(product => (
-                <ProductCardFull
-                    key={product.id}
-                    id={product.id}
-                    image={product.img_url}
-                    name={product.name}
-                    price={product.price}
-                    onSale={product.discount_type !== 'none'}
-                    discountedPrice={product.price * (1 - product.discount_percent / 100)}
-                    productCode={product.item_code}
-                    inStock={product.inventory > 0}
-                    url={`/gaming/accessories/${product.accessoryType}/${product.id}`}
-                />
-            ))} 
+            <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+                {products.map(product => (
+                    <div className="product-card p-5 rounded-md shadow-sm max-w-sm m-2" key={product.id}>
+                        <ProductCardFull
+                            id={product.id}
+                            image={product.img_url}
+                            name={product.name}
+                            price={product.price}
+                            onSale={product.discount_type !== 'none'}
+                            discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                            productCode={product.item_code}
+                            inStock={product.inventory > 0}
+                            url={`/gaming/accessories/${product.accessoryType}/${product.id}`}
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
-    )
+    );
 }

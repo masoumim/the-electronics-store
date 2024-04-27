@@ -17,22 +17,24 @@ export default function Mem() {
     }, []);
 
     return (
-        <div className="container flex flex-wrap justify-center mx-auto">
-            {products.map(product => (
-                <div className="product-card p-5 rounded-md shadow-sm max-w-sm mx-auto m-2" key={product.id}>
-                    <ProductCardFull
-                        id={product.id}
-                        image={product.img_url}
-                        name={product.name}
-                        price={product.price}
-                        onSale={product.discount_type !== 'none'}
-                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
-                        productCode={product.item_code}
-                        inStock={product.inventory > 0}
-                        url={`/computers/desktops/parts/memory/${product.id}`}
-                    />
-                </div>
-            ))}
+        <div>
+            <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+                {products.map(product => (
+                    <div className="product-card p-5 rounded-md shadow-sm max-w-sm m-2" key={product.id}>
+                        <ProductCardFull
+                            id={product.id}
+                            image={product.img_url}
+                            name={product.name}
+                            price={product.price}
+                            onSale={product.discount_type !== 'none'}
+                            discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                            productCode={product.item_code}
+                            inStock={product.inventory > 0}
+                            url={`/computers/desktops/parts/memory/${product.id}`}
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

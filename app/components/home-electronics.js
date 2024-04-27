@@ -3,7 +3,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import ProductCardFull from './product-card-full';
-import { getHomeElectronics, getProductsByCategory } from '../api/api';
+import { getProductsByCategory } from '../api/api';
+import Breadcrumbs from './breadcrumbs';
 
 // Add all home electronics products to the page
 const HomeElectronics = () => {
@@ -36,28 +37,32 @@ const HomeElectronics = () => {
 
   return (
     <div>
-      {products.map(product => (
-        <ProductCardFull
-          key={product.id}
-          id={product.id}
-          image={product.img_url}
-          name={product.name}
-          price={product.price}
-          onSale={product.discount_type !== 'none'}
-          discountedPrice={product.price * (1 - product.discount_percent / 100)}
-          productCode={product.item_code}
-          inStock={product.inventory > 0}
-          url={product.ProductType === 'televisions'
-            ? `/home-electronics/televisions/${product.id}`
-            : product.ProductType === 'speakers'
-              ? `/home-electronics/speakers/${product.id}`
-              : product.ProductType === 'home-security'
-                ? `/home-electronics/home-security/${product.id}`
-                : product.ProductType === 'media-streamers'
-                  ? `/home-electronics/media-streamers/${product.id}`
-                  : `/home-electronics/appliances/${product.id}`}
-        />
-      ))}
+      <Breadcrumbs category={'homeElectronics'} />
+      <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+        {products.map(product => (
+          <div className="product-card p-5 rounded-md shadow-sm max-w-sm m-2" key={product.id}>
+            <ProductCardFull
+              id={product.id}
+              image={product.img_url}
+              name={product.name}
+              price={product.price}
+              onSale={product.discount_type !== 'none'}
+              discountedPrice={product.price * (1 - product.discount_percent / 100)}
+              productCode={product.item_code}
+              inStock={product.inventory > 0}
+              url={product.ProductType === 'televisions'
+                ? `/home-electronics/televisions/${product.id}`
+                : product.ProductType === 'speakers'
+                  ? `/home-electronics/speakers/${product.id}`
+                  : product.ProductType === 'home-security'
+                    ? `/home-electronics/home-security/${product.id}`
+                    : product.ProductType === 'media-streamers'
+                      ? `/home-electronics/media-streamers/${product.id}`
+                      : `/home-electronics/appliances/${product.id}`}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
