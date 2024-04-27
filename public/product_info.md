@@ -1,0 +1,1149 @@
+---
+id: 13
+---
+
+# Product Summary
+
+The ASUS ROG Strix GA15DK-CCR760TI-CB is a mid-tower gaming desktop designed for esports-level competition. It boasts an AMD Ryzen 7 5800X CPU, NVIDIA GeForce GTX 1660 Ti graphics, superior cooling, and customizable Aura Sync lighting.
+
+# Product Features
+
+- Designed for competitive esports performance
+- Superior cooling and airflow
+- Customizable Aura Sync lighting
+- Built-in carrying handle and headphone hook for portability
+- Powerful AMD Ryzen 7 5800X CPU
+- Fluid and responsive graphics with NVIDIA GeForce GTX 1660 Ti
+- Ample memory and fast SSD storage
+
+# Product Specs
+
+- Brand: ASUS
+- Model: G15DK-CCR760TI-CB
+- Part No: 90PF02Q1-M01PU0
+- Desktop Type: Gaming
+- Form Factor: Mid Tower
+- CPU Brand: AMD
+- CPU: Ryzen 7 5800X (8-core/16-thread, 36MB cache, up to 4.7 GHz max boost)
+- Memory: 16GB (2x8GB DDR4 U-DIMM)
+- Motherboard Chipset: AMD® B550
+- SSD Capacity: 1TB
+- Hard Drive Capacity: None
+- GPU: NVIDIA GeForce GTX 1660 Ti
+- Operating System: Windows 11 Home
+- Wireless LAN: Wi-Fi 6 + Bluetooth
+- Power Supply: 500W (80+ Bronze, peak 550W)
+- Expansion Slot (includes used): 1x PCIe® 4.0 x 16, 2x PCIe® 3.0 x 1, 2x M.2 connector for storage, 4x DDR4 U-DIMM slot
+- Keyboard & Mouse: Not included
+- Dimension (WxDxH): 18.50 x 42.10 x 49.80 cm
+- Weight: 11.00 kg
+- Product Condition: New
+
+---
+id: 14
+---
+
+# Product Summary
+
+The ARMOURY A-104 Gaming PC is a powerful machine designed for both gaming and productivity. It features a fast AMD Ryzen 7 5700X processor, cutting-edge NVIDIA GeForce RTX 4060 graphics, ample RGB RAM, a spacious SSD, and the streamlined features of Windows 11 Home.
+
+# Product Features
+
+- Ryzen Performance: Experience smooth gaming and content creation with the powerful AMD Ryzen 7 5700X.
+- RTX Graphics: Enjoy realistic visuals and tackle creative workloads with the NVIDIA GeForce RTX 4060.
+- Fast and Stylish: 16GB of RGB RAM adds flair while ensuring seamless multitasking and speedy performance.
+- Spacious Storage: The 1TB M.2 NVMe SSD provides ample space for your files and programs, along with fast load times.
+- Windows 11 Optimized: Take advantage of the performance and security features built into Windows 11.
+
+# Product Specs
+
+- Processor: AMD Ryzen 7 5700X
+- Graphics Card: NVIDIA GeForce RTX 4060 (8GB GDDR6)
+- RAM: 16GB RGB
+- Storage: 1TB M.2 NVMe SSD
+- Operating System: Windows 11 Home
+- Connectivity: Wi-Fi
+
+---
+id: 15
+---
+
+# Product Summary
+
+The Lenovo Legion Pro 5i is a cutting-edge gaming powerhouse designed to elevate your experience. Its stunning 16" QHD+ display delivers breathtaking visuals with an ultra-smooth 165Hz refresh rate. Under the hood, the top-of-the-line Intel Core i7-13700HX processor and NVIDIA GeForce RTX 4060 graphics card unleash blazing-fast performance that can handle the most demanding games and creative workloads.
+
+# Product Features
+
+- Immersive Display: Experience next-level visuals with the 16" QHD+ display and its ultra-smooth 165Hz refresh rate.
+- Cutting-edge Performance: Dominate in games and creative projects with the Intel Core i7-13700HX and NVIDIA GeForce RTX 4060.
+- Ample Memory and Storage: Multitask effortlessly with 16GB of RAM, and enjoy lightning-fast load times and ample storage space with the 512GB SSD.
+- Next-Gen Connectivity: Stay connected and lag-free with Wi-Fi 6E and Bluetooth 5.1.
+- Enhanced Security: Protect your privacy with the 1080p webcam and E-privacy shutter.
+
+# Product Specs
+
+- Display: 16" QHD+ (2560 x 1600), 165Hz refresh rate
+- Processor: Intel Core i7-13700HX
+- Graphics Card: NVIDIA GeForce RTX 4060
+- RAM: 16GB
+- Storage: 512GB SSD
+- Operating System: Windows 11 Home
+- Connectivity: Wi-Fi 6E (2x2 802.11AX), Bluetooth 5.1
+- Ports: 1 x USB 3.2 Gen 2 (DP 1.4, USB 3.2 Gen 2), 1 x USB 3.2 Gen 2 (DP 1.4, PD 140W, USB 3.2 Gen 2)
+- Webcam: 1080p with E-privacy Shutter
+- Color: Onyx Grey
+- Dimensions: 14.31" x 10.25" x 1.06"
+
+---
+id: 16
+---
+
+# Product Summary
+
+The ASUS TUF Gaming F15 is a battle-ready gaming laptop built for resilience and peak performance. Experience next-level action with Windows 11, a cutting-edge 13th Gen Intel® Core™ i9-13900H processor, and the powerful NVIDIA® GeForce RTX™ 4060 Laptop GPU. Stay cool under fire thanks to the upgraded cooling system, and dominate with the immersive FHD 144Hz Adaptive-Sync display.
+
+# Product Features
+
+- Windows 11 Powerhouse: Experience next-gen gaming powered by Windows 11 and the latest in Intel and NVIDIA technology.
+- Optimized for Gaming: Stay ahead of the competition with NVIDIA Advanced Optimus, DLSS 3, and a blazing-fast Adaptive-Sync display.
+- Battle-Hardened Durability: Confidently game in any environment thanks to military-grade toughness.
+- Stay Cool, Stay Victorious: Maintain peak performance during intense sessions with upgraded Arc Flow Fans™ and a robust cooling system.
+- Direct GPU Power: Unleash maximum graphical potential with the performance-boosting MUX Switch.
+- Immersive Gameplay: Lose yourself in the action with a lightning-fast display perfect for competitive gaming.
+- Game Pass Included: Enjoy a 90-day free pass to Xbox Game Pass Ultimate and a massive gaming library.
+
+# Product Specs
+
+- Processor: 13th Gen Intel® Core™ i9-13900H
+- Graphics Card: NVIDIA® GeForce RTX™ 4060 Laptop GPU
+- Display: 15.6" FHD (1920x1080), 144Hz Adaptive-Sync
+- RAM: 16GB DDR4-3200MHz
+- Storage: 1TB PCIe® 4.0 NVMe™ M.2 SSD
+- Operating System: Windows 11
+- Connectivity: Wi-Fi 6E, Bluetooth
+- Features: MUX Switch with Advanced Optimus, Military-grade durability, Xbox Game Pass Ultimate (90-day free pass)
+
+---
+id: 17
+---
+
+# Product Summary
+
+The CORSAIR Vengeance LPX 32GB DDR4 SDRAM kit is designed for enthusiasts seeking high-performance memory built for extreme overclocking. With 3600MHz speed and a generous 32GB capacity, it powers smooth multitasking, lightning-fast responsiveness, and handles demanding applications like video editing with ease.
+
+# Product Features
+
+- Blazing-Fast Performance: Experience seamless operation, quick load times, and fluid multitasking thanks to 3600MHz speed and 32GB capacity.
+- Extreme Overclocking Potential: Push the limits with a custom performance PCB, highly-screened memory ICs, and an efficient aluminum heat spreader for maximum overclocking headroom.
+- Low-Profile, Stylish Design: The compact design easily fits smaller builds, available in multiple colors to match your system's aesthetics.
+- Compatibility and Reliability: Enjoy reliable performance with compatibility across DDR4 systems and trouble-free automatic overclocking with XMP 2.0 support.
+- CORSAIR Guarantee: Backed by a lifetime limited warranty for peace of mind.
+
+# Product Specs
+
+- Memory Capacity: 32GB (2 x 16GB)
+- Memory Type: DDR4 SDRAM
+- Memory Speed: 3600 MHz (PC4-28800)
+- CAS Latency: CL18
+- Memory Voltage: 1.35V
+- ECC: Non-ECC
+- Pins: 288-pin DIMM
+- Compatibility: Intel Motherboards: 200, 300, X299, AMD Motherboards: 300, 400, X570
+
+---
+id: 18
+---
+
+# Product Summary
+
+The TeamGroup T-FORCE DELTA RGB 32GB (2x16GB) is a stylish and powerful DDR5 gaming memory kit designed for enthusiasts who demand both performance and eye-catching aesthetics. It features a sleek black design, customizable RGB lighting, impressive DDR5-6000MHz speeds, and on-die ECC for enhanced stability.
+
+# Product Features
+
+- Stylish RGB Design: Elevate your system's look with the vibrant, customizable RGB light bar, synchronizable with compatible components.
+- Blazing-Fast DDR5 Performance: Experience the cutting-edge speed of DDR5-6000MHz, ensuring lightning-fast responsiveness for gaming and demanding applications.
+- Enhanced Stability: On-die ECC helps maintain data integrity, reducing the risk of crashes or errors.
+- Optimized for Overclocking: Supports Intel XMP 3.0 and AMD EXPO profiles for easy overclocking and performance tuning.
+- Cooling and Reliability: The strengthened PMIC cooling design ensures your memory stays cool under heavy loads, while DDAS technology (Dynamic Data Acceleration System) contributes to improved performance and stability.
+
+# Product Specs
+
+- Capacity: 32GB (2x16GB)
+- Speed: DDR5 6000MHz
+- Timing: 30-36-36-76
+- CAS Latency: CL30
+- Error Checking: Non-ECC
+- Compatibility: Intel XMP / AMD EXPO
+- Voltage: 1.35V
+- Type: UDIMM
+- Color: Black
+- Lighting: RGB
+- Memory Brand: TeamGroup
+- Series: T-FORCE DELTA RGB
+
+---
+id: 19
+---
+
+# Product Summary
+
+Unleash your system's potential with the Intel Core i7-13700KF, a powerhouse processor engineered for demanding users, serious gamers, and creative professionals. With 16 performance and efficiency cores, a base speed of 3.40 GHz, and a turbo boost up to 5.40 GHz, this processor delivers lightning-fast multitasking and responsiveness. Ample 24MB L2 and 30MB L3 cache keep your system running smoothly, even under the heaviest computational loads.
+
+# Product Features
+
+- Performance and Efficiency Cores: Experience seamless performance for gaming, content creation, and demanding tasks thanks to a hybrid architecture of Performance (P-cores) and Efficient (E-cores).
+- Blazing-Fast Speeds: Enjoy a base speed of 3.40GHz and a turbo boost up to 5.40GHz for maximum performance when you need it most.
+- Large Cache for Optimal Performance: Minimize bottlenecks and keep your workflow smooth with 24MB L2 and 30MB L3 cache.
+- Unlocked for Overclocking: (KF designation) Push performance limits even further with overclocking capabilities.
+
+# Product Specs
+
+- Processor Manufacturer: Intel
+- Processor Core: Hexadeca-core (16 Core)
+- Clock Speed: 3.40 GHz
+- Overclocking Speed: 5.40 GHz
+- L2 Cache: 24 MB
+- L3 Cache: 30 MB
+- 64-bit Processing: Yes
+- Processor Threads: 24
+- Processor Socket: Socket LGA-1700
+- Processor Generation: 13th Gen
+- Thermal Design Power: 125 W
+- Thermal Specification: 212°F (100°C)
+
+---
+id: 20
+---
+
+# Product Summary
+
+Experience blazing-fast gaming performance and exceptional creative capabilities with the AMD Ryzen 7 7800X3D processor. This powerhouse features 8 cores, 16 threads, cutting-edge AMD 3D V-Cache™ Technology for ultra-low latency, and integrated AMD Radeon Graphics for stunning visuals.
+
+# Product Features
+
+- Dominant Gaming Performance: Conquer the latest titles and demanding workloads, boosted by AMD 3D V-Cache™ Technology for enhanced responsiveness.
+- Integrated Radeon Graphics: Enjoy smooth visuals and the convenience of integrated graphics for display output.
+- Ready for the Future: Built on the AM5 platform, providing PCIe 5.0, ultra-fast WiFi 6E, and forward compatibility through 2025.
+- Time-Saving Creator Tools: Boost productivity with 8 cores, 16 threads, and dedicated video accelerators that streamline creative tasks.
+
+# Product Specs
+
+- Processor Manufacturer: AMD
+- Processor Core: Octa-core (8 Core)
+- Clock Speed: 4.20 GHz
+- Overclocking Speed: 5 GHz
+- L2 Cache: 8 MB
+- L3 Cache: 96 MB
+- 64-bit Processing: Yes
+- Process Technology: 5 nm
+- Processor Threads: 16
+- Processor Socket: Socket AM5
+- Environmental Compliance: RoHS, REACH
+
+---
+id: 21
+---
+
+# Product Summary
+
+The Seagate BarraCuda ST4000DM004 is a reliable and cost-effective 3.5-inch hard drive offering a massive 4TB storage capacity. It's a perfect choice for desktops and entry-level direct-attached storage (DAS) devices, providing ample space to store your files, videos, music, and other important data.
+
+# Product Features
+
+- Massive Storage: Enjoy 4TB of space to store massive amounts of files, photos, videos, and more.
+- Reliable Performance: Experience smooth operation and data transfers with a SATA III 6Gb/s interface, a 256MB cache, and a 5400 rpm rotational speed.
+- Energy Efficient: Conserve power with advanced power modes, without compromising performance.
+- Workload Optimized: Designed for use with workloads up to 55TB per year, ensuring long-term dependability.
+
+# Product Specs
+
+- Manufacturer: Seagate Technology
+- Part Number: ST4000DM004
+- Brand: Seagate
+- Product Line: BarraCuda
+- Model: ST4000DM004
+- Storage Capacity: 4TB
+- Interface: SATA III (6Gb/s)
+- Buffer: 256MB
+- Rotational Speed: 5400 rpm
+- Form Factor: 3.5-inch
+- Dimensions: 0.79" x 4" x 5.79"
+- Weight: 490g
+- Country of Origin: Thailand
+
+---
+id: 22
+---
+
+# Product Summary
+
+The Seagate IronWolf ST4000VN006 is a robust 4TB hard drive designed for demanding NAS (Network Attached Storage) environments. It offers 24/7 reliability, optimized performance for multi-bay systems, and advanced features for data protection.
+
+# Product Features
+
+- NAS-Optimized Performance: AgileArray technology, dual-plane balancing, and Time-Limited Error Recovery ensure reliable operation in multi-bay NAS systems.
+- 24/7 Availability: Designed for always-on accessibility, perfect for NAS environments that require round-the-clock data access.
+- Scalable Storage: 4TB capacity provides ample space for your growing data needs.
+- Robust and Reliable: Rated for 180TB/year workload, 1M hours MTBF, and includes a 3-year limited warranty.
+- Data Protection: IronWolf Health Management monitors drive health, and Rescue Data Recovery Services offer peace of mind.
+
+# Product Specs
+
+- Manufacturer: Seagate Technology
+- Part Number: ST4000VN006
+- Brand: Seagate
+- Product Line: IronWolf
+- Model: ST4000VN006
+- Storage Capacity: 4TB
+- Interface: SATA III (6Gb/s)
+- Buffer: 256MB
+- Spindle Speed: 5400 rpm
+- Form Factor: 3.5-inch
+
+---
+id: 23
+---
+
+# Product Summary
+
+The PlayStation 5 Digital Edition is a sleek and powerful next-generation console designed for immersive gaming experiences. Featuring a cutting-edge AMD processor, advanced graphics capabilities, lightning-fast SSD storage, and support for 4K 120Hz and 8K displays, it delivers stunning visuals and smooth gameplay. This digital-only version allows you to download and play your games directly from the PlayStation Store.
+
+# Product Features
+
+- Powerful Performance: Experience next-level gaming with a powerful AMD Ryzen "Zen 2" CPU and an AMD Radeon RDNA 2 graphics engine with ray tracing capabilities.
+- Blazing-Fast SSD: Enjoy ultra-fast load times and seamless gameplay with the integrated 1TB SSD.
+- Immersive Visuals: Supports high-resolution 4K (up to 120Hz) and 8K displays, enabling breathtaking visuals in supported games.
+- Tempest 3D AudioTech: Immerse yourself in rich, spatially accurate 3D sound.
+- Digital Game Library: Access a vast and growing library of downloadable games through the PlayStation Store.
+- Sleek Design: The console's modern and compact design complements any gaming setup.
+
+# Product Specs
+
+- External Dimensions: Approx. 358 × 80 × 216 mm (width × height × depth)
+- Weight: Approx. 2.6 kg
+- CPU: x86-64-AMD Ryzen™ “Zen 2” (8 Cores / 16 Threads, Variable frequency, up to 3.5 GHz)
+- GPU: AMD Radeon™ RDNA 2-based graphics engine (Ray Tracing Acceleration, Variable frequency, up to 2.23 GHz / 10.3 TFLOPS)
+- System Memory: GDDR6 16GB (448GB/s Bandwidth)
+- SSD: 1TB (5.5GB/s Read Bandwidth)
+- Game Disc: Not Supported (Digital Edition)
+- Video Out: Support of 4K 120Hz TVs, 8K TVs, VRR (specified by HDMI ver.2.1)
+- Audio: “Tempest” 3D AudioTech
+- Input/Output (Front): USB Type-C® port (Super-Speed USB 10Gbps), USB Type-C® port (Hi-Speed USB)
+- Input/Output (Back): USB Type-A port (Super-Speed USB 10Gbps) x2
+- Networking: Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T), Wi-fi: IEEE 802.11 a/b/g/n/ac/ax
+- Please Note: The PlayStation 5 Digital Edition requires a PlayStation Network account for purchasing and downloading games.
+
+---
+id: 24
+---
+
+# Product Summary
+
+The Sony PlayStation 5 is a powerful next-generation console that delivers stunning visuals, smooth gameplay, and a wide range of immersive gaming experiences. This disc version allows you to play your favorite PlayStation games on disc, expanding your library options. The console features an ultra-fast 825GB SSD for minimal load times, Wi-Fi connectivity, and includes one wireless controller.
+
+# Product Features
+
+- Powerful Performance: Experience next-level gaming with a powerful AMD Ryzen "Zen 2" CPU and an AMD Radeon RDNA 2 graphics engine with ray tracing capabilities.
+- Blazing-Fast SSD: Enjoy ultra-fast load times and seamless gameplay with the integrated 825GB SSD.
+- Immersive Visuals: Supports high-resolution 4K (up to 120Hz) and 8K displays, enabling breathtaking visuals in supported games.
+- Tempest 3D AudioTech: Immerse yourself in rich, spatially accurate 3D sound.
+- Play Physical Discs: Enjoy your favorite PlayStation games on disc and experience backwards compatibility with select PS4 titles.
+- Wireless Controller: Experience enhanced haptic feedback, adaptive triggers, and a built-in microphone for a whole new level of immersive gameplay.
+- Connectivity: Wi-Fi for online gaming and downloads, HDMI and USB ports for connecting various peripherals.
+
+# Product Specs
+
+- Brand: Sony
+- Model: 711719548560
+- Storage: 825GB SSD
+- Wi-Fi: Yes
+- Digital Inputs: 1 HDMI, 2 USB
+- Controllers Included: 1, Wireless
+- Cables included: HDMI, Power, USB charging
+- HDMI: Yes
+- USB (2.0): 1
+- Other: USB-C
+- Please Note: Game discs are not included with the console. Backwards compatibility with PS4 titles may vary by game. Always refer to the manufacturer's website for the most up-to-date information.
+
+---
+id: 25
+---
+
+# Product Summary
+
+Introducing the Xbox Series X, Microsoft's most powerful console ever designed to deliver blistering speeds, stunning 4K visuals, and immersive gaming experiences. The console's innovative architecture and custom-built components unlock a new era of performance, pushing the boundaries of what's possible in console gaming.
+
+# Product Features
+
+- Unmatched Power: Experience raw performance with a custom Zen 2 CPU, RDNA 2 graphics, and 12 teraflops of processing power.
+- Lightning-Fast SSD: Enjoy blazing-fast load times and seamless gameplay with the 1TB SSD.
+- Visual Excellence: Immerse yourself in stunning 4K visuals and support for up to 120 frames per second.
+- Revolutionary Cooling: Innovative cooling architecture keeps your console running smoothly even during demanding games.
+- Backwards Compatibility: Play thousands of games across four generations of Xbox with improved performance and visuals.
+- Expandable Storage: Add more games without compromising speed with the seamless Xbox Series X storage expansion card (sold separately).
+
+# Product Specs
+
+- Manufacturer: Microsoft Corporation
+- Part Number: RRT-00001
+- Brand Name: Microsoft
+- Product Line: Xbox Series X
+- Product Name: Xbox Series X Gaming Console
+- Processor: Custom Zen 2 CPU (8 cores, 3.66GHz)
+- Graphics: Custom RDNA 2 GPU (1.83 GHz)
+- Storage: 1TB SSD
+- Optical Drive: Ultra HD Blu-ray Player
+- Networking: Ethernet (Gigabit), Wi-Fi
+- Audio: 7.1 Channel, Linear PCM, Dolby Digital, Dolby TrueHD with Atmos, DTS 5.1
+- Interfaces: HDMI, USB, Network (RJ-45)
+- Dimensions: 11.85" x 5.94" x 5.94"
+- Weight: 4.45 kg
+- Package Contents: Xbox Series X console, Xbox Wireless Controller, High-Speed HDMI cable
+
+---
+id: 26
+---
+
+# Product Summary
+
+Introducing the Xbox Series S – the most compact and affordable next-generation Xbox console yet! Experience the speed, performance, and immersive features of next-gen gaming in a sleek, budget-friendly package. Enjoy instant access to a vast library of games with Xbox Game Pass Ultimate (sold separately).
+
+# Product Features
+
+- Next-Gen Power, Compact Size: The Xbox Series S delivers impressive performance in the smallest Xbox console ever.
+- Optimized for Speed: Experience lightning-fast load times with the custom 512GB SSD.
+- Play More, Pay Less: Access a massive library of high-quality games, including new releases, with Xbox Game Pass Ultimate (sold separately).
+- All-Digital Experience: Go fully digital – download games, manage your library, and access your entertainment all from the cloud.
+- Immersive Gameplay: Enjoy up to 120 fps, HDR, and advanced 3D spatial sound for even more engaging gaming experiences.
+
+# Product Specs
+
+- Manufacturer: Microsoft Corporation
+- Part Number: RRS-00001
+- Brand Name: Microsoft
+- Product Line: Xbox Series S
+- Product Name: Xbox Series S Gaming Console
+- Processor: Custom Zen 2 CPU (8 cores, 3.60GHz)
+- Graphics: Custom RDNA 2 GPU (1.57 GHz)
+- Storage: 512GB SSD
+- Networking: Ethernet (Gigabit), Wi-Fi
+- Audio: 7.1 Channel, Linear PCM, Dolby Digital 5.1, DTS 5.1, Dolby TrueHD with Atmos
+- Interfaces: HDMI, USB, Network (RJ-45)
+- Dimensions: 10.83" x 5.94" x 5.94"
+- Weight: 1.93 kg
+- Package Contents: Xbox Series S console, Xbox Wireless Controller, High-Speed HDMI cable
+
+---
+id: 27
+---
+
+# Product Summary
+
+The Nintendo Switch (OLED Model) is a refreshed version of the popular Nintendo Switch console. It boasts a vibrant 7-inch OLED screen for enhanced visuals in handheld and tabletop mode, a wider adjustable stand, and a dock with a wired LAN port for stable online play.
+
+# Product Features
+
+- 7-inch OLED Screen: Experience vivid colors and sharp contrast with a larger OLED display compared to the original Nintendo Switch.
+- Enhanced Portability: Take your gaming anywhere with the portable design and long battery life (duration may vary depending on usage).
+- Adjustable Stand: Find a comfortable viewing angle in tabletop mode with the wide, adjustable stand.
+- Versatile Connectivity: Play online with the dock's wired LAN port, connect accessories using USB ports, and output to a TV using the HDMI port.
+- 64GB Internal Storage: Store your favorite games digitally. Expandable with microSD cards (sold separately).
+
+# Product Specs
+
+- Brand: Nintendo
+- Model: HEGSKABAA
+- Processor: Custom NVIDIA Tegra Processor
+- Storage: 64 GB
+- Display: 7" OLED Touchscreen
+- Ports (Handheld): 1 x USB Type-C, 1 x 3.5 mm Headphone
+- Ports (Dock): 1 x USB Type-C (Power Input), 1 x RJ45 (LAN), 1 x HDMI Type-A (Display), 2 x USB Type-A (Accessories)
+- Supported Resolutions: Up to 1080p (via TV mode)
+- Wi-Fi: 5 (802.11ac)
+- Dimensions: 9.5 x 4 x 0.55"
+- Weight: 0.93 lb
+- Please Note: MicroSD card required for expanded storage.
+
+---
+id: 28
+---
+
+# Product Summary
+
+The Nintendo Switch (OLED Model) is a refreshed version of the popular Nintendo Switch console. It boasts a vibrant 7-inch OLED screen for enhanced visuals in handheld and tabletop mode, a wider adjustable stand, and a dock with a wired LAN port for stable online play.
+
+# Product Features
+
+- 7-inch OLED Screen: Experience vivid colors and sharp contrast with a larger OLED display compared to the original Nintendo Switch.
+- Enhanced Portability: Take your gaming anywhere with the portable design and long battery life (duration may vary depending on usage).
+- Adjustable Stand: Find a comfortable viewing angle in tabletop mode with the wide, adjustable stand.
+- Versatile Connectivity: Play online with the dock's wired LAN port, connect accessories using USB ports, and output to a TV using the HDMI port.
+- 64GB Internal Storage: Store your favorite games digitally. Expandable with microSD cards (sold separately).
+
+# Product Specs
+
+- Brand: Nintendo
+- Model: HEGSKABAA
+- Processor: Custom NVIDIA Tegra Processor
+- Storage: 64 GB
+- Display: 7" OLED Touchscreen
+- Ports (Handheld): 1 x USB Type-C, 1 x 3.5 mm Headphone
+- Ports (Dock): 1 x USB Type-C (Power Input), 1 x RJ45 (LAN), 1 x HDMI Type-A (Display), 2 x USB Type-A (Accessories)
+- Supported Resolutions: Up to 1080p (via TV mode)
+- Wi-Fi: 5 (802.11ac)
+- Dimensions: 9.5 x 4 x 0.55"
+- Weight: 0.93 lb
+- Please Note: MicroSD card required for expanded storage.
+
+---
+id: 29
+---
+
+# Product Summary
+
+Level up your audio game with the Turtle Beach Earforce Recon 200 Gen 2. This powerful wired headset delivers amped-up sound with booming bass and immersive surround sound support, designed for maximum performance across multiple platforms. Hear your squadmates with crystal clarity and silence opponents with the flip-to-mute mic. Game in comfort for hours on end, and outlast the competition thanks to the 12-hour battery powering its audio-enhancing features.
+
+# Product Features
+
+- Amplified Audio: Experience immersive gaming audio with 40mm speakers, always-on bass boost, and support for surround sound technologies.
+- Flip-to-Mute Mic: Turtle Beach's renowned microphone picks up your voice clearly and flips up for instant mute.
+- Variable Mic Monitoring: Adjust your own voice volume within the headset to avoid shouting.
+- Enhanced Comfort: Athletic fabric, memory foam ear cushions, and ProSpecs glasses-friendly design for extended gaming sessions.
+- Durable Design: Metal-reinforced headband provides long-lasting durability.
+- 12-Hour Battery: Powers the headset's active audio features.
+
+# Product Specs
+
+- Brand: Turtle Beach
+- Model: TBS-6300-02
+- Connections: 3.5mm jack (compatible with Xbox, PlayStation, Nintendo Switch* and mobile devices)
+- Speakers: 40mm with Neodymium Magnets
+- Frequency Response: 20Hz - 20kHz
+- Earcup Design: Over-Ear (Closed)
+- Microphone Design: Fixed Omni-Directional Flip-to-Mute
+- Onboard Controls: Master Volume Wheel, Variable Mic Monitoring Wheel, Xbox/PlayStation Platform Switch
+- Please note: *Nintendo Switch chat compatibility available for games with in-game chat support.
+
+---
+id: 30
+---
+
+# Product Summary
+
+The Beyerdynamic MMX 150 is a premium USB gaming headset built for audiophile gamers who demand studio-quality sound and competitive advantage. It features high-resolution drivers for precise audio, a detachable META VOICE cardioid condenser microphone for crystal-clear communication, and exceptional long-wearing comfort.
+
+# Product Features
+
+- Studio-Level Audio: Hear games as they were intended, with high-resolution sound for optimal gaming.
+- Pinpoint Accuracy: Gain a competitive edge with precise audio localization that lets you pinpoint every in-game sound.
+- Crystal-Clear Communication: Coordinate with your team effortlessly thanks to the detachable META VOICE cardioid condenser microphone.
+- Premium Comfort: Designed with memory foam earcups and an adjustable headband for long, fatigue-free gaming sessions.
+- Intuitive Controls: Adjust volume, toggle mute, and activate augmented mode (environment monitoring) with ease.
+- Multi-Platform Compatibility: Enjoy superior audio on PC, Playstation, and Switch (USB connection required for full functionality on Switch).
+
+# Product Specs
+
+- Brand: Beyerdynamic
+- Model: MMX 150
+- Transmission Type: Wired
+- Earpad Material: Softskin, memory foam filling
+- Remote: Clickable control wheel
+- Nominal Impedance (Headphones): 32 ohms
+- Weight (Headphones): 304 g
+- Headphone Frequency Response: 5 - 30,000 Hz
+- Cable & Plug: 1.2 m analog cable (4-pin jack), 2.4 m USB cable (PC)
+- Polar Pattern (Microphone): Cardioid
+- Transducer Type (Microphone): Electret condenser
+
+---
+id: 31
+---
+
+# Product Summary
+
+The 8BitDo Pro 2 Bluetooth Gamepad (Black Edition) is a versatile wireless controller designed for gamers who demand both a classic feel and modern performance. It features customizable controls, enhanced precision, and seamless compatibility with Switch, PC, macOS, Android, Steam Deck, and Raspberry Pi.
+
+# Product Features
+
+- Pro-Level Control: Experience superior accuracy with hall effect joysticks, premium analog sticks, and comfortable ergonomics.
+- Customizable Controls: Create custom button mappings and profiles using the 8BitDo Ultimate Software.
+- Wireless Freedom: Connect via Bluetooth or use the included USB-C cable.
+- Motion Controls & Rumble: Enjoy immersive features like motion aiming and vibration feedback.
+- Universal Compatibility: Works with a wide range of popular gaming devices.
+- Long-Lasting Battery: Play for up to 20 hours on a single charge.
+
+# Product Specs
+
+- Brand: 8BitDo
+- Model: Pro 2 (Black Edition)
+- Connectivity: Bluetooth, USB-C
+- Compatibility: Switch, PC, macOS, Android, Steam Deck, Raspberry Pi
+- Features: Hall effect joysticks, customizable controls, motion controls, rumble, long-lasting battery
+- Please Note: 8BitDo Ultimate Software required for button mapping and profile creation (available on PC, Android, and iOS).
+
+---
+id: 32
+---
+
+# Product Summary
+
+The Sony PlayStation 5 DualSense Wireless Controller revolutionizes how you experience your games. Feel the action through immersive haptic feedback, enjoy precision control with adaptive triggers, and communicate with ease using the built-in microphone.
+
+# Product Features
+
+- Haptic Feedback: Experience responsive vibrations and tactile sensations that react to your in-game actions, simulating the feel of different environments and weapons.
+- Adaptive Triggers: Feel dynamic trigger resistance that changes with your gameplay, offering new levels of immersion.
+- Built-in Microphone & Headset Jack: Chat with friends online without any additional equipment.
+- Signature Comfort: Enjoy the iconic PlayStation shape in an updated, two-tone design for hours of comfortable play.
+- Integrated Battery: Play wirelessly and recharge the controller easily via USB-C.
+
+# Product Specs
+
+- Brand: Sony
+- Compatibility: PlayStation 5
+- Connectivity: Wireless (Bluetooth), USB-C
+- Additional Features: Motion sensor, Create button, Built-in speaker.
+
+---
+id: 33
+---
+
+# Product Summary
+
+The LG 55" UQ7570 4K HDR UHD LED Smart TV offers a vibrant viewing experience with sharp 4K resolution, HDR10 Pro support, and the intuitive webOS 22 smart platform, putting all your favorite streaming apps at your fingertips.
+
+# Product Features
+
+- Stunning 4K UHD Display: Experience exceptional detail and clarity with four times the resolution of Full HD.
+- HDR10 Pro: Enjoy movies and shows with enhanced contrast and richer colors thanks to HDR10 Pro support.
+- webOS 22 Smart Platform: Easily navigate and access your favorite streaming apps, movies, TV shows, and more.
+- Filmmaker Mode: Get a true cinematic experience, watching movies the way directors intended.
+- Built-in Streaming Apps: Instantly enjoy popular apps like Netflix, Prime Video, Apple TV+, Disney+, and others.
+
+# Product Specs
+
+- Brand: LG
+- Model: 55UQ7570
+- Screen Size: 55 inches
+- Display Type: 4K UHD LED
+- HDR Support: HDR10 Pro
+- Smart Platform: webOS 22
+
+---
+id: 34
+---
+
+# Product Summary
+
+The Samsung 32" M4500 720p HD Smart TV is a compact and versatile TV that offers a clear picture and convenient access to your favorite streaming apps. Enjoy crisp visuals and access the most popular services directly from your television.
+
+# Product Features
+
+- HD Resolution: Experience a clear and vibrant picture with HD (720p) resolution.
+- Smart TV Functionality: Enjoy a range of popular streaming apps right on your TV.
+- Convenient Size: The 32-inch screen makes it ideal for smaller spaces like bedrooms, dorms, or offices.
+- PurColor Technology: Experience realistic colors and immersive visuals.
+- Ultra Clean View: Get a clearer picture by analyzing content to reduce visual noise.
+
+# Product Specs
+
+- Brand: Samsung
+- Model: M4500
+- Screen Size: 32 inches
+- Display Type: HD (720p) LED
+- Smart TV Platform: Samsung's Smart TV platform
+
+---
+id: 35
+---
+
+# Product Summary
+
+The Creative Stage V2 2.1 Soundbar offers a compact and powerful upgrade to your TV, gaming, or computer audio setup. It features a dedicated subwoofer for deep bass, clear and detailed sound, and versatile connectivity options for a cinematic experience at home.
+
+# Product Features
+
+- Immersive 2.1 Sound: Experience movies, games, and music with rich audio and impactful bass thanks to the soundbar and its included subwoofer.
+- Clear Dialog & Enhanced Bass: Dedicated subwoofer for deep, room-filling bass and Clear Dialog audio technology for greater vocal clarity.
+- Versatile Connectivity: Connect via optical, AUX, Bluetooth, or USB to your TV, PC, or other compatible devices.
+- Compact and Stylish Design: Fits neatly under your TV or monitor, blending seamlessly into any space.
+- Remote Control Included: Easily adjust volume and playback settings from the comfort of your seat.
+
+# Product Specs
+
+- Brand: Creative
+- Model: Stage V2
+- Channels: 2.1
+- Total Power Output: 160W (Peak)
+- Connectivity: Optical, AUX, Bluetooth, USB Audio
+- Dimensions (Soundbar): 3 x 26.8 x 3.9 in / 7.6 x 68 x 10 cm
+- Dimensions (Subwoofer): 4.6 x 10.6 x 16.2 in / 11.6 x 27 x 41 cm
+
+---
+id: 36
+---
+
+# Product Summary
+
+The JBL 2.1ch Soundbar (300W) elevates your home audio experience with powerful, immersive sound. Enjoy room-filling bass from the dedicated wireless subwoofer and crisp, clear audio from the soundbar, transforming your movies, games, and music.
+
+# Product Features
+
+- Powerful 2.1 Sound: Experience dynamic audio with 300W peak power and deep, satisfying bass from the wireless subwoofer.
+- JBL Surround Sound: Simulate an immersive surround sound experience from a compact form factor.
+- Wireless Subwoofer: Enjoy the freedom to place the subwoofer anywhere in your room for optimal bass response.
+- Bluetooth Connectivity: Stream music wirelessly from your smartphone, tablet, or other compatible devices.
+- Versatile Inputs: Connect to your TV using HDMI, optical, or AUX for seamless integration into your setup.
+
+# Product Specs
+
+- Brand: JBL
+- Channels: 2.1
+- Total Power Output: 300W (Peak)
+- Connectivity: HDMI, Optical, AUX, Bluetooth
+- Additional Features: May include Dolby Digital decoding, remote control, various sound modes (Movie, Music, etc.)
+
+---
+id: 37
+---
+
+# Product Summary
+
+The Ring Video Doorbell Wireless (2nd Gen) offers a convenient way to see and speak with visitors at your door, even when you're not home. With crisp HD video, two-way talk, and motion detection, you'll always know who's there - adding an extra layer of security and peace of mind.
+
+# Product Features
+
+- HD Video & Two-Way Talk: See, hear, and speak with visitors through clear 1080p HD video and two-way audio.
+- Motion Detection: Receive real-time notifications when motion is detected at your doorstep, allowing you to respond quickly from anywhere.
+- Customizable Motion Zones: Tailor detection areas to focus on high-traffic spots and reduce unnecessary alerts.
+- Wireless & Easy Setup: Enjoy the convenience of wireless operation and simple installation within minutes.
+- Works with Alexa: Use voice commands to answer the door or view a live video stream through compatible Alexa devices.
+
+# Product Specs
+
+- Brand: Ring
+- Model: Video Doorbell (2nd Gen, Wireless)
+- Video Resolution: 1080p HD
+- Field of View: 155° horizontal, 90° vertical
+- Power: Rechargeable Battery Pack (included) or wired option
+- Connectivity: Wi-Fi
+- Compatibility: iOS, Android, Mac, and Windows 10 devices
+
+Please Note: Some features require a Ring Protect subscription (sold separately).
+
+---
+id: 38
+---
+
+# Product Summary
+
+The Lorex 2K Wi-Fi Video Doorbell enhances your home security with crystal-clear video, smart motion detection, and convenient remote access. See who's at your door, answer from anywhere, and get alerts triggered by people or vehicles for streamlined monitoring.
+
+# Product Features
+
+- 2K QHD Video: Capture detailed footage day and night, ensuring you never miss a visitor.
+- Smart Motion Detection: Distinguish between people, vehicles, and other motion, reducing false alerts.
+- Two-Way Talk: Communicate with visitors through the built-in microphone and speaker.
+- Local Storage: Record video onto an included microSD card, avoiding monthly cloud subscription fees.
+- Color Night Vision: Get vibrant nighttime images in dim conditions, improving visibility.
+- Works with Smart Assistants: Integrate with Google Assistant or Amazon Alexa for voice control and smart home integration.
+
+# Product Specs
+
+- Brand: Lorex
+- Model: 2K HD Wi-Fi Video Doorbell
+- Video Resolution: 2K QHD (2560x1920)
+- Power: Wireless (battery) or wired.
+- Connectivity: Wi-Fi
+- Storage: MicroSD card (included)
+
+Please Note: Cloud storage options may be available for purchase separately. Specific features and compatibility with smart assistants may vary based on the exact model number.
+
+---
+id: 39
+---
+
+# Product Summary
+
+The Amazon All-new Fire TV Cube combines the power of a streaming media player with the hands-free convenience of Alexa voice control. Stream your favorite shows and movies in stunning 4K Ultra HD, control compatible devices with just your voice, and enjoy access to a vast library of content.
+
+# Product Features
+
+- Powerful Streaming: Watch your favorite movies and shows in vibrant 4K Ultra HD with support for Dolby Vision, HDR, and Dolby Atmos audio.
+- Hands-Free Alexa Control: Ask Alexa to play content, control your TV, smart lights, check the weather, and much more – even when the TV is off.
+- Wide Entertainment Library: Access popular streaming services like Netflix, Prime Video, Disney+, and more.
+- Control Compatible Devices: Use your voice to manage compatible soundbars, AV receivers, TVs, and other smart home devices.
+- Built-In Speaker: Get news updates, ask questions, set reminders, and more, even when your TV is off.
+
+# Product Specs
+
+- Brand: Amazon
+- Model: All-new Fire TV Cube
+- Processor: Hexa-core
+- Video Streaming Resolution: Up to 4K Ultra HD
+- Audio Support: Dolby Atmos
+- Connectivity: Wi-Fi, Ethernet, Bluetooth, HDMI
+- Dimensions: 3.4 x 3.4 x 3 inches / 86 x 86 x 77 mm
+
+Please Note: Subscriptions may be required for some streaming services.
+
+---
+id: 40
+---
+
+# Product Summary
+
+The Roku Streaming Stick 4K is a compact and powerful streaming device delivering a seamless and enjoyable viewing experience. Enjoy stunning 4K visuals, HDR support, and access to a vast library of streaming content with Roku's easy-to-use interface.
+
+# Product Features
+
+- Stunning 4K & HDR: Experience movies and shows in brilliant 4K resolution with vibrant HDR colors bringing your content to life.
+- Fast & Responsive: The quad-core processor ensures smooth navigation and a snappy interface.
+- Voice Remote: Easily control your TV and search for content using your voice.
+- Massive Content Library: Access thousands of streaming channels, including popular services like Netflix, Disney+, HBO Max, Apple TV, and more.
+- Compact & Portable Design: The discreet design allows for easy placement behind your TV, and it's perfect for travel.
+
+# Product Specs
+
+- Brand: Roku
+- Model: Streaming Stick 4K
+- Resolution: Up to 4K Ultra HD
+- HDR Support: HDR10, HDR10+, Dolby Vision
+- Wireless Connectivity: Dual-band Wi-Fi
+- Remote: Voice Remote with TV controls
+
+Please Note: Subscriptions may be required for some streaming services.
+
+---
+id: 41
+---
+
+# Product Summary
+
+The Dyson V7B Cordless Vacuum delivers powerful suction and whole-home cleaning versatility in a convenient lightweight design. Tackle tough dirt on a variety of surfaces, transform into a handheld for quick cleanups, and enjoy hygienic emptying with the touch of a button.
+
+# Product Features
+
+- Powerful Suction: Dyson's advanced digital motor generates consistent, strong suction for deep cleaning on both carpets and hard floors.
+- Cordless Convenience: No cords to untangle or restrict your movement – easily clean throughout your home without limitations.
+- Multiple Attachments: Quickly switch between various tools for cleaning floors, upholstery, stairs, and hard-to-reach areas.
+- Hygienic Emptying: Ejects trapped dirt and debris directly into the bin with a single action, minimizing contact with grime.
+- Long Runtime: Enjoy up to 30 minutes of fade-free power for extended cleaning sessions. (Note: runtime may vary depending on usage and power mode)
+
+# Product Specs
+
+- Brand: Dyson
+- Model: V7B
+- Motor: Dyson Digital Motor V7
+- Runtime: Up to 30 minutes (fade-free)
+- Bin Capacity: 0.14 gallons / 0.53 liters
+- Weight: 5.3 lbs / 2.40 kg
+- Attachments May Include: Crevice tool, combination tool, mini motorized tool, and others may vary.
+
+---
+id: 42
+---
+
+# Product Summary
+
+The Trifo M6 Robot Vacuum Cleaner simplifies cleaning with its powerful suction, advanced navigation, and convenient app control. It combines vacuuming and mopping functions for a thorough clean, while its camera-based navigation intelligently maps your home and avoids obstacles.
+
+# Product Features
+
+- Hybrid Cleaning: Vacuums and mops simultaneously, saving you time and effort.
+- Strong Suction: Powerful suction removes dirt, pet hair, and debris from both carpets and hard floors.
+- Smart Navigation: Camera-based mapping accurately learns your home layout for efficient cleaning paths.
+- Obstacle Avoidance: Advanced sensors help it navigate around obstacles and avoid falls down the stairs.
+- App Control & Scheduling: Control cleaning from anywhere, set cleaning schedules, and adjust cleaning settings via the app.
+- Voice Control: Compatible with Amazon Alexa and Google Assistant for hands-free operation.
+
+# Product Specs
+
+- Brand: Trifo
+- Model: M6 Robot Vacuum Cleaner
+- Suction Power: (Typically listed in pascals - Pa)
+- Runtime: (Usually in minutes)
+- Navigation: Camera-based
+- Connectivity: Wi-Fi
+- App: Trifo Home App
+
+Please Note: Specific features and specs may vary slightly depending on the specific Trifo M6 model variant.
+
+---
+id: 43
+---
+
+# Product Summary
+
+The DJI Tello (White Edition) is a beginner-friendly mini drone that packs a punch. Capture stunning aerial photos and videos with the 5MP camera, explore intuitive flight modes, and even learn basic coding with programmable flight paths. The compact design and long battery life make it perfect for indoor and outdoor fun.
+
+# Product Features
+
+- High-Definition Camera: Capture 5MP photos and 720p HD videos, offering a unique perspective of the world.
+- Easy to Fly: Intuitive controls and intelligent flight modes like Bounce, Throw & Go, and Palm Control make flying effortless.
+- VR Compatibility: Immerse yourself in the flight experience with compatible VR goggles (sold separately).
+- Programmable Flights: Learn coding basics by creating custom flight paths and stunts using the Tello EDU app.
+- Compact & Portable: The lightweight design makes it easy to take anywhere for on-the-go aerial adventures.
+- Long Flight Time: Enjoy up to 13 minutes of flight time on a single battery charge.
+
+# Product Specs
+
+- Brand: DJI
+- Model: Tello (White Edition)
+- Camera: 5MP photos, 720p HD video
+- Flight Time: Up to 13 minutes
+- Control Range: Up to 100 meters (330 feet)
+- App: Tello App (iOS/Android)
+- Weight: 80 grams (2.8 oz)
+
+Please Note: Flight times and range may vary depending on usage conditions.
+
+---
+id: 44
+---
+
+# Product Summary
+
+The DJI Mini 4 Pro Fly More Combo (DJI RC 2) is a powerful and portable drone package designed for serious aerial photographers and videographers. This combo includes the advanced DJI RC 2 controller, providing enhanced control and a built-in display. Capture stunning 4K footage, avoid obstacles confidently, and enjoy extended flight times with the included extra batteries.
+
+# Product Features
+
+- Professional-Grade Camera: Shoot breathtaking 4K/60fps video and 48MP photos with a larger sensor for exceptional detail.
+- Tri-Directional Obstacle Avoidance: Fly with confidence thanks to sensors that detect obstacles in front, behind, and below the drone.
+- FocusTrack Suite: Keep your subject in focus with ActiveTrack, Point of Interest, and other intelligent tracking modes.
+- O3+ Transmission: Enjoy extended range and a stable video feed thanks to the OcuSync 3+ transmission system.
+- Extended Flight Time: Fly for up to 34 minutes per battery, giving you more time to capture the perfect shot.
+- Fly More Combo: Includes three batteries, two-way charging hub, extra propellors, and a shoulder bag for convenient transport.
+- DJI RC 2 Controller: Features a built-in 5.5" touchscreen for enhanced control and visual feedback.
+
+# Product Specs
+
+- Brand: DJI
+- Model: Mini 4 Pro Fly More Combo (DJI RC 2)
+- Camera: 48MP photos, 4K/60fps video, 2.7K/120fps video
+- Max Flight Time: 34 minutes (single battery)
+- Transmission System: OcuSync 3+
+- Remote Controller: DJI RC 2
+
+---
+id: 45
+---
+
+# Product Summary
+
+The Lexar Professional 1066x 512GB UHS-I Micro SDXC is a high-performance memory card designed for capturing high-quality photos, videos, and recording 4K UHD footage. Its fast read speeds, large capacity, and rugged durability make it ideal for professional photographers, videographers, and demanding mobile devices.
+
+# Product Features
+
+- Extreme Speed: Read speeds of up to 160MB/s for fast file transfers and rapid burst shooting.
+- 4K Video Ready: UHS Speed Class 3 (U3) and Video Speed Class 30 (V30) ratings for capturing flawless 4K UHD videos.
+- Large Storage Capacity: 512GB of space provides ample room for extensive photoshoots and long video recordings.
+- Reliable Performance: Designed to be shockproof, temperature-proof, waterproof, and X-ray-proof for use in demanding environments.
+- Backwards Compatibility: Works with UHS-I devices and can be used with non-UHS-I devices at lower speeds.
+
+# Product Specs
+
+- Brand: Lexar
+- Series: Professional 1066x
+- Capacity: 512GB
+- Speed Class: UHS Speed Class 3 (U3), Video Speed Class 30 (V30)
+- Max Read Speed: Up to 160MB/s
+- Form Factor: Micro SDXC
+- A2 Application Performance: May support A2 Application Performance Class for faster app loading and usage on compatible Android devices.
+
+---
+id: 46
+---
+
+# Product Summary
+
+The Kingston Canvas GO! Plus 512GB microSD card offers fast speeds and ample storage for everyday use and demanding action scenes. It's ideal for capturing smooth 4K UHD videos, burst-mode photos, and keeping up with your apps and games on smartphones, tablets, and cameras.
+
+# Product Features
+
+- Superior Speeds: Up to 170MB/s read and 90MB/s write speeds for fast file transfers, app loading, and burst-mode photography.
+- 4K Video and High-Res Photos: Supports UHS Speed Class 3 (U3) and Video Speed Class 30 (V30) for capturing stunning 4K footage and detailed photos.
+- Large Capacity: 512GB of storage gives you plenty of space for photos, videos, apps, and other data.
+- Rugged Durability: Waterproof, shockproof, temperature-proof, and X-ray-proof to withstand harsh outdoor conditions.
+- A2 App Performance: May support A2 performance for faster app loading and smoother operation on compatible devices.
+
+# Product Specs
+
+- Brand: Kingston
+- Series: Canvas GO! Plus
+- Capacity: 512GB
+- Speed Class: UHS Speed Class 3 (U3), Video Speed Class 30 (V30)
+- Max Read Speed: Up to 170MB/s
+- Max Write Speed: Up to 90MB/s
+- Form Factor: microSDXC
+
+---
+id: 47
+---
+
+# Product Summary
+
+The DJI Osmo Action 4 is a rugged and versatile action camera designed to capture life's most exciting moments. Featuring powerful image stabilization, a long-lasting battery, dual-touchscreens, and an intuitive interface, the Action 4 is perfect for creators always on the move.
+
+# Product Features
+
+- Rugged and Waterproof: Shockproof, dustproof, and waterproof down to 16 meters (52 feet) without additional housing.
+- RockSteady 3.0 Image Stabilization: Eliminates shake for incredibly smooth footage even in high-intensity action.
+- Long Battery Life: Record for up to 160 minutes on a single charge.
+- Dual Touchscreens: Front and rear touchscreens for easy framing, playback, and settings adjustments.
+- Magnetic Mounts: Mount quickly and securely with strong magnetic mounts for creative angles and perspectives.
+- Intuitive Voice Control: Change settings and start recording hands-free for ultimate convenience.
+- 1/1.7" Sensor and 155° FOV: Captures exceptional detail and a wide field of view.
+- HorizonSteady: Keeps the horizon level even when the camera is tilted, perfect for extreme sports.
+
+# Product Specs
+
+- Brand: DJI
+- Model: Osmo Action 4
+- Sensor Size: 1/1.7"
+- Video Resolution: Up to 4K/120fps
+- Photo Resolution: 48MP photos
+- Field of View: 155°
+- Battery Life: Up to 160 minutes
+- Connectivity: Wi-Fi, Bluetooth
+
+---
+id: 48
+---
+
+# Product Summary
+
+The GoPro HERO11 Black is the ultimate action camera, combining incredible image quality, rock-solid stabilization, and extreme versatility in a compact package. With a larger image sensor, wider field of view, and longer battery life, the HERO11 pushes boundaries for action photography and filmmaking.
+
+# Product Features
+
+- Breathtaking Image Quality: A larger 1/1.9" sensor captures stunning 5.3K/60fps video and incredibly detailed 27MP photos.
+- HyperSmooth 5.0 Stabilization: Emmy Award-winning stabilization technology eliminates shake and provides incredibly smooth footage in extreme conditions.
+- HyperView FOV: An ultra-immersive field of view captures more of the scene for dramatic action footage.
+- Enduro Battery: Extended battery life lets you shoot for longer in cold and challenging conditions.
+- Waterproof & Rugged: Durable design that's waterproof down to 33 feet (10 meters).
+- HindSight Mode: Captures up to 30 seconds of video BEFORE you press the shutter button for those never-miss-a-moment shots.
+- Night Effects: Create stunning time-lapse effects, star trails, and light painting effects with ease.
+
+# Product Specs
+
+- Brand: GoPro
+- Model: HERO11 Black
+- Sensor Size: 1/1.9"
+- Video Resolution: Up to 5.3K/60fps
+- Photo Resolution: 27MP
+- Wide Field of View (FOV) Options: SuperView, Wide, Linear, HyperView
+- Stabilization: HyperSmooth 5.0
+- Battery Type: Enduro
+- Connectivity: Wi-Fi, Bluetooth, GPS
+
+---
+id: 49
+---
+
+# Product Summary
+
+The Canon EOS Rebel SL3 DSLR is a compact and lightweight camera designed for beginners and photography enthusiasts. Featuring a user-friendly interface, powerful image sensor, and compatibility with Canon's extensive lens lineup, it's a fantastic tool for capturing your memories, creative projects, and artistic vision.
+
+# Product Features
+
+- High-Quality Imaging: 24.1MP APS-C CMOS sensor delivers stunning photos with sharp detail and accurate colors.
+- 4K Video: Record high-resolution 4K UHD video for cinematic footage.
+- Dual Pixel CMOS AF: Fast and accurate autofocus system for both photos and videos, perfect for capturing action and candid moments.
+- Vari-Angle Touchscreen: Articulating LCD screen provides flexibility for shooting from various angles and easy image preview.
+- Guided User Interface: Beginner-friendly menus and tutorials to help you learn the basics of photography.
+- Wi-Fi & Bluetooth Connectivity: Seamlessly share images to your smartphone or tablet and control your camera remotely.
+
+# Product Specs
+
+- Brand: Canon
+- Model: EOS Rebel SL3 (Also known as the EOS 250D / EOS Kiss X10 in some regions)
+- Sensor Type: 24.1MP APS-C CMOS
+- Video Resolution: Up to 4K UHD, 1080p Full HD
+- Autofocus: Dual Pixel CMOS AF
+- Display: 3" Vari-Angle Touchscreen LCD
+- Connectivity: Wi-Fi, Bluetooth
+- Lens Compatibility: Canon EF / EF-S mount
+
+---
+id: 50
+---
+
+# Product Summary
+
+The Canon EOS Rebel T7 is an entry-level DSLR designed for beginners who want to take their photography beyond their smartphones. It offers an accessible path to exploring the world of DSLR photography with a simple interface, helpful shooting guides, and the ability to capture high-quality images and videos.
+
+# Product Features
+
+- Excellent Image Quality: 24.1MP APS-C CMOS sensor delivers detailed photos with vibrant colors.
+- Full HD Video: Record 1080p Full HD video to capture life's moments in motion.
+- User-Friendly Interface: Simple controls, on-screen guides, and a Scene Intelligent Auto mode make it easy to learn the basics.
+- Optical Viewfinder: See your subjects clearly through the classic optical viewfinder experience.
+- Wi-Fi Connectivity: Easily share photos and videos to your compatible smart devices.
+- Expand Your Creativity: Compatible with Canon's extensive lineup of EF and EF-S lenses, giving you endless possibilities as your skills grow.
+
+# Product Specs
+
+- Brand: Canon
+- Model: EOS Rebel T7 (may also be labeled EOS 2000D or EOS 4000D in certain regions)
+- Sensor Type: 24.1MP APS-C CMOS
+- Video Resolution: 1080p Full HD (up to 30fps)
+- Autofocus System: 9-point AF system
+- Display: 3-inch fixed LCD screen
+- Connectivity: Wi-Fi
+- Lens Compatibility: Canon EF and EF-S mounts
+
+---
+id: 51
+---
+
+# Product Summary
+
+The Canon Powershot SX740 is a compact and powerful travel camera featuring a long 40x optical zoom lens and 4K video capabilities. Perfect for adventurers and those who want to capture distant details with ease, this camera packs a punch in a pocket-friendly design.
+
+# Product Features
+
+- Powerful Zoom: 40x optical zoom lens brings distant subjects into sharp focus, ideal for travel, wildlife, and sports photography.
+- 4K Video Recording: Capture stunning 4K UHD resolution videos for a cinematic experience.
+- Compact & Lightweight: Easy to take with you on any adventure without weighing you down.
+- Image Stabilization: Reduces camera shake for clearer and sharper images and videos, especially when zoomed in.
+- Tilting LCD Screen: Offers flexibility for shooting from various angles, including selfies.
+- Wi-Fi & Bluetooth Connectivity: Share photos and videos wirelessly to your smartphone, tablet, or computer.
+
+# Product Specs
+
+- Brand: Canon
+- Model: Powershot SX740
+- Sensor Type: 20.3-megapixel CMOS sensor
+- Zoom Range: 40x optical zoom (equivalent to 24-960mm in 35mm format)
+- Video Resolution: Up to 4K UHD (30fps)
+- Display: 3-inch tilting LCD touchscreen
+- Connectivity: Wi-Fi, Bluetooth
+
+---
+id: 52
+---
+
+# Product Summary
+
+The Canon Powershot G7 X Mark III is a powerful and versatile compact camera designed for advanced photographers, content creators, and vloggers. It features a 1-inch sensor for excellent image quality, fast autofocus, 4K video recording, and live streaming capabilities, making it a great choice for those who demand flexibility in a pocket-sized package.
+
+# Product Features
+
+- Large 1-inch Sensor: Delivers high-quality images with impressive low-light capabilities and shallow depth of field.
+- 4K Video & Live Streaming: Record stunning 4K UHD video and directly live-stream to YouTube for easy sharing.
+- Fast Autofocus: Tracks moving subjects accurately and smoothly for both photos and videos.
+- Tilting Touchscreen: Perfect for shooting from different angles, selfies, and vlogging.
+- Compact & Portable: Easily fits in a pocket or bag, making it ideal for travel and everyday photography.
+- Wi-Fi & Bluetooth Connectivity: Share your creations wirelessly and control the camera remotely.
+
+# Product Specs
+
+- Brand: Canon
+- Model: Powershot G7 X Mark III
+- Sensor Type: 20.1 Megapixel 1-inch CMOS sensor
+- Zoom Range: 4.2x optical zoom (equivalent to 24-100mm in 35mm format)
+- Video Resolution: Up to 4K UHD (30fps)
+- Display: 3-inch Tilting Touchscreen LCD
+- Connectivity: Wi-Fi, Bluetooth
+- Other Feature: Microphone input for enhanced audio in videos

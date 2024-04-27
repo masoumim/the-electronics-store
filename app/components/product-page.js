@@ -19,13 +19,13 @@ export default function ProductPage({ id }) {
     return (
         <>
             {product && (
-                <div>
-                    <h1>{product.name}</h1>
-                    <img src={product.img_url} alt={product.name} />
-                    <p>{product.description}</p>
-                    <p>Price: ${product.price}</p>
-                    <p>Product Code: {product.item_code}</p>
-                    <p>{product.inventory > 0 ? 'In Stock' : 'Out of Stock'}</p>
+                <div className="flex flex-col items-center justify-center p-5">
+                    <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
+                    <img className="w-64 h-64 object-cover mb-4" src={product.img_url} alt={product.name} />
+                    <p className="mb-2">{product.description}</p>
+                    <p className="font-bold mb-2">Price: ${product.price}</p>
+                    <p className="mb-2">Product Code: {product.item_code}</p>
+                    <p className={product.inventory > 0 ? 'text-green-500' : 'text-red-500'}>{product.inventory > 0 ? 'In Stock' : 'Out of Stock'}</p>
                 </div>
             )}
         </>
