@@ -1,0 +1,37 @@
+[
+    {
+        "id": 13,
+        "summary": "The ASUS ROG Strix GA15DK-CCR760TI-CB is a mid-tower gaming desktop designed for esports-level competition. It boasts an AMD Ryzen 7 5800X CPU, NVIDIA GeForce GTX 1660 Ti graphics, superior cooling, and customizable Aura Sync lighting.",
+        "features": [
+            "Designed for competitive esports performance",
+            "Superior cooling and airflow",
+            "Customizable Aura Sync lighting",
+            "Built-in carrying handle and headphone hook for portability",
+            "Powerful AMD Ryzen 7 5800X CPU",
+            "Fluid and responsive graphics with NVIDIA GeForce GTX 1660 Ti",
+            "Ample memory and fast SSD storage"
+        ],
+        "specs": {
+            "Brand": "ASUS",
+            "Model": "G15DK-CCR760TI-CB",
+            "Part No": "90PF02Q1-M01PU0",
+            "Desktop Type": "Gaming",
+            "Form Factor": "Mid Tower",
+            "CPU Brand": "AMD",
+            "CPU": "Ryzen 7 5800X (8-core/16-thread, 36MB cache, up to 4.7 GHz max boost)",
+            "Memory": "16GB (2x8GB DDR4 U-DIMM)",
+            "Motherboard Chipset": "AMD® B550",
+            "SSD Capacity": "1TB",
+            "Hard Drive Capacity": "None",
+            "GPU": "NVIDIA GeForce GTX 1660 Ti",
+            "Operating System": "Windows 11 Home",
+            "Wireless LAN": "Wi-Fi 6 + Bluetooth",
+            "Power Supply": "500W (80+ Bronze, peak 550W)",
+            "Expansion Slot (includes used)": "1x PCIe® 4.0 x 16, 2x PCIe® 3.0 x 1, 2x M.2 connector for storage, 4x DDR4 U-DIMM slot",
+            "Keyboard & Mouse": "Not included",
+            "Dimension (WxDxH)": "18.50 x 42.10 x 49.80 cm",
+            "Weight": "11.00 kg",
+            "Product Condition": "New"
+        }
+    }
+]
