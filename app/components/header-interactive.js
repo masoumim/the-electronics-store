@@ -25,14 +25,14 @@ export default function HeaderInteractive() {
     }, [])
 
     return (
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center bg-blue-500 text-white p-4">
             {/* The logo and the name of the store */}
             <div className="flex items-center space-x-4">
                 <Link href="/">
                     <Image src="/icons/logo-white.png" alt="The Electronics Store logo" width={30} height={30} />
                 </Link>
                 <Link href="/">
-                    <div className="text-blue-500 font-bold">The Electronics Store</div>
+                    <div className="text-white font-bold text-lg">The Electronics Store</div>
                 </Link>
             </div>
             {/* The account / sign-in link and the cart link */}

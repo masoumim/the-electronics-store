@@ -92,16 +92,18 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
                             <p className="text-green-500">{discountedPrice}</p>
                         </div>
                     ) : (
-                        <p className="text-xl font-bold">{price}</p>
+                        <p className="text-xl font-bold">
+                            <span className="text-gray-600">${price}</span>
+                        </p>
                     )}
-                    <p className="text-gray-600 mt-2">{productCode}</p>
-                    <p className={`text-sm font-semibold mt-2 ${inStock ? 'text-green-500' : 'text-red-500'}`}>{inStock ? "In Stock" : "Out of Stock"}</p>
+                    <p className="text-sm font-semibold mt-2">{productCode}</p>
+                    <p className={`text-lg font-semibold mt-2 ${inStock ? 'text-green-500' : 'text-red-500'}`}>{inStock ? "In Stock" : "Out of Stock"}</p>
                     <button onClick={handleAddToCart} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-4 ${!inStock ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={!inStock}>Add to Cart</button>
                 </div>
                 {showModal && (
                     <div className="fixed inset-0 flex items-center justify-center z-50">
                         <div className="bg-white p-4 rounded shadow-lg">
-                            <p>Do you want to go to cart or continue shopping?</p>
+                            <p className="text-sm">Do you want to go to cart or continue shopping?</p>
                             <Link href="/cart">
                                 <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go to Cart</button>
                             </Link>

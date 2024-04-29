@@ -1,4 +1,5 @@
 // navbar.js - This interactive component contains drop-down menus for each of the product categories
+// It uses the AppBar component from MUI to display the navigation bar with the product categories (https://mui.com/material-ui/react-app-bar)
 
 'use client'
 
@@ -38,9 +39,9 @@ export default function Navbar() {
 
     return (
         <AppBar position="static">
-            <Toolbar>
+            <Toolbar sx={{ justifyContent: 'center' }}>
                 <Button color="inherit" onClick={handleComputersClick}>
-                    Computers
+                    <div className='text-base'>Computers</div>
                 </Button>
                 <Menu
                     anchorEl={computersAnchorEl}
@@ -88,7 +89,7 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleGamingClick}>
-                    Gaming
+                <div className='text-base'>Gaming</div>
                 </Button>
                 <Menu
                     anchorEl={gamingAnchorEl}
@@ -147,7 +148,7 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleHomeElectronicsClick}>
-                    Home Electronics
+                <div className='text-base'>Home Electronics</div>
                 </Button>
                 <Menu
                     anchorEl={homeElectronicsAnchorEl}
@@ -181,7 +182,7 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleCamerasDronesClick}>
-                    Cameras & Drones
+                <div className='text-base'>Cameras & Drones</div>
                 </Button>
                 <Menu
                     anchorEl={camerasDronesAnchorEl}

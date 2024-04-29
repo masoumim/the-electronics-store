@@ -8,12 +8,11 @@ import '@/app/globals.css'
 // Font import
 import { Inter } from 'next/font/google'
 
-
-
 // Import components
 import HeaderInteractive from './components/header-interactive'
 import Navbar from './components/navbar'
 import Providers from './components/providers'
+import Footer from './components/footer'
 
 // Font
 const inter = Inter({ subsets: ['latin'] })
@@ -27,16 +26,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`flex flex-col min-h-screen ${inter.className}`}>
         <HeaderInteractive />
         <nav>
           <Navbar />
         </nav>
-        <div style={{ maxWidth: '1200px', width: '100%' }} className="mx-auto bg-white">
+        <div style={{ maxWidth: '1200px', width: '100%' }} className="mx-auto bg-white flex-grow">
           <Providers>
             {children}
           </Providers>
         </div>
+        <Footer />
       </body>
     </html>
   )
