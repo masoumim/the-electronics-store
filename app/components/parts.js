@@ -45,7 +45,7 @@ export default function Parts() {
                             discountedPrice={product.price * (1 - product.discount_percent / 100)}
                             productCode={product.item_code}
                             inStock={product.inventory > 0}
-                            url={`/computers/desktops/parts/${product.id}`}
+                            url={`/computers/desktops/parts/${product.partType}/${product.id}`}
                         />
                     </div>
                 ))}

@@ -155,19 +155,17 @@ export default function Breadcrumbs({ category }) {
 
     // Render the breadcrumbs by mapping over the categoryBreadcrumbs array and displaying the links
     return (
-        <>
-            <nav aria-label="breadcrumb">
-                <ol className="flex list-none p-0"> {/* Container classes */}
-                    {categoryBreadcrumbs.map(({ href, label }, index) => (
-                        <li key={index} className="mr-1"> {/* Spacing */}
-                            <a href={href}>{label}</a>
-                            {index < categoryBreadcrumbs.length - 1 && (
-                                <span className="text-gray-500"> {'>'} </span>
-                            )}
-                        </li>
-                    ))}
-                </ol>
-            </nav>
-        </>
+        <nav aria-label="breadcrumb" className=" pl-6">
+            <ol className="flex list-none p-0 text-blue-500 text-base"> {/* Container classes */}
+                {categoryBreadcrumbs.map(({ href, label }, index) => (
+                    <li key={index} className="mr-1"> {/* Spacing */}
+                        <a href={href} className="hover:text-blue-700">{label}</a>
+                        {index < categoryBreadcrumbs.length - 1 && (
+                            <span className="text-gray-500 mx-2"> {'>'} </span>
+                        )}
+                    </li>
+                ))}
+            </ol>
+        </nav>
     );
 }

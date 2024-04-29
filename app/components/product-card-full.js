@@ -79,39 +79,38 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
     };
 
     return (
-        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-            <div className="product-card p-5 border border-gray-200 rounded-md shadow-sm w-72 mx-2">
-                <img src={image} alt={name} className="object-cover h-64 w-full mx-auto rounded-md" />
-                <div className="mt-4">
-                    <Link href={url}>
-                        <h2 className="text-lg font-bold hover:underline overflow-ellipsis overflow-hidden whitespace-nowrap">{name}</h2>
-                    </Link>
-                    {onSale ? (
-                        <div className="flex items-center">
-                            <p className="text-xl font-bold text-red-500 line-through mr-2">{price}</p>
-                            <p className="text-green-500">{discountedPrice}</p>
-                        </div>
-                    ) : (
-                        <p className="text-xl font-bold">
-                            <span className="text-gray-600">${price}</span>
-                        </p>
-                    )}
-                    <p className="text-sm font-semibold mt-2">{productCode}</p>
-                    <p className={`text-lg font-semibold mt-2 ${inStock ? 'text-green-500' : 'text-red-500'}`}>{inStock ? "In Stock" : "Out of Stock"}</p>
-                    <button onClick={handleAddToCart} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-4 ${!inStock ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={!inStock}>Add to Cart</button>
+        <div className='bg-slate-100 p-5' style={{ width: '18rem'}}>
+            <img src={image} alt={name} className="object-cover h-64 w-full mx-auto rounded-md" />
+
+            <Link href={url}>
+                <h2 className="text-lg font-bold hover:underline overflow-ellipsis overflow-hidden whitespace-nowrap">{name}</h2>
+            </Link>
+            {onSale ? (
+                <div className="flex items-center">
+                    <p className="text-xl font-bold text-red-500 line-through mr-2">{price}</p>
+                    <p className="text-xl font-bold text-green-500">{parseFloat(discountedPrice).toFixed(2)}</p>
+                    <p className="text-sm font-semibold text-green-500 ml-2">({Math.round((1 - discountedPrice / price) * 100)}% off)</p>
                 </div>
-                {showModal && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50">
-                        <div className="bg-white p-4 rounded shadow-lg">
-                            <p className="text-sm">Do you want to go to cart or continue shopping?</p>
-                            <Link href="/cart">
-                                <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go to Cart</button>
-                            </Link>
-                            <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Continue Shopping</button>
-                        </div>
+            ) : (
+                <p className="text-xl font-bold">
+                    <span className="text-gray-600">${price}</span>
+                </p>
+            )}
+            <p className="text-sm font-semibold mt-2">{productCode}</p>
+            <p className={`text-lg font-semibold mt-2 ${inStock ? 'text-green-500' : 'text-red-500'}`}>{inStock ? "In Stock" : "Out of Stock"}</p>
+            <button onClick={handleAddToCart} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-4 ${!inStock ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={!inStock}>Add to Cart</button>
+
+            {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="bg-white p-4 rounded shadow-lg">
+                        <p className="text-sm">Do you want to go to cart or continue shopping?</p>
+                        <Link href="/cart">
+                            <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go to Cart</button>
+                        </Link>
+                        <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Continue Shopping</button>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };

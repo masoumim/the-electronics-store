@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <nav>
           <Navbar />
         </nav>
-        <div style={{ maxWidth: '1200px', width: '100%' }} className="mx-auto bg-white flex-grow">
+        <div style={{ maxWidth: '1200px', width: '100%' }} className="mx-auto bg-slate-50 flex-grow mt-5 pt-5 pb-10">
           <Providers>
             {children}
           </Providers>

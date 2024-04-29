@@ -84,9 +84,12 @@ export default function ProductPage({ id }) {
         <>
             {product && supplementaryProductInfo && (
                 <div className="flex flex-col items-center">
-                    <div className="flex justify-center items-start max-w-6xl mx-auto mt-10">
-                        <img className="w-96 h-96 object-cover mb-4" src={product.img_url} alt={product.name} />
-                        <div className="ml-4">
+                    {/* Product Image and Info */}
+                    <div className="flex flex-row items-start justify-center w-full mx-auto bg-white rounded-lg shadow-md mt-10 p-6">
+                        <div className="w-1/2 p-4">
+                            <img className="w-full h-96 object-cover mb-4" src={product.img_url} alt={product.name} />
+                        </div>
+                        <div className="w-1/2 p-4">
                             <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
                             <p className="mb-2">{product.description}</p>
                             <p className="font-bold text-2xl text-green-500 py-2">Price: ${product.price}</p>
@@ -96,18 +99,19 @@ export default function ProductPage({ id }) {
                             {statusMessage && <p className="mt-4 text-green-500">{statusMessage}</p>}
                         </div>
                     </div>
-                    <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md mt-10 p-6">
-                        {/* Supplementary Product Info */}
+                    {/* Supplementary Product Info */}
+                    <div className="w-full mx-auto bg-white rounded-lg shadow-md mt-10 p-6">
+                        {/** Display the product's summary */}
                         <h2 className="text-xl font-bold mt-4 mb-2 border-b pb-2">Product Summary</h2>
                         <p className="text-gray-700">{supplementaryProductInfo.summary}</p>
-    
+                        {/** Display the product's features */}
                         <h2 className="text-xl font-bold mt-4 mb-2 border-b pb-2">Product Features</h2>
                         <ul className="list-disc pl-5 text-gray-700">
                             {supplementaryProductInfo.features.map((feature, index) => (
                                 <li key={index} className="mb-1">{feature}</li>
                             ))}
                         </ul>
-    
+                        {/** Display the product's specs */}
                         <h2 className="text-xl font-bold mt-4 mb-2 border-b pb-2">Product Specs</h2>
                         <ul className="list-disc pl-5 text-gray-700">
                             {Object.entries(supplementaryProductInfo.specs).map(([key, value], index) => (
