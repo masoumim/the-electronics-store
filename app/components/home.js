@@ -2,6 +2,8 @@
 'use client'
 import { getProducts } from "../api/api";
 import ProductCardFull from "./product-card-full";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTags, faExclamationCircle, faStar } from '@fortawesome/free-solid-svg-icons'
 
 const { useEffect, useState } = require("react");
 
@@ -16,8 +18,8 @@ export default function HomePage() {
 
             // Filter products for each section
             const greatDealsProducts = fetchedProducts.filter(product => product.discount_type !== 'none');
-            const limitedSupplyProducts = fetchedProducts.filter(product => product.inventory <= 5);
-            const mostPopularProducts = fetchedProducts.sort(() => 0.5 - Math.random()).slice(0, 10);
+            const limitedSupplyProducts = fetchedProducts.filter(product => product.inventory <= 5 && product.inventory > 0);
+            const mostPopularProducts = fetchedProducts.filter(product => product.total_sold >= 5 && product.inventory > 0);
 
             setGreatDeals(greatDealsProducts);
             setLimitedSupply(limitedSupplyProducts);
@@ -54,10 +56,10 @@ export default function HomePage() {
             case "GAMCONNIN":
                 url = `/gaming/consoles/nintendo/${product.id}`;
                 break;
-            case "GAMEACCCON":
+            case "GAMACCCON":
                 url = `/gaming/accessories/consoles/${product.id}`;
                 break;
-            case "GAMEACCHEA":
+            case "GAMACCHEA":
                 url = `/gaming/accessories/headsets/${product.id}`;
                 break;
             case "HOMTEL":
@@ -98,7 +100,10 @@ export default function HomePage() {
 
     return (
         <div className="w-full">
-            <h2>Great Deals</h2>
+            <h2 className="text-4xl font-bold text-blue-500 pt-10 pb-2">
+                <FontAwesomeIcon icon={faTags} className="mr-2" />
+                Great Deals
+            </h2>
             <div className="flex flex-wrap gap-4">
                 {greatDeals.map(product => (
                     <div key={product.id}>
@@ -117,20 +122,47 @@ export default function HomePage() {
                 ))}
             </div>
 
-            {/* TODO: Finish these two sections */}
-            {/* <h2>Limited Supply</h2>
-            <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+            <h2 className="text-4xl font-bold text-blue-500 pt-10 pb-2">
+                <FontAwesomeIcon icon={faExclamationCircle} className="mr-2" />
+                Limited Supply
+            </h2>
+            <div className="flex flex-wrap gap-4">
                 {limitedSupply.map(product => (
-                    <ProductCardFull key={product.id} product={product} />
+                    <ProductCardFull
+                        key={product.id}
+                        id={product.id}
+                        image={product.img_url}
+                        name={product.name}
+                        price={product.price}
+                        onSale={product.discount_type !== 'none'}
+                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                        productCode={product.item_code}
+                        inStock={product.inventory > 0}
+                        url={determineURL(product)}
+                    />
                 ))}
             </div>
 
-            <h2>Most Popular</h2>
-            <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+            <h2 className="text-4xl font-bold text-blue-500 pt-10 pb-2">
+                <FontAwesomeIcon icon={faStar} className="mr-2" />
+                Most Popular
+            </h2>
+            <div className="flex flex-wrap gap-4">
                 {mostPopular.map(product => (
-                    <ProductCardFull key={product.id} product={product} />
+                    <ProductCardFull
+                        key={product.id}
+                        id={product.id}
+                        image={product.img_url}
+                        name={product.name}
+                        price={product.price}
+                        onSale={product.discount_type !== 'none'}
+                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                        productCode={product.item_code}
+                        inStock={product.inventory > 0}
+                        url={determineURL(product)}
+                    />
                 ))}
-            </div> */}
+            </div>
         </div>
     );
 }

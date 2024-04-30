@@ -3,7 +3,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation.js";
-import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
+import { onAuthStateChanged, signOut, deleteUser, getAuth, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";
 import { checkBackendSignIn, getUserInfo, signOutBackend, deleteUserBackend, getPrimaryShippingAddress, getBillingAddress } from "../api/api";
 import Link from "next/link";
@@ -13,6 +13,7 @@ export default function AccountInfo() {
     const [user, setUser] = useState({});
     const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});
     const [billingAddress, setBillingAddress] = useState({});
+    const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
     // Get current signed-in user on page load
@@ -159,18 +160,25 @@ export default function AccountInfo() {
 
     // Delete user
     async function deleteAccount() {
-        // Delete user on Firebase Auth (Frontend)
+        const auth = getFirebaseAuth();
         const user = auth.currentUser;
 
-        console.log(`deleteAccount() called! user.uid = `);
-        console.log(user.uid);
+        // Ask the user to input their password
+        const password = prompt('Please enter your password to confirm this action');
 
-        // Call the Firebase Auth delete user function        
+        // If the password is null (the user clicked "Cancel"), do not proceed with the reauthentication
+        if (password === null) {
+            return;
+        }
+
+        // Reauthenticate the user
+        const credential = EmailAuthProvider.credential(user.email, password);
+
+        await reauthenticateWithCredential(user, credential);
+
+        // Now the user is considered recently signed in and you can delete their account
         deleteUser(user).then(async () => {
-            // User deleted on frontend
-            // Delete user from backend            
             await deleteUserBackend(user.uid);
-            // Redirecting back to home
             router.push('/');
         }).catch((error) => {
             console.log(error);
@@ -179,55 +187,145 @@ export default function AccountInfo() {
     }
 
     return (
-        <>
-            <p>User uid: {user.uid}</p>
-            <p>Email: {user.email}</p>
-            <p>First Name: {user.firstName}</p>
-            <p>Last Name: {user.lastName}</p>
-            <p>=========================================</p>
-            <p>Primary Shipping Address:</p>
-            {/* If user has a primary shipping address, display the "edit button", otherwise display "Add" */}
-            {primaryShippingAddress.address ?
-                <>
-                    <p>Address: {primaryShippingAddress.address}</p>
-                    <p>Unit: {primaryShippingAddress.unit}</p>
-                    <p>City: {primaryShippingAddress.city}</p>
-                    <p>Province: {primaryShippingAddress.province}</p>
-                    <p>Country: {primaryShippingAddress.country}</p>
-                    <p>Postal Code: {primaryShippingAddress.postalCode}</p>
-                    <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
-                    <Link href={"/edit-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</Link>
-                </>
-                :
-                <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
-            }
-            <p>=========================================</p>
-            <br />
-            <p>=========================================</p>
-            <p>Billing Address:</p>
-            {/* If user has a billing address, display the "edit button", otherwise display "Add" */}
-            {billingAddress.address ?
-                <>
-                    <p>Address: {billingAddress.address}</p>
-                    <p>Unit: {billingAddress.unit}</p>
-                    <p>City: {billingAddress.city}</p>
-                    <p>Province: {billingAddress.province}</p>
-                    <p>Country: {billingAddress.country}</p>
-                    <p>Postal Code: {billingAddress.postalCode}</p>
-                    <p>Phone Number: {billingAddress.phoneNumber}</p>
-                    <Link href={"/edit-billing"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</Link>
-                </>
-                :
-                <Link href={"/add-billing"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</Link>
-            }
-            <p>=========================================</p>
-            <Link href={"/change-password"}>Change Password</Link>
-            <p />
-            <button onClick={signUserOut}>Sign Out</button>
-            <p />
-            <button onClick={deleteAccount}>Delete Account</button>
-            {/* Order History button */}
-            <Link href="/order-history" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Order History</Link>
-        </>
+        <div className="container mx-auto p-8">
+            {/* Account Information Section */}
+            <div className="bg-white rounded-md shadow-md p-6 mb-6">
+                <h2 className="text-2xl font-bold mb-4">Account Information</h2>
+                <p className="mb-2">
+                    <span className="font-medium">User UID:</span> {user.uid}
+                </p>
+                <p className="mb-2">
+                    <span className="font-medium">Email:</span> {user.email}
+                </p>
+                <p className="mb-2">
+                    <span className="font-medium">First Name:</span> {user.firstName}
+                </p>
+                <p className="mb-2">
+                    <span className="font-medium">Last Name:</span> {user.lastName}
+                </p>
+            </div>
+            {/* Shipping and Billing Sections */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-white rounded-md shadow-md p-6">
+                    {/* Primary Shipping Address */}
+                    <h2 className="text-xl font-bold mb-4">Primary Shipping Address</h2>
+                    {primaryShippingAddress.address ? (
+                        <>
+                            <p className="mb-2">
+                                <span className="font-medium">Address:</span> {primaryShippingAddress.address}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Unit:</span> {primaryShippingAddress.unit}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">City:</span> {primaryShippingAddress.city}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Province:</span> {primaryShippingAddress.province}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Country:</span> {primaryShippingAddress.country}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Postal Code:</span> {primaryShippingAddress.postalCode}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Phone Number:</span> {primaryShippingAddress.phoneNumber}
+                            </p>
+                            <Link
+                                href="/edit-address"
+                                className="bg-blue-500 hover:bg-blue-700 text-center w-20 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 block"
+                            >
+                                Edit
+                            </Link>
+                        </>
+                    ) : (
+                        <Link
+                            href="/add-address"
+                            className="bg-blue-500 hover:bg-blue-700 text-center w-20 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 block"
+                        >
+                            Add
+                        </Link>
+                    )}
+                </div>
+
+                {/* Billing Address */}
+                <div className="bg-white rounded-md shadow-md p-6">
+                    <h2 className="text-xl font-bold mb-4">Billing Address</h2>
+                    {billingAddress.address ? (
+                        <>
+                            <p className="mb-2">
+                                <span className="font-medium">Address:</span> {billingAddress.address}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Unit:</span> {billingAddress.unit}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">City:</span> {billingAddress.city}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Province:</span> {billingAddress.province}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Country:</span> {billingAddress.country}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Postal Code:</span> {billingAddress.postalCode}
+                            </p>
+                            <p className="mb-2">
+                                <span className="font-medium">Phone Number:</span> {billingAddress.phoneNumber}
+                            </p>
+                            <Link
+                                href="/edit-billing"
+                                className="bg-blue-500 hover:bg-blue-700 text-center w-20 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 block"
+                            >
+                                Edit
+                            </Link>
+                        </>
+                    ) : (
+                        <Link
+                            href="/add-billing"
+                            className="bg-blue-500 hover:bg-blue-700 text-center w-20 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 block"
+                        >
+                            Add
+                        </Link>
+                    )}
+                </div>
+            </div>
+
+            {/* Account Actions */}
+            <div className="bg-white rounded-md shadow-md p-6">
+                <h2 className="text-xl font-bold mb-4">Account Actions</h2>
+                <button
+                    onClick={signUserOut}
+                    className="bg-blue-500 hover:bg-blue-700 text-center w-40 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block mb-4"
+                >
+                    Sign Out
+                </button>
+                <button
+                    onClick={() => setShowModal(true)}
+                    className="bg-red-500 hover:bg-red-700 text-center w-40 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block mb-4"
+                >
+                    Delete Account
+                </button>
+                {showModal && (
+                    <div className="fixed inset-0 flex items-center justify-center z-50">
+                        <div className="bg-white p-8 rounded-lg shadow-lg w-auto">
+                            <p className="text-lg mb-4 font-bold text-red-500">Are you sure you want to delete your account?</p>
+                            <div className="flex justify-between">
+                                <button onClick={deleteAccount} className="flex-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2 w-52">Confirm</button>
+                                <button onClick={() => setShowModal(false)} className="flex-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-52">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                <Link
+                    href="/order-history"
+                    className="bg-blue-500 hover:bg-blue-700 text-center w-40 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block"
+                >
+                    Order History
+                </Link>
+            </div>
+        </div>
     )
 }

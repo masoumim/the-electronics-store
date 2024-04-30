@@ -258,18 +258,17 @@ export default function AddressForm({ formType }) {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className="w-full max-w-lg">
+        <div className="container mx-auto p-8">
+            <form onSubmit={handleSubmit} className="bg-white rounded-md shadow-md p-6 mb-6">
+                <h2 className="text-2xl font-bold mb-4">Address Form</h2>
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="first-name">
                             *First Name
                         </label>
                         <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="first-name" id="first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                         <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="last-name">
                             *Last Name
@@ -279,14 +278,12 @@ export default function AddressForm({ formType }) {
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
                             *Street Number
                         </label>
                         <input onChange={handleInput} required min={1} value={inputStreetNumber} name="street-number" id="street-number" type="number" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-name">
                             *Street Name
@@ -301,8 +298,6 @@ export default function AddressForm({ formType }) {
                         </label>
                         <input onChange={handleInput} maxLength={10} value={inputUnit} name="unit" id="unit" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
                             *City
@@ -315,7 +310,7 @@ export default function AddressForm({ formType }) {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
                             *Province
                         </label>
-                        <select name="province" id="province" required onChange={handleInput} value={inputProvince}>
+                        <select name="province" id="province" required onChange={handleInput} value={inputProvince} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="default">Select a province</option>
                             <option value="AB">Alberta</option>
                             <option value="BC">British Columbia</option>
@@ -329,8 +324,6 @@ export default function AddressForm({ formType }) {
                             <option value="SK">Saskatchewan</option>
                         </select>
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="country">
                             *Country
@@ -343,10 +336,8 @@ export default function AddressForm({ formType }) {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="postal-code">
                             *Postal Code
                         </label>
-                        <input onChange={handleInput} required minLength={6} maxLength={6} value={inputPostalCode} name="postal-code" id="postal-code" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                        <input onChange={handleInput} required minLength={6} maxLength={6} pattern="\S{6}" title="Postal code must be exactly 6 non-whitespace characters" value={inputPostalCode} name="postal-code" id="postal-code" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="phone-number">
                             *Phone Number
@@ -386,6 +377,6 @@ export default function AddressForm({ formType }) {
                     <></>
                 }
             </form>
-        </>
+        </div>
     )
 }

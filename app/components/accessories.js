@@ -28,21 +28,19 @@ export default function Accessories() {
 
     return (
         <div>
-            <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+            <div className="flex flex-wrap gap-4">
                 {products.map(product => (
-                    <div className="product-card p-5 rounded-md shadow-sm max-w-sm m-2" key={product.id}>
-                        <ProductCardFull
-                            id={product.id}
-                            image={product.img_url}
-                            name={product.name}
-                            price={product.price}
-                            onSale={product.discount_type !== 'none'}
-                            discountedPrice={product.price * (1 - product.discount_percent / 100)}
-                            productCode={product.item_code}
-                            inStock={product.inventory > 0}
-                            url={`/gaming/accessories/${product.accessoryType}/${product.id}`}
-                        />
-                    </div>
+                    <ProductCardFull
+                        id={product.id}
+                        image={product.img_url}
+                        name={product.name}
+                        price={product.price}
+                        onSale={product.discount_type !== 'none'}
+                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                        productCode={product.item_code}
+                        inStock={product.inventory > 0}
+                        url={`/gaming/accessories/${product.accessoryType}/${product.id}`}
+                    />
                 ))}
             </div>
         </div>

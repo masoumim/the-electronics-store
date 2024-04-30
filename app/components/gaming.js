@@ -37,24 +37,22 @@ export default function Gaming() {
   return (
     <>
       <Breadcrumbs category="gaming" />
-      <div className="flex flex-wrap justify-start space-x-2 space-y-2">
+      <div className="flex flex-wrap gap-4">
         {products.map(product => (
-          <div className="product-card p-5 rounded-md shadow-sm max-w-sm m-2" key={product.id}>
-            <ProductCardFull
-              key={product.id}
-              id={product.id}
-              image={product.img_url}
-              name={product.name}
-              price={product.price}
-              onSale={product.discount_type !== 'none'}
-              discountedPrice={product.price * (1 - product.discount_percent / 100)}
-              productCode={product.item_code}
-              inStock={product.inventory > 0}
-              url={product.ProductType === 'playstation' || product.ProductType === 'xbox' || product.ProductType === 'nintendo'
-                ? `/gaming/consoles/${product.ProductType}/${product.id}`
-                : `/gaming/accessories/${product.ProductType}/${product.id}`}
-            />
-          </div>
+          <ProductCardFull
+            key={product.id}
+            id={product.id}
+            image={product.img_url}
+            name={product.name}
+            price={product.price}
+            onSale={product.discount_type !== 'none'}
+            discountedPrice={product.price * (1 - product.discount_percent / 100)}
+            productCode={product.item_code}
+            inStock={product.inventory > 0}
+            url={product.ProductType === 'playstation' || product.ProductType === 'xbox' || product.ProductType === 'nintendo'
+              ? `/gaming/consoles/${product.ProductType}/${product.id}`
+              : `/gaming/accessories/${product.ProductType}/${product.id}`}
+          />
         ))}
       </div>
     </>

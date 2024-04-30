@@ -97,50 +97,52 @@ export default function RegistrationForm() {
     }
 
     return (
-        <>
-            {/* TODO: fix first name and last name so that they have their own outside div like the other inputs (check address-form.js for example) */}
-            <form onSubmit={handleSubmit} className="w-full max-w-lg">
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
-                            First Name
-                        </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="firstName" id="grid-first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-                        <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
+        <div className="container mx-auto p-8 flex items-center justify-center">
+            <div className="bg-white rounded-md shadow-lg p-10 max-w-lg">
+                <h2 className="text-3xl font-bold mb-6 text-center">Register</h2>
+                <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+                                First Name
+                            </label>
+                            <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="firstName" id="grid-first-name" type="text" placeholder="" className="appearance-none block w-full bg-white text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-300" />
+                            <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
+                        </div>
+                        <div className="w-full md:w-1/2 px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                                Last Name
+                            </label>
+                            <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputLastName} name="lastName" id="grid-last-name" type="text" placeholder="" className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-blue-300" />
+                            <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
+                        </div>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
-                            Last Name
-                        </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputLastName} name="lastName" id="grid-last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                        <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-email">
+                                Email Address
+                            </label>
+                            <input onChange={handleInput} required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={inputEmail} name="email" className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-300" id="grid-email" type="email" placeholder="" />
+                            <p className="text-gray-600 text-xs italic">Your email address will be how we identify you</p>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-email">
-                            Email Address
-                        </label>
-                        {/* RegEx pattern from: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_pattern4 */}
-                        <input onChange={handleInput} required pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={inputEmail} name="email" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="" />
-                        <p className="text-gray-600 text-xs italic">Your email address will be how we identify you</p>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Password
+                            </label>
+                            <input onChange={handleInput} required value={inputPassword} minLength={6} name="password" className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-blue-300" id="grid-password" type="password" placeholder="******************" />
+                            <p className="text-gray-600 text-xs italic">Password must be at least 6 characters long</p>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                            Password
-                        </label>
-                        <input onChange={handleInput} required value={inputPassword} minLength={6} name="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************" />
-                        <p className="text-gray-600 text-xs italic">Password must be at least 6 characters long</p>
-                    </div>
-                </div>
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Sign Up
-                </button>
-                {/* Display error message if there is one */}
-                {errorMessage && <p className="text-red-500 text-xs italic mt-4">{errorMessage}</p>}
-            </form>
-        </>
-    )
+                    <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline block w-full"
+                    >
+                        Register
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 }
