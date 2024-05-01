@@ -4,9 +4,11 @@
 'use client'
 import { useEffect, useState, useContext } from "react"
 import { addProductToCart, removeProductFromCart, getCartInfo } from "../api/api";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { ctx } from "./providers.js";
 
-export default function CartProduct({ name, description, price, discount, quantity, productID }) {
+export default function CartProduct({ image, name, description, price, discount, quantity, productID }) {
     const [qty, setQty] = useState(quantity);                           // The quantity of the product
     const contactsCtx = useContext(ctx);                                // The Context object
     const setCart = contactsCtx[1];                                     // Setter to set cart
@@ -62,21 +64,33 @@ export default function CartProduct({ name, description, price, discount, quanti
     }
 
     return (
-        <>
-            <p>Name: {name}</p>
-            <p>Description: {description}</p>
-            <p>Price: {(price - ((discount / 100) * price)).toFixed(2)}</p>
-            <p>Discount: {discount}</p>
-            <p>Quantity: {qty}</p>
-            {qty === 1 ?
-                // If qty is 1, render a disabled (grayed-out) minus button
-                <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">-</button>
-                :
-                // If qty is > 1, render a minus button that decreases the quantity of a product in the user's cart
-                <button onClick={decreaseQty} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">-</button>
-            }
-            <button onClick={increaseQty} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">+</button>
-            <br />
-        </>
-    )
+        <div className="rounded p-4">
+            <div className="flex items-center mb-4">
+                <img src={image} alt={name} className="w-32 h-32 object-cover mr-4 rounded-sm" />
+                <div>
+                    <p className="font-medium text-lg text-slate-500">{name}</p>                    
+                    <p className="font-semibold">
+                        {discount > 0 ?
+                            <>
+                                <span className="text-red-500 line-through mr-2">${Number(price).toFixed(2)}</span>
+                                <span className="text-green-500">${(Number(price) - ((discount / 100) * Number(price))).toFixed(2)}</span>
+                                <span className=" text-green-600 ml-2">You save ${(Number(price) * (discount / 100)).toFixed(2)}</span>
+                            </>
+                            :
+                            <p className="text-slate-500 text-md">${Number(price).toFixed(2)}</p>
+                        }
+                    </p>
+                    <p className="text-slate-500">Quantity: {qty}</p>
+                </div>
+            </div>
+            <div className="flex items-center space-x-4">
+                {qty === 1 ?
+                    <FontAwesomeIcon icon={faMinusCircle} className="cursor-pointer text-gray-500 fa-2x" />
+                    :
+                    <FontAwesomeIcon icon={faMinusCircle} onClick={decreaseQty} className="cursor-pointer text-blue-500 hover:text-blue-700 fa-2x" />
+                }
+                <FontAwesomeIcon icon={faPlusCircle} onClick={increaseQty} className="cursor-pointer text-blue-500 hover:text-blue-700 fa-2x" />
+            </div>
+        </div>
+    );
 }

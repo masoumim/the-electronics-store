@@ -9,6 +9,8 @@ import { checkBackendSignIn, getCartInfo, getProduct, deleteProductFromCart } fr
 import CartProduct from "./cart-product.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const auth = getFirebaseAuth();
 
@@ -80,6 +82,7 @@ export default function Cart() {
                     productInfo.description = fetchedProduct.description;
                     productInfo.discountPercent = fetchedProduct.discount_percent;
                     productInfo.price = fetchedProduct.price;
+                    productInfo.img_url = fetchedProduct.img_url;
 
                     // Add this fetched product to the array
                     fetchedProductsInfo.push(productInfo);
@@ -109,26 +112,39 @@ export default function Cart() {
     }
 
     return (
-        <>
+        <div className="container mx-auto p-8">
             {cartHasProducts ?
-                <>
-                    <p>Cart:</p>
+                <div className="bg-white rounded-md shadow-md p-6 mb-6">
+                    <h2 className="text-2xl font-bold mb-4">My Cart:</h2>
                     {/* Iterate over cartProductsInfo[] and display each product's properties */}
                     {cartProductsInfo.map((product, index) =>
-                        <div key={index}>
-                            <CartProduct key={index} name={product.name} description={product.description} price={product.price} discount={product.discountPercent} quantity={product.quantity} productID={product.productID} />
-                            <button onClick={() => deleteProduct(product.productID)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                        <div key={index} className="mb-4">
+                            <CartProduct key={index} image={product.img_url} name={product.name} description={product.description} price={product.price} discount={product.discountPercent} quantity={product.quantity} productID={product.productID} />
+                            <FontAwesomeIcon icon={faTrash} onClick={() => deleteProduct(product.productID)} className="cursor-pointer text-blue-500 hover:text-blue-700 fa-2x ml-4" />
+                            <hr className="my-4" />
                         </div>
                     )}
-                    <p>Number of Items: {cart.num_items}</p>
-                    <p>Subtotal: {cart.subtotal}</p>
-                    <p>Taxes: {cart.taxes}</p>
-                    <p>Total: {cart.total}</p>
-                    <Link href={"/checkout-shipping"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to checkout</Link>
-                </>
+                    <p className="mb-2 ml-1">
+                        <span className="font-bold text-slate-500">Number of Items:</span> <span className="text-slate-500">{cart.num_items}</span>
+                    </p>
+                    <p className="mb-2 ml-1">
+                        <span className="font-bold text-slate-500">Subtotal:</span> <span className="text-slate-500">${Number(cart.subtotal).toFixed(2)}</span>
+                    </p>
+                    <p className="mb-2 ml-1">
+                        <span className="font-bold text-slate-500">Taxes:</span> <span className="text-slate-500">${Number(cart.taxes).toFixed(2)}</span>
+                    </p>
+                    <p className="mb-2 ml-1">
+                        <span className="font-bold text-slate-500">Total:</span> <span className="text-slate-500">${Number(cart.total).toFixed(2)}</span>
+                    </p>
+                    <div className="mt-6">
+                        <Link href={"/checkout-shipping"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to checkout</Link>
+                    </div>
+                </div>
                 :
-                <p>Cart is empty!</p>
+                <div className="bg-white rounded-md shadow-md p-6 mb-6">
+                    <p className="text-red-500">Cart is empty!</p>
+                </div>
             }
-        </>
+        </div>
     )
 }
