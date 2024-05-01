@@ -79,11 +79,11 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
     };
 
     return (
-        <div className='bg-slate-100 p-5' style={{ width: '18rem' }}>
+        <div className='bg-slate-200 p-5' style={{ width: '18rem' }}>
             <img src={image} alt={name} className="object-cover h-64 w-full mx-auto rounded-md" />
 
             <Link href={url}>
-                <h2 className="text-lg pt-4 font-bold hover:underline overflow-ellipsis overflow-hidden whitespace-nowrap">{name}</h2>
+                <h2 className="text-lg text-slate-500 pt-4 font-bold hover:underline overflow-ellipsis overflow-hidden whitespace-nowrap">{name}</h2>
             </Link>
             {onSale ? (
                 <div className="flex items-center">

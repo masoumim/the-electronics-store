@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: #F8FAFC;
+body {    
+    background-color: #f1f5f9; /* matches tailwind bg-slate-100 set in layout.js*/
 }
+
+/* Spike Styles */
+.order-container {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;    
+  }
+  
+  .spike-top,
+  .spike-bottom {
+    height: 20px;
+    background-repeat: repeat-x;
+  }
+  
+  .spike-top {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="white"><polygon points="0,10 10,10 5,0"/></svg>');
+  }
+  
+  .spike-bottom {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="white"><polygon points="0,0 10,0 5,10"/></svg>');
+  }
+
+
