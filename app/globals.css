@@ -6,7 +6,7 @@ body {
     background-color: #f1f5f9; /* matches tailwind bg-slate-100 set in layout.js*/
 }
 
-/* Spike Styles */
+/* Spike Styles for Order History */
 .order-container {
     position: relative;
     background-color: white;
@@ -27,5 +27,19 @@ body {
   .spike-bottom {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="white"><polygon points="0,0 10,0 5,10"/></svg>');
   }
+
+/* Custom styling for the DaisyUI Steps component */
+  .step {
+    font-size: 1.25rem; /* Increase the size of the steps */
+}
+
+.step-primary {
+    color: #3490dc; /* Change the color of the current step to blue */
+    font-weight: bold; /* Make the current step bold */
+}
+
+.step:not(.step-primary) {
+    color: #64748b; /* Change the color of the other steps to white */
+}
 
 

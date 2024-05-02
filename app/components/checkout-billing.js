@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getCheckoutSession, updateCheckoutSessionStage, getBillingAddress, addCheckoutBillingAddress } from "../api/api.js";
+import CheckoutSteps from "./checkout-steps.js";
 import Link from "next/link.js";
 
 const auth = getFirebaseAuth();
@@ -102,6 +103,10 @@ export default function CheckoutBilling() {
 
     return (
         <>
+            <div className="mx-auto w-full max-w-md">
+                {/* Render the Checkout Steps component */}
+                <CheckoutSteps currentStep={2} />
+            </div>
             {hasBillingAddress ?
                 <>
                     <p>*Your billing address:*</p>

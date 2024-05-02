@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, addCheckoutShippingAddress } from "../api/api.js";
+import CheckoutSteps from "./checkout-steps.js";
 import { ctx } from "./providers.js";
 import Link from "next/link.js";
 
@@ -197,7 +198,6 @@ export default function CheckoutShipping() {
         e.preventDefault();
     }
 
-
     // Handle Input from the Alternate Shipping Address form
     const handleInput = (e) => {
         const fieldName = e.target.name;
@@ -307,148 +307,127 @@ export default function CheckoutShipping() {
 
     return (
         <>
-            {/* Render two radio buttons. 
-            Radio 1 is for choosing the user's Primary Shipping Address. 
-            Radio 2 is for choosing an Alternate Shipping Address - selecting it renders a form for entering an alternative shipping address*/}
-            <label htmlFor="address-primary" className="text-red-600">Use primary address</label>
-            <input onChange={handleInput} type="radio" checked={primaryAddressSelected} disabled={!hasPrimaryShippingAddress} id="address-primary" name="address-primary" />
-            <br />
-            <label htmlFor="address-alternate" className="text-red-600">Use alternate address</label>
-            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" />
-            <br />
-            <b>Shipping Info</b>
-            <br />
-            <br />
-            <b>Primary Shipping Address:</b>
-            {/* If the user has a primary shipping address, conditionally render the shipping address details*/}
-            {hasPrimaryShippingAddress ?
-                <>
-                    <p>Address: {primaryShippingAddress.address}</p>
-                    <p>Unit: {primaryShippingAddress.unit}</p>
-                    <p>City: {primaryShippingAddress.city}</p>
-                    <p>Province: {primaryShippingAddress.province}</p>
-                    <p>Country: {primaryShippingAddress.country}</p>
-                    <p>Postal Code: {primaryShippingAddress.postalCode}</p>
-                    <p>Phone Number: {primaryShippingAddress.phoneNumber}</p>
-                    <Link href={"/edit-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit Primary Shipping Address</Link>
-                </>
-                :
-                <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Primary Shipping Address</Link>
-            }
-            <br />
-            <br />
-            <b>Alternate Shipping Address:</b>
-            {/* Alternate Address Form */}
-            <br />
-            <br />
-            <form onSubmit={handleSubmit} id="alternate-address-form" className="w-full max-w-lg">
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="first-name">
-                            *First Name
-                        </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputFirstName} name="first-name" id="first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-                        <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
+            <div style={{ width: '60rem', height: '40rem' }} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+                <div className="flex flex-row justify-between">
+                    <div>
+                        {/* Primary Shipping Address */}
+                        <span className="text-xl font-bold mb-4">Primary Shipping Address</span> {hasPrimaryShippingAddress ? <span>Edit</span> : <span>Add</span>}
+                        <div>
+                            <label htmlFor="address-primary" className="text-blue-600 font-bold mr-2">Use primary address</label>
+                            <input onChange={handleInput} type="radio" checked={primaryAddressSelected} disabled={!hasPrimaryShippingAddress} id="address-primary" name="address-primary" />
+                        </div>
+                        {/* If the user has a primary shipping address, conditionally render the shipping address details*/}
+                        {hasPrimaryShippingAddress ?
+                            <>
+                                <p className="text-gray-700 font-semibold">Address: <span className="font-normal">{primaryShippingAddress.address}</span></p>
+                                <p className="text-gray-700 font-semibold">Unit: <span className="font-normal">{primaryShippingAddress.unit}</span></p>
+                                <p className="text-gray-700 font-semibold">City: <span className="font-normal">{primaryShippingAddress.city}</span></p>
+                                <p className="text-gray-700 font-semibold">Province: <span className="font-normal">{primaryShippingAddress.province}</span></p>
+                                <p className="text-gray-700 font-semibold">Country: <span className="font-normal">{primaryShippingAddress.country}</span></p>
+                                <p className="text-gray-700 font-semibold">Postal Code: <span className="font-normal">{primaryShippingAddress.postalCode}</span></p>
+                                <p className="text-gray-700 font-semibold">Phone Number: <span className="font-normal">{primaryShippingAddress.phoneNumber}</span></p>
+
+                                {/* <Link href={"/edit-address"} className="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit Primary Shipping Address</Link> */}
+                            </>
+                            :
+                            // <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Primary Shipping Address</Link>
+                            <></>
+                        }
+                    </div>
+                    <div>
+                        {/* Alternate shipping address */}
+                        {/* <p className="text-xl font-bold mb-4">Alternate Shipping Address</p> */}
+                        <span className="text-xl font-bold mb-4">Alternate Shipping Address</span> {hasAlternateShippingAddress ? <span>Edit</span> : <span>Add</span>}
+                        <div>
+                            <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
+                            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" className="bg-white" />
+                        </div>
+                        <form>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
+                                        *Street Number
+                                    </label>
+                                    <input onChange={handleInput} required min={1} value={inputStreetNumber} name="street-number" id="street-number" type="number" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-name">
+                                        *Street Name
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputStreetName} name="street-name" id="street-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="unit">
+                                        Unit (optional)
+                                    </label>
+                                    <input onChange={handleInput} maxLength={10} value={inputUnit} name="unit" id="unit" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
+                                        *City
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputCity} name="city" id="city" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
+                                        *Province
+                                    </label>
+                                    <select name="province" id="province" onChange={handleInput} value={inputProvince} className="bg-gray-200">
+                                        <option value="AB">Alberta</option>
+                                        <option value="BC">British Columbia</option>
+                                        <option value="MB">Manitoba</option>
+                                        <option value="NB">New Brunswick</option>
+                                        <option value="NL">Newfoundland and Labrador</option>
+                                        <option value="NS">Nova Scotia</option>
+                                        <option value="ON">Ontario</option>
+                                        <option value="PE">Prince Edward Island</option>
+                                        <option value="QC">Quebec</option>
+                                        <option value="SK">Saskatchewan</option>
+                                    </select>
+                                </div>
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="country">
+                                        *Country
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputCountry} name="country" id="country" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="postal-code">
+                                        *Postal Code
+                                    </label>
+                                    <input onChange={handleInput} required minLength={6} maxLength={6} value={inputPostalCode} name="postal-code" id="postal-code" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="phone-number">
+                                        *Phone Number
+                                    </label>
+                                    <input onChange={handleInput} required minLength={10} maxLength={10} value={inputPhoneNumber} name="phone-number" id="phone-number" type="text" placeholder="5552223456" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                    <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
+                                </div>
+                            </div>
+                        </form>
+                        {/* {hasAlternateShippingAddress ?
+                            <button onClick={saveAlternateShippingAddress} className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
+                            :
+                            <button disabled={true} className=" bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
+                        } */}
+                        {/* <div>
+                            <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
+                            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" className="bg-white" />
+                        </div> */}
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="last-name">
-                            *Last Name
-                        </label>
-                        <input onChange={handleInput} required minLength={1} maxLength={50} pattern="^[A-Za-z]{1,50}$" value={inputLastName} name="last-name" id="last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                        <p className="text-gray-600 text-xs italic">Letters only, 50 character max</p>
-                    </div>
+                {/* Proceed to Billing Button */}
+                <div className="flex justify-end">
+                    <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
-                            *Street Number
-                        </label>
-                        <input onChange={handleInput} required min={1} value={inputStreetNumber} name="street-number" id="street-number" type="number" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-name">
-                            *Street Name
-                        </label>
-                        <input onChange={handleInput} required minLength={1} value={inputStreetName} name="street-name" id="street-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="unit">
-                            Unit (optional)
-                        </label>
-                        <input onChange={handleInput} maxLength={10} value={inputUnit} name="unit" id="unit" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
-                            *City
-                        </label>
-                        <input onChange={handleInput} required minLength={1} value={inputCity} name="city" id="city" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
-                            *Province
-                        </label>
-                        <select name="province" id="province" onChange={handleInput} value={inputProvince}>
-                            <option value="AB">Alberta</option>
-                            <option value="BC">British Columbia</option>
-                            <option value="MB">Manitoba</option>
-                            <option value="NB">New Brunswick</option>
-                            <option value="NL">Newfoundland and Labrador</option>
-                            <option value="NS">Nova Scotia</option>
-                            <option value="ON">Ontario</option>
-                            <option value="PE">Prince Edward Island</option>
-                            <option value="QC">Quebec</option>
-                            <option value="SK">Saskatchewan</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="country">
-                            *Country
-                        </label>
-                        <input onChange={handleInput} required minLength={1} value={inputCountry} name="country" id="country" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="postal-code">
-                            *Postal Code
-                        </label>
-                        <input onChange={handleInput} required minLength={6} maxLength={6} value={inputPostalCode} name="postal-code" id="postal-code" type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="phone-number">
-                            *Phone Number
-                        </label>
-                        <input onChange={handleInput} required minLength={10} maxLength={10} value={inputPhoneNumber} name="phone-number" id="phone-number" type="text" placeholder="5552223456" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                        <p className="text-gray-600 text-xs italic">Numbers only, example: 5552223456</p>
-                    </div>
-                </div>
-            </form>
-            {hasAlternateShippingAddress ?
-                <button onClick={saveAlternateShippingAddress} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
-                :
-                <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
-            }
-            <br />
-            <br />
-            {primaryAddressSelected || alternateAddressSelected ?
-                <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
-                :
-                <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
-            }
+            </div>
         </>
-    )
+    );
 }

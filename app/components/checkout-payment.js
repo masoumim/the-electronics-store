@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getCheckoutSession, updateCheckoutSessionStage, getProduct } from "../api/api.js";
+import CheckoutSteps from "./checkout-steps.js";
 import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { createStripeCheckoutSession } from "../api/api.js";
@@ -122,15 +123,21 @@ export default function CheckoutPayment() {
 
 
     return (
-        <div id="checkout">
-            {clientSecret && (
-                <EmbeddedCheckoutProvider
-                    stripe={stripePromise.then(stripe => stripe)} // Use resolved Stripe object
-                    options={{ clientSecret }} // Pass options correctly
-                >
-                    <EmbeddedCheckout />
-                </EmbeddedCheckoutProvider>
-            )}
-        </div>
+        <>
+            <div className="mx-auto w-full max-w-md">
+                {/* Render the Checkout Steps component */}
+                <CheckoutSteps currentStep={3} />
+            </div>
+            <div id="checkout">
+                {clientSecret && (
+                    <EmbeddedCheckoutProvider
+                        stripe={stripePromise.then(stripe => stripe)} // Use resolved Stripe object
+                        options={{ clientSecret }} // Pass options correctly
+                    >
+                        <EmbeddedCheckout />
+                    </EmbeddedCheckoutProvider>
+                )}
+            </div>
+        </>
     )
 }

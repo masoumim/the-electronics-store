@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getProduct, getBillingAddress, createOrder } from "../api/api.js";
+import CheckoutSteps from "./checkout-steps.js";
 const auth = getFirebaseAuth();
 
 export default function CheckoutReview() {
@@ -129,6 +130,10 @@ export default function CheckoutReview() {
 
     return (
         <>
+            <div className="mx-auto w-full max-w-md">
+                {/* Render the Checkout Steps component */}
+                <CheckoutSteps currentStep={4} />
+            </div>
             <p className="text-xl font-bold">Your Order Summary:</p>
             <ul>
                 {products.map((product) => (
