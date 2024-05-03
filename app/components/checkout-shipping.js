@@ -8,8 +8,6 @@ import { getFirebaseAuth } from '../firebase/config.js';
 import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, createCheckoutSession, addAlternateShippingAddress, updateAlternateShippingAddress, updateCheckoutSessionStage, addCheckoutShippingAddress } from "../api/api.js";
 import CheckoutSteps from "./checkout-steps.js";
 import { ctx } from "./providers.js";
-import Link from "next/link.js";
-
 
 const auth = getFirebaseAuth();
 
@@ -41,6 +39,7 @@ export default function CheckoutShipping() {
 
     const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});           // The user's primary shipping address
     const [alternateShippingAddress, setAlternateShippingAddress] = useState({});       // The user's alternate shipping address
+    const [isAlternateFormFilled, setIsAlternateFormFilled] = useState(false);          // Used to enable the 'Save' button
 
     const router = useRouter();
 
@@ -165,8 +164,6 @@ export default function CheckoutShipping() {
     // Checks if the Alternate Address Form is filled.
     // If so, enable the 'Save Alternate Shipping Address'
     useEffect(() => {
-
-        // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
         const formInputs = [
             inputFirstName,
             inputLastName,
@@ -179,23 +176,22 @@ export default function CheckoutShipping() {
             inputPhoneNumber
         ]
 
-        // Check each input value to check that it has a value
         const formInputsCheck = formInputs.every((element) => {
             return element != "";
         })
 
-        // If every form field has a value, activate the button
         if (formInputsCheck) {
-            setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
+            setIsAlternateFormFilled(true);
         }
         else {
-            setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
+            setIsAlternateFormFilled(false);
         }
-    });
+    }, [inputFirstName, inputLastName, inputStreetNumber, inputStreetName, inputCity, inputProvince, inputCountry, inputPostalCode, inputPhoneNumber]);
 
     // Form submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
+        saveAlternateShippingAddress();
     }
 
     // Handle Input from the Alternate Shipping Address form
@@ -307,18 +303,25 @@ export default function CheckoutShipping() {
 
     return (
         <>
-            <div style={{ width: '60rem', height: '40rem' }} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+            <div style={{ width: '60rem', height: '52rem' }} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+                {/* Render the Checkout Steps component */}
+                <div className="mx-auto w-full max-w-md mb-10 text-center">
+                    <CheckoutSteps currentStep={1} />
+                </div>
                 <div className="flex flex-row justify-between">
                     <div>
                         {/* Primary Shipping Address */}
-                        <span className="text-xl font-bold mb-4">Primary Shipping Address</span> {hasPrimaryShippingAddress ? <span>Edit</span> : <span>Add</span>}
-                        <div>
+                        <p className="text-xl font-bold mb-2">Primary Shipping Address</p> {hasPrimaryShippingAddress ?
+                            <button onClick={() => router.push("/edit-address")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</button>
+                            :
+                            <button onClick={() => router.push("/add-address")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add</button>}
+                        <span className="ml-5">
                             <label htmlFor="address-primary" className="text-blue-600 font-bold mr-2">Use primary address</label>
                             <input onChange={handleInput} type="radio" checked={primaryAddressSelected} disabled={!hasPrimaryShippingAddress} id="address-primary" name="address-primary" />
-                        </div>
+                        </span>
                         {/* If the user has a primary shipping address, conditionally render the shipping address details*/}
                         {hasPrimaryShippingAddress ?
-                            <>
+                            <div className="mt-5">
                                 <p className="text-gray-700 font-semibold">Address: <span className="font-normal">{primaryShippingAddress.address}</span></p>
                                 <p className="text-gray-700 font-semibold">Unit: <span className="font-normal">{primaryShippingAddress.unit}</span></p>
                                 <p className="text-gray-700 font-semibold">City: <span className="font-normal">{primaryShippingAddress.city}</span></p>
@@ -326,23 +329,37 @@ export default function CheckoutShipping() {
                                 <p className="text-gray-700 font-semibold">Country: <span className="font-normal">{primaryShippingAddress.country}</span></p>
                                 <p className="text-gray-700 font-semibold">Postal Code: <span className="font-normal">{primaryShippingAddress.postalCode}</span></p>
                                 <p className="text-gray-700 font-semibold">Phone Number: <span className="font-normal">{primaryShippingAddress.phoneNumber}</span></p>
-
-                                {/* <Link href={"/edit-address"} className="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit Primary Shipping Address</Link> */}
-                            </>
+                            </div>
                             :
-                            // <Link href={"/add-address"} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Add Primary Shipping Address</Link>
                             <></>
                         }
                     </div>
                     <div>
                         {/* Alternate shipping address */}
-                        {/* <p className="text-xl font-bold mb-4">Alternate Shipping Address</p> */}
-                        <span className="text-xl font-bold mb-4">Alternate Shipping Address</span> {hasAlternateShippingAddress ? <span>Edit</span> : <span>Add</span>}
-                        <div>
-                            <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
-                            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" className="bg-white" />
-                        </div>
+                        <p className="text-xl font-bold">Alternate Shipping Address</p>
                         <form>
+                            {isAlternateFormFilled ?
+                                <button type="submit" onClick={handleSubmit} className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
+                                :
+                                <button type="submit" disabled={true} className="mt-2 bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>}
+                            <span className="ml-5">
+                                <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
+                                <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!isAlternateFormFilled} id="address-alternate" name="address-alternate" className="bg-white" />
+                            </span>
+                            <div className="flex flex-wrap -mx-3 mb-6 mt-5">
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="first-name">
+                                        *First Name
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputFirstName} name="first-name" id="first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="last-name">
+                                        *Last Name
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputLastName} name="last-name" id="last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                            </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <div className="w-1/2 px-3">
                                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
@@ -377,6 +394,7 @@ export default function CheckoutShipping() {
                                         *Province
                                     </label>
                                     <select name="province" id="province" onChange={handleInput} value={inputProvince} className="bg-gray-200">
+                                        <option value="" disabled selected>Select a province</option>
                                         <option value="AB">Alberta</option>
                                         <option value="BC">British Columbia</option>
                                         <option value="MB">Manitoba</option>
@@ -412,20 +430,15 @@ export default function CheckoutShipping() {
                                 </div>
                             </div>
                         </form>
-                        {/* {hasAlternateShippingAddress ?
-                            <button onClick={saveAlternateShippingAddress} className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
-                            :
-                            <button disabled={true} className=" bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Alternate Shipping Address</button>
-                        } */}
-                        {/* <div>
-                            <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
-                            <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" className="bg-white" />
-                        </div> */}
                     </div>
                 </div>
                 {/* Proceed to Billing Button */}
-                <div className="flex justify-end">
-                    <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
+                <div className="flex justify-end mt-5">
+                    {primaryAddressSelected || alternateAddressSelected ?
+                        <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
+                        :
+                        <button disabled={true} className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
+                    }
                 </div>
             </div>
         </>

@@ -408,7 +408,7 @@ export default function BillingForm({ formType }) {
                             *Province
                         </label>
                         <select name="province" id="province" required onChange={handleInput} value={inputProvince} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="default">Select a province</option>
+                            <option value="" disabled>Select a province</option>
                             <option value="AB">Alberta</option>
                             <option value="BC">British Columbia</option>
                             <option value="MB">Manitoba</option>

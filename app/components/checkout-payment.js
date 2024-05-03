@@ -124,19 +124,21 @@ export default function CheckoutPayment() {
 
     return (
         <>
-            <div className="mx-auto w-full max-w-md">
-                {/* Render the Checkout Steps component */}
-                <CheckoutSteps currentStep={3} />
-            </div>
-            <div id="checkout">
-                {clientSecret && (
-                    <EmbeddedCheckoutProvider
-                        stripe={stripePromise.then(stripe => stripe)} // Use resolved Stripe object
-                        options={{ clientSecret }} // Pass options correctly
-                    >
-                        <EmbeddedCheckout />
-                    </EmbeddedCheckoutProvider>
-                )}
+            <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+                <div className="mx-auto w-full max-w-md mb-10 text-center">
+                    {/* Render the Checkout Steps component */}
+                    <CheckoutSteps currentStep={3} />
+                </div>
+                <div id="checkout">
+                    {clientSecret && (
+                        <EmbeddedCheckoutProvider
+                            stripe={stripePromise.then(stripe => stripe)} // Use resolved Stripe object
+                            options={{ clientSecret }} // Pass options correctly
+                        >
+                            <EmbeddedCheckout />
+                        </EmbeddedCheckoutProvider>
+                    )}
+                </div>
             </div>
         </>
     )

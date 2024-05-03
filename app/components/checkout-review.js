@@ -130,32 +130,46 @@ export default function CheckoutReview() {
 
     return (
         <>
-            <div className="mx-auto w-full max-w-md">
-                {/* Render the Checkout Steps component */}
-                <CheckoutSteps currentStep={4} />
+            <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-3/5 2xl:w-4/5 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+                <div className="mx-auto w-full max-w-md mb-10 text-center">
+                    {/* Render the Checkout Steps component */}
+                    <CheckoutSteps currentStep={4} />
+                </div>
+                <div className="flex flex-col sm:flex-row">
+                    <div className="w-full sm:w-1/2 flex justify-center mb-8 sm:mb-0">
+                        <div className="sm:max-w-xs">
+                            <p className="text-xl font-bold mb-4">Your Order Summary:</p>
+                            <ul className="list-disc list-inside text-left text-sm">
+                                {products.map((product) => (
+                                    <li key={product.id} className="whitespace-nowrap overflow-hidden overflow-ellipsis">{product.name} - <b>${product.price}</b></li>
+                                ))}
+                            </ul>
+                            <br />
+                            <p className="text-sm"><b>subtotal:</b> {orderSubtotal}</p>
+                            <p className="text-sm"><b>taxes:</b> {orderTaxes}</p>
+                            <p className="text-sm"><b>total:</b> {orderTotal}</p>
+                        </div>
+                    </div>
+                    <div className="w-full sm:w-1/2 flex justify-center">
+                        <div className="sm:max-w-xs flex flex-row">
+                            <div className="w-full sm:w-1/2 pr-2">
+                                <p className="text-lg font-bold mb-2">Shipping:</p>
+                                <p className="text-sm">{orderShippingAddress.address}</p>
+                                <p className="text-sm">{orderShippingAddress.city}, {orderShippingAddress.province}</p>
+                                <p className="text-sm">{orderShippingAddress.country}</p>
+                                <p className="text-sm">{orderShippingAddress.postal_code}</p>
+                            </div>
+                            <div className="w-full sm:w-1/2 pl-2">
+                                <p className="text-lg font-bold mb-2">Billing:</p>
+                                <p className="text-sm">{orderBillingAddress.address}</p>
+                                <p className="text-sm">{orderBillingAddress.city}, {orderBillingAddress.province}</p>
+                                <p className="text-sm">{orderBillingAddress.country}</p>
+                                <p className="text-sm">{orderBillingAddress.postal_code}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p className="text-xl font-bold">Your Order Summary:</p>
-            <ul>
-                {products.map((product) => (
-                    <li key={product.id}>{product.name} - <b>${product.price}</b></li>
-                ))}
-            </ul>
-            <br />
-            <p><b>subtotal:</b> {orderSubtotal}</p>
-            <p><b>taxes:</b> {orderTaxes}</p>
-            <p><b>total:</b> {orderTotal}</p>
-            <br />
-            <p><b>Shipping:</b></p>
-            <p>{orderShippingAddress.address}</p>
-            <p>{orderShippingAddress.city}, {orderShippingAddress.province}</p>
-            <p>{orderShippingAddress.country}</p>
-            <p>{orderShippingAddress.postal_code}</p>
-            <br />
-            <p><b>Billing:</b></p>
-            <p>{orderBillingAddress.address}</p>
-            <p>{orderBillingAddress.city}, {orderBillingAddress.province}</p>
-            <p>{orderBillingAddress.country}</p>
-            <p>{orderBillingAddress.postal_code}</p>
         </>
     )
 }
