@@ -3,7 +3,9 @@
 
 'use client'
 
-import { AppBar, Toolbar, Button, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Button, Drawer, IconButton, Hidden, Menu, MenuItem, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComputer, faGamepad, faPlug, faCamera } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Link from 'next/link';
@@ -13,7 +15,7 @@ export default function Navbar() {
     const [gamingAnchorEl, setGamingAnchorEl] = useState(null);
     const [homeElectronicsAnchorEl, setHomeElectronicsAnchorEl] = useState(null);
     const [camerasDronesAnchorEl, setCamerasDronesAnchorEl] = useState(null);
-
+    
     const handleComputersClick = (event) => {
         setComputersAnchorEl(event.currentTarget);
     };
@@ -40,8 +42,9 @@ export default function Navbar() {
     return (
         <AppBar position="static">
             <Toolbar sx={{ justifyContent: 'center' }}>
-                <Button color="inherit" onClick={handleComputersClick}>
-                    <div className='text-base'>Computers</div>
+                <Button color="inherit" onClick={handleComputersClick} className='mr-2'>
+                    <div className='text-base hidden sm:block'>Computers</div>
+                    <FontAwesomeIcon icon={faComputer} className="block sm:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={computersAnchorEl}
@@ -89,7 +92,8 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleGamingClick}>
-                <div className='text-base'>Gaming</div>
+                    <div className='text-base hidden sm:block'>Gaming</div>
+                    <FontAwesomeIcon icon={faGamepad} className="block sm:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={gamingAnchorEl}
@@ -148,7 +152,8 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleHomeElectronicsClick}>
-                <div className='text-base'>Home Electronics</div>
+                    <div className='text-base hidden sm:block'>Home Electronics</div>
+                    <FontAwesomeIcon icon={faPlug} className="block sm:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={homeElectronicsAnchorEl}
@@ -182,7 +187,8 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleCamerasDronesClick}>
-                <div className='text-base'>Cameras & Drones</div>
+                    <div className='text-base hidden sm:block'>Cameras & Drones</div>
+                    <FontAwesomeIcon icon={faCamera} className="block sm:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={camerasDronesAnchorEl}
@@ -218,4 +224,5 @@ export default function Navbar() {
             </Toolbar>
         </AppBar>
     );
+
 }

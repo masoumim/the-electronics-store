@@ -32,7 +32,7 @@ export default function HeaderInteractive() {
                     <Image src="/icons/logo-white.png" alt="The Electronics Store logo" width={30} height={30} />
                 </Link>
                 <Link href="/">
-                    <div className="text-white font-bold text-lg">The Electronics Store</div>
+                    <div className="text-sm text-center sm:text-base font-bold text-white">The Electronics Store</div>
                 </Link>
             </div>
             {/* The account / sign-in link and the cart link */}
@@ -48,7 +48,7 @@ export default function HeaderInteractive() {
                                 height={30}
                             />
                         </Link>
-                        <Link href="/account">Account</Link>
+                        <Link href="/account" className="hidden sm:inline">Account</Link>
                     </div>
                 ) : (
                     <Link href="/sign-in">Sign In</Link>
@@ -56,7 +56,7 @@ export default function HeaderInteractive() {
                 <Link href="/cart">
                     <Image src="/icons/shopping-cart-white.png" alt="Shopping cart icon" width={30} height={30} />
                 </Link>
-                <Link href={'/cart'}>My Cart</Link>
+                <Link href={'/cart'} className="hidden sm:inline">My Cart</Link>
             </div>
         </div>
     )
