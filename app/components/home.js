@@ -166,24 +166,30 @@ export default function HomePage() {
     //     </div>
     // );
     return (
-        <div className="sm:px-6 md:px-20 lg:px-16 xl:px-0">
-          <div className="flex flex-wrap gap-4 justify-center sm:justify-start"> 
-            {greatDeals.map(product => (
-              <div key={product.id}>
-                <ProductCardFull
-                  id={product.id}
-                  image={product.img_url}
-                  name={product.name}
-                  price={product.price}
-                  onSale={product.discount_type !== 'none'}
-                  discountedPrice={product.price * (1 - product.discount_percent / 100)}
-                  productCode={product.item_code}
-                  inStock={product.inventory > 0}
-                  url={determineURL(product)}
-                />
-              </div>
-            ))}
-          </div>
+        <div>
+            <div className="flex flex-wrap gap-4 justify-center">
+                {greatDeals.map(product => (
+                    <div key={product.id}>
+                        <ProductCardFull
+                            id={product.id}
+                            image={product.img_url}
+                            name={product.name}
+                            price={product.price}
+                            onSale={product.discount_type !== 'none'}
+                            discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                            productCode={product.item_code}
+                            inStock={product.inventory > 0}
+                            url={determineURL(product)}
+                        />
+                    </div>
+                ))}
+                {/* Add ghost items */}
+                {Array(3 - greatDeals.length % 3).fill().map((_, index) => (
+                    <div key={`ghost-${index}`} className="w-72 h-0.5">
+                        {/* No ProductCardFull component */}
+                    </div>
+                ))}
+            </div>
         </div>
-      );
+    );
 }

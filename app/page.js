@@ -8,7 +8,9 @@ export default function Home() {
   return (
     <>
       <div className="container mx-auto">
-        <CarouselComponent />
+        <div className="hidden xl:block">
+          <CarouselComponent />
+        </div>
         <HomePage />
       </div>
     </>

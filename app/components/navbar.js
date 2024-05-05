@@ -43,8 +43,8 @@ export default function Navbar() {
         <AppBar position="static">
             <Toolbar sx={{ justifyContent: 'center' }}>
                 <Button color="inherit" onClick={handleComputersClick} className='mr-2'>
-                    <div className='text-base hidden sm:block'>Computers</div>
-                    <FontAwesomeIcon icon={faComputer} className="block sm:hidden" size='3x' />
+                    <div className='text-base hidden lg:block'>Computers</div>
+                    <FontAwesomeIcon icon={faComputer} className="block lg:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={computersAnchorEl}
@@ -92,8 +92,8 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleGamingClick}>
-                    <div className='text-base hidden sm:block'>Gaming</div>
-                    <FontAwesomeIcon icon={faGamepad} className="block sm:hidden" size='3x' />
+                    <div className='text-base hidden lg:block'>Gaming</div>
+                    <FontAwesomeIcon icon={faGamepad} className="block lg:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={gamingAnchorEl}
@@ -152,8 +152,8 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleHomeElectronicsClick}>
-                    <div className='text-base hidden sm:block'>Home Electronics</div>
-                    <FontAwesomeIcon icon={faPlug} className="block sm:hidden" size='3x' />
+                    <div className='text-base hidden lg:block'>Home Electronics</div>
+                    <FontAwesomeIcon icon={faPlug} className="block lg:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={homeElectronicsAnchorEl}
@@ -187,8 +187,8 @@ export default function Navbar() {
                     </Link>
                 </Menu>
                 <Button color="inherit" onClick={handleCamerasDronesClick}>
-                    <div className='text-base hidden sm:block'>Cameras & Drones</div>
-                    <FontAwesomeIcon icon={faCamera} className="block sm:hidden" size='3x' />
+                    <div className='text-base hidden lg:block'>Cameras & Drones</div>
+                    <FontAwesomeIcon icon={faCamera} className="block lg:hidden" size='3x' />
                 </Button>
                 <Menu
                     anchorEl={camerasDronesAnchorEl}

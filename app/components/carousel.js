@@ -7,24 +7,44 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 
 export default function CarouselComponent() {
+    // return (
+    //     // Note: The div container must be the same width as the images in order for the carousel to display correctly
+    //     <div className="flex justify-center" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    //         <Splide options={{
+    //             type: 'loop',
+    //             perPage: 1,
+    //             focus: 'center',
+    //         }}>
+    //             <SplideSlide>
+    //                 <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_1.png" alt="An add for AMD Ryzen products" />
+    //             </SplideSlide>
+    //             <SplideSlide>
+    //                 <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_2.png" alt="An add announcing the PS5 is in stock" />
+    //             </SplideSlide>
+    //             <SplideSlide>
+    //                 <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_3.png" alt="An add depicting the GoPro Hero 11" />
+    //             </SplideSlide>
+    //         </Splide>
+    //     </div>
+    // );
+
     return (
-        // Note: The div container must be the same width as the images in order for the carousel to display correctly
-        <div className="flex justify-center" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <Splide options={{
-                type: 'loop',
-                perPage: 1,
-                focus: 'center',
-            }}>
-                <SplideSlide>
-                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_1.png" alt="An add for AMD Ryzen products" />
-                </SplideSlide>
-                <SplideSlide>
-                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_2.png" alt="An add announcing the PS5 is in stock" />
-                </SplideSlide>
-                <SplideSlide>
-                    <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_3.png" alt="An add depicting the GoPro Hero 11" />
-                </SplideSlide>                
-            </Splide>
+        <div className="flex justify-center sm:px-6 md:px-11 lg:px-16 xl:px-0">
+          <Splide options={{
+            type: 'loop',
+            perPage: 1,
+            focus: 'center',
+          }}>
+            <SplideSlide>
+              <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_1.png" alt="An add for AMD Ryzen products" />
+            </SplideSlide>
+            <SplideSlide>
+              <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_2.png" alt="An add announcing the PS5 is in stock" />
+            </SplideSlide>
+            <SplideSlide>
+              <img src="https://storage.googleapis.com/the-electronics-store-bucket/carousel%20images/carousel_3.png" alt="An add depicting the GoPro Hero 11" />
+            </SplideSlide>
+          </Splide>
         </div>
-    );
+      );
 }
