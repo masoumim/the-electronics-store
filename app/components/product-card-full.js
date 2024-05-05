@@ -79,7 +79,7 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
     };
 
     return (
-        <div className='bg-slate-200 p-5' style={{ width: '18rem' }}>
+        <div className='bg-slate-200 p-5' style={{ width: '18rem', height: '31rem' }}>
             <img src={image} alt={name} className="object-cover h-64 w-full mx-auto rounded-md" />
 
             <Link href={url}>
@@ -89,7 +89,7 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
                 <div className="flex items-center">
                     <p className="text-xl font-bold text-red-500 line-through mr-2">${price}</p>
                     <p className="text-xl font-bold text-green-500">${parseFloat(discountedPrice).toFixed(2)}</p>
-                    <p className="text-sm font-semibold text-green-500 ml-2">({Math.round((1 - discountedPrice / price) * 100)}% off)</p>
+                    {/* <p className="text-sm font-semibold text-green-500 ml-2">({Math.round((1 - discountedPrice / price) * 100)}% off)</p> */}
                 </div>
             ) : (
                 <p className="text-xl font-bold">
