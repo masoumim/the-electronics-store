@@ -167,6 +167,10 @@ export default function HomePage() {
     // );
     return (
         <div>
+            <h2 className="text-4xl font-bold text-blue-500 pt-10 pb-2 text-center">
+                <FontAwesomeIcon icon={faTags} className="pr-2" />
+                Great Deals
+            </h2>
             <div className="flex flex-wrap gap-4 justify-center">
                 {greatDeals.map(product => (
                     <div key={product.id}>
@@ -184,7 +188,59 @@ export default function HomePage() {
                     </div>
                 ))}
                 {/* Add ghost items */}
-                {Array(3 - greatDeals.length % 3).fill().map((_, index) => (
+                {Array(4 - greatDeals.length % 4).fill().map((_, index) => (
+                    <div key={`ghost-${index}`} className="w-72 h-0.5">
+                        {/* No ProductCardFull component */}
+                    </div>
+                ))}
+            </div>
+            <h2 className="text-4xl font-bold text-blue-500 pt-10 pb-2 text-center">
+                <FontAwesomeIcon icon={faExclamationCircle} className="pr-2" />
+                Limited Supply
+            </h2>
+            <div className="flex flex-wrap gap-4 justify-center">
+                {limitedSupply.map(product => (
+                    <ProductCardFull
+                        key={product.id}
+                        id={product.id}
+                        image={product.img_url}
+                        name={product.name}
+                        price={product.price}
+                        onSale={product.discount_type !== 'none'}
+                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                        productCode={product.item_code}
+                        inStock={product.inventory > 0}
+                        url={determineURL(product)}
+                    />
+                ))}
+                {/* Add ghost items */}
+                {Array(4 - limitedSupply.length % 4).fill().map((_, index) => (
+                    <div key={`ghost-${index}`} className="w-72 h-0.5">
+                        {/* No ProductCardFull component */}
+                    </div>
+                ))}
+            </div>
+            <h2 className="text-4xl font-bold text-blue-500 pt-10 pb-2 text-center">
+                <FontAwesomeIcon icon={faStar} className="pr-2" />
+                Most Popular
+            </h2>
+            <div className="flex flex-wrap gap-4 justify-center">
+                {mostPopular.map(product => (
+                    <ProductCardFull
+                        key={product.id}
+                        id={product.id}
+                        image={product.img_url}
+                        name={product.name}
+                        price={product.price}
+                        onSale={product.discount_type !== 'none'}
+                        discountedPrice={product.price * (1 - product.discount_percent / 100)}
+                        productCode={product.item_code}
+                        inStock={product.inventory > 0}
+                        url={determineURL(product)}
+                    />
+                ))}
+                {/* Add ghost items */}
+                {Array(4 - mostPopular.length % 4).fill().map((_, index) => (
                     <div key={`ghost-${index}`} className="w-72 h-0.5">
                         {/* No ProductCardFull component */}
                     </div>
