@@ -155,7 +155,7 @@ export default function Breadcrumbs({ category }) {
 
     // Render the breadcrumbs by mapping over the categoryBreadcrumbs array and displaying the links
     return (
-        <nav aria-label="breadcrumb" className="pb-5">
+        <nav aria-label="breadcrumb" className="pb-5 pl-5">
             <ol className="flex list-none p-0 text-blue-500 text-base"> {/* Container classes */}
                 {categoryBreadcrumbs.map(({ href, label }, index) => (
                     <li key={index} className="mr-1"> {/* Spacing */}
