@@ -68,7 +68,7 @@ export default function CartProduct({ image, name, description, price, discount,
             <div className="flex items-center mb-4">
                 <img src={image} alt={name} className="w-32 h-32 object-cover mr-4 rounded-sm" />
                 <div>
-                    <p className="font-medium text-lg text-slate-500">{name}</p>                    
+                    <p className="font-medium text-lg text-slate-500">{name}</p>
                     <p className="font-semibold">
                         {discount > 0 ?
                             <>
@@ -77,7 +77,7 @@ export default function CartProduct({ image, name, description, price, discount,
                                 <span className=" text-green-600 ml-2">You save ${(Number(price) * (discount / 100)).toFixed(2)}</span>
                             </>
                             :
-                            <p className="text-slate-500 text-md">${Number(price).toFixed(2)}</p>
+                            <span className="text-slate-500 text-md">${Number(price).toFixed(2)}</span>
                         }
                     </p>
                     <p className="text-slate-500">Quantity: {qty}</p>
