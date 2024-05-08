@@ -89,7 +89,6 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
                 <div className="flex items-center">
                     <p className="text-xl font-bold text-red-500 line-through mr-2">${price}</p>
                     <p className="text-xl font-bold text-green-500">${parseFloat(discountedPrice).toFixed(2)}</p>
-                    {/* <p className="text-sm font-semibold text-green-500 ml-2">({Math.round((1 - discountedPrice / price) * 100)}% off)</p> */}
                 </div>
             ) : (
                 <p className="text-xl font-bold">
@@ -103,13 +102,13 @@ const ProductCardFull = ({ id, image, name, price, onSale, discountedPrice, prod
             {/* Modal to show options to go to cart or continue shopping */}
             {showModal && (
                 <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="bg-white p-8 rounded-lg shadow-lg w-auto">
-                        <p className="text-lg mb-4 font-bold text-blue-500">Do you want to go to cart or continue shopping?</p>
-                        <div className="flex justify-between">
+                    <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+                        <p className="text-lg mb-4 font-bold text-blue-500 text-center">Do you want to go to cart or continue shopping?</p>
+                        <div className="flex flex-col items-center space-y-4">
                             <Link href="/cart">
-                                <button onClick={handleCloseModal} className="flex-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2 w-52">Go to Cart</button>
+                                <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded focus:outline-none focus:shadow-outline w-44">Go to Cart</button>
                             </Link>
-                            <button onClick={handleCloseModal} className="flex-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-52">Continue Shopping</button>
+                            <button onClick={handleCloseModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded focus:outline-none focus:shadow-outline w-44">Continue Shopping</button>
                         </div>
                     </div>
                 </div>

@@ -117,45 +117,6 @@ export default function OrderHistory() {
     if (error) return <div>Error loading orders</div>;
 
     // Render the order history
-    // return (
-    //     <>
-    //         <h1 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Order History</h1>
-    //         {orders.length === 0 ? (
-    //             <p>You have no orders</p>
-    //         ) : (
-    //             orders.map((order, index) => (
-    //                 <div key={index} className="bg-white rounded-md shadow-lg p-10 mb-4 flex flex-wrap items-center justify-center">
-    //                     <div className="w-full md:w-1/2">
-    //                         <h2 className="text-gray-600 text-lg font-bold">Order #{order.id}</h2>
-    //                         <p>Date: {order.order_date}</p>
-    //                         <p>Total: {order.total}</p>
-    //                         <p>Subtotal: {order.subtotal}</p>
-    //                         <p>Taxes: {order.taxes}</p>
-    //                         <p>Number of items: {order.num_items}</p>
-    //                         <h3 className="text-gray-600 text-md font-bold mt-2">Products</h3>
-    //                         {order.order_product.map((orderProduct, index) => (
-    //                             <div key={index}>
-    //                                 <p>Product Name: {orderProduct.product.name}</p>
-    //                                 <p>Quantity: {orderProduct.quantity}</p>
-    //                             </div>
-    //                         ))}
-    //                     </div>
-    //                     <div className="w-full md:w-1/2">
-    //                         <h3 className="text-gray-600 text-md font-bold mt-2">Shipping Address</h3>
-    //                         <p>{order.shipping_street_address}, {order.shipping_unit}</p>
-    //                         <p>{order.shipping_city}, {order.shipping_province}, {order.shipping_country}, {order.shipping_postal_code}</p>
-    //                         <p>Phone: {order.shipping_phone_number}</p>
-    //                         <h3 className="text-gray-600 text-md font-bold mt-2">Billing Address</h3>
-    //                         <p>{order.billing_street_address}, {order.billing_unit}</p>
-    //                         <p>{order.billing_city}, {order.billing_province}, {order.billing_country}, {order.billing_postal_code}</p>
-    //                         <p>Phone: {order.billing_phone_number}</p>
-    //                     </div>
-    //                 </div>
-    //             ))
-    //         )}
-    //     </>
-    // );
-
     return (
         <>
             <h1 className="text-center text-2xl font-bold mb-4">Order History</h1>
@@ -163,11 +124,11 @@ export default function OrderHistory() {
                 <p className="text-center text-lg">You have no orders</p>
             ) : (
                 orders.map((order, index) => (
-                    <div key={index} className="mb-4 flex flex-col items-center">
+                    <div key={index} className="mb-4 flex flex-col items-center text-sm text-center sm:text-lg sm:text-left">
                         <div className="order-card-wrapper">
                             <div className="spike-top"></div>
                             <div className="bg-white p-10" style={{ width: '30rem', maxWidth: '1200px' }}>
-                                <div className="mb-4">
+                                <div className="mb-4 px-10 sm:text-left sm:px-0">
                                     <h2 className="text-xl font-bold">Order #{order.id}</h2>
                                     <p>Date: {new Date(order.order_date).toLocaleDateString()}</p> {/* Convert the date to a human-readable format */}
                                     <p>Total: ${Number(order.total).toFixed(2)}</p>

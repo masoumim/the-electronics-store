@@ -310,7 +310,7 @@ export default function AccountInfo() {
                 </button>
                 {showModal && (
                     <div className="fixed inset-0 flex items-center justify-center z-50">
-                        <div className="bg-white p-8 rounded-lg shadow-lg w-auto">
+                        <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
                             <p className="text-lg mb-4 font-bold text-red-500">Are you sure you want to delete your account?</p>
                             <div className="flex justify-between">
                                 <button onClick={deleteAccount} className="flex-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2 w-52">Confirm</button>
