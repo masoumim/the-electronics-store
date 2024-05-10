@@ -19,17 +19,24 @@ export async function GET(request) {
 
 // POST
 export async function POST(request) {
+    console.log("ALTERNATE-SHIPPING-ADDRESS POST CALLED!")
+    
     // Get the base URL (either localhost or Heroku)
     const { searchParams } = new URL(request.url);
     const apiBaseURL = searchParams.get('api_base_url');
 
+    console.log("apiBaseURL: ", apiBaseURL)
+
     // Get the address info from the request body
     const bodyData = await request.json();
+
+    console.log("bodyData: ", bodyData)
 
     // Call the backend /checkout/shipping/alt-address route and send the address info to the route
     const res = await fetch(`${apiBaseURL}/checkout/shipping/alt-address`, { method: "POST", body: JSON.stringify(bodyData), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
-        throw res.Error;
+        console.log(res);
+        throw res.error;
     }
 
     const data = await res.json();
@@ -48,7 +55,7 @@ export async function PUT(request) {
     // Call the backend /checkout/shipping/update-alt-address route and send the address info to the route
     const res = await fetch(`${apiBaseURL}/checkout/shipping/update-alt-address`, { method: "PUT", body: JSON.stringify(bodyData), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
-        throw res.Error;
+        throw res.error;
     }
 
     const data = await res.json();

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getProduct, getBillingAddress, createOrder } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, getProduct, getBillingAddress, createOrder } from "../api/api.js";
 import CheckoutSteps from "./checkout-steps.js";
 const auth = getFirebaseAuth();
 
@@ -105,7 +105,20 @@ export default function CheckoutReview() {
     useEffect(() => {
         async function fetchData() {
             if (checkoutSessionInfo) {
-                const checkoutShippingInfo = await getPrimaryShippingAddress(checkoutSessionInfo.shipping_address_id);
+                let checkoutShippingInfo;
+                if (checkoutSessionInfo.alternate_shipping_address_id !== null) {
+                    // If an alternate shipping address was used, fetch it
+                    checkoutShippingInfo = await getAlternateShippingAddress(checkoutSessionInfo.alternate_shipping_address_id);
+                } else {
+                    // Otherwise, fetch the primary shipping address
+                    checkoutShippingInfo = await getPrimaryShippingAddress(checkoutSessionInfo.shipping_address_id);
+                }
+
+                // If the address is structured differently, handle it here
+                if (checkoutShippingInfo && checkoutShippingInfo.street_number && checkoutShippingInfo.street_name) {
+                    checkoutShippingInfo.address = `${checkoutShippingInfo.street_number} ${checkoutShippingInfo.street_name}`;
+                }
+
                 const checkoutBillingInfo = await getBillingAddress(checkoutSessionInfo.billing_address_id);
                 setOrderShippingAddress(checkoutShippingInfo);
                 setOrderBillingAddress(checkoutBillingInfo);
@@ -154,10 +167,16 @@ export default function CheckoutReview() {
                         <div className="sm:max-w-xs flex flex-row">
                             <div className="w-full sm:w-1/2 pr-2">
                                 <p className="text-lg font-bold mb-2">Shipping:</p>
-                                <p className="text-sm">{orderShippingAddress.address}</p>
-                                <p className="text-sm">{orderShippingAddress.city}, {orderShippingAddress.province}</p>
-                                <p className="text-sm">{orderShippingAddress.country}</p>
-                                <p className="text-sm">{orderShippingAddress.postal_code}</p>
+                                {orderShippingAddress ? (
+                                    <>
+                                        <p className="text-sm">{orderShippingAddress.address}</p>
+                                        <p className="text-sm">{orderShippingAddress.city}, {orderShippingAddress.province}</p>
+                                        <p className="text-sm">{orderShippingAddress.country}</p>
+                                        <p className="text-sm">{orderShippingAddress.postal_code}</p>
+                                    </>
+                                ) : (
+                                    <p>Loading shipping address...</p>
+                                )}
                             </div>
                             <div className="w-full sm:w-1/2 pl-2">
                                 <p className="text-lg font-bold mb-2">Billing:</p>

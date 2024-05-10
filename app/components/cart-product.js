@@ -74,7 +74,7 @@ export default function CartProduct({ image, name, description, price, discount,
                             <>
                                 <span className="text-red-500 line-through mr-2">${Number(price).toFixed(2)}</span>
                                 <span className="text-green-500">${(Number(price) - ((discount / 100) * Number(price))).toFixed(2)}</span>
-                                <span className=" text-green-600 ml-2">You save ${(Number(price) * (discount / 100)).toFixed(2)}</span>
+                                <span className="hidden md:inline text-green-600 ml-2">You save ${(Number(price) * (discount / 100)).toFixed(2)}</span>
                             </>
                             :
                             <span className="text-slate-500 text-md">${Number(price).toFixed(2)}</span>

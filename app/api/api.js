@@ -169,7 +169,7 @@ export async function getPrimaryShippingAddress() {
 export async function getAlternateShippingAddress() {
     const res = await fetch(`/route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`);
     if (!res.ok) {
-        // throw res.Error;
+        // throw res.error;
         return false;
     }
     return res.json();
@@ -179,7 +179,7 @@ export async function getAlternateShippingAddress() {
 export async function addAlternateShippingAddress(address) {
     const res = await fetch(`/route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`, { method: "POST", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
-        throw res.Error;
+        throw res.error;
     }
     return res.json()
 }
@@ -188,7 +188,7 @@ export async function addAlternateShippingAddress(address) {
 export async function updateAlternateShippingAddress(address) {
     const res = await fetch(`/route-handlers/alternate-shipping-address?api_base_url=${apiBaseUrl}`, { method: "PUT", body: JSON.stringify(address), headers: { "Content-Type": "application/json" } })
     if (!res.ok) {
-        throw res.Error;
+        throw res.error;
     }
     return res.json()
 }

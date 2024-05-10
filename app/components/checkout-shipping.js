@@ -125,73 +125,77 @@ export default function CheckoutShipping() {
             }
 
             // 3. Fetch Alternate Shipping Address                        
-            const fetchedAlternateAddress = await getAlternateShippingAddress();
-            if (fetchedAlternateAddress) {
-                const addressObj = {};
-                addressObj.address = fetchedAlternateAddress.address;
-                addressObj.unit = fetchedAlternateAddress.unit;
-                addressObj.city = fetchedAlternateAddress.city;
-                addressObj.province = fetchedAlternateAddress.province;
-                addressObj.country = fetchedAlternateAddress.country;
-                addressObj.postalCode = fetchedAlternateAddress.postal_code;
-                addressObj.phoneNumber = fetchedAlternateAddress.phone_number;
+            try {
+                const fetchedAlternateAddress = await getAlternateShippingAddress();
+                if (fetchedAlternateAddress) {
+                    const addressObj = {};
+                    addressObj.address = fetchedAlternateAddress.address;
+                    addressObj.unit = fetchedAlternateAddress.unit;
+                    addressObj.city = fetchedAlternateAddress.city;
+                    addressObj.province = fetchedAlternateAddress.province;
+                    addressObj.country = fetchedAlternateAddress.country;
+                    addressObj.postalCode = fetchedAlternateAddress.postal_code;
+                    addressObj.phoneNumber = fetchedAlternateAddress.phone_number;
 
-                // Populate Alternate Address Form if user has Alternate Shipping Address
-                setInputFirstName(fetchedAlternateAddress.first_name);
-                setInputLastName(fetchedAlternateAddress.last_name);
-                // Extract the 'street number' and 'street name' from fetchedAlternateAddress.address string
-                const address = fetchedAlternateAddress.address;
-                const addressArray = address.split(" ");
-                const streetName = address.replace(addressArray[0], "").trim();
-                setInputStreetNumber(addressArray[0]);
-                setInputStreetName(streetName);
-                setInputUnit(fetchedAlternateAddress.unit);
-                setInputCity(fetchedAlternateAddress.city);
-                setInputProvince(fetchedAlternateAddress.province);
-                setInputCountry(fetchedAlternateAddress.country);
-                setInputPostalCode(fetchedAlternateAddress.postal_code);
-                setInputPhoneNumber(fetchedAlternateAddress.phone_number);
+                    // Populate Alternate Address Form if user has Alternate Shipping Address
+                    setInputFirstName(fetchedAlternateAddress.first_name);
+                    setInputLastName(fetchedAlternateAddress.last_name);
+                    // Extract the 'street number' and 'street name' from fetchedAlternateAddress.address string
+                    const address = fetchedAlternateAddress.address;
+                    const addressArray = address.split(" ");
+                    const streetName = address.replace(addressArray[0], "").trim();
+                    setInputStreetNumber(addressArray[0]);
+                    setInputStreetName(streetName);
+                    setInputUnit(fetchedAlternateAddress.unit);
+                    setInputCity(fetchedAlternateAddress.city);
+                    setInputProvince(fetchedAlternateAddress.province);
+                    setInputCountry(fetchedAlternateAddress.country);
+                    setInputPostalCode(fetchedAlternateAddress.postal_code);
+                    setInputPhoneNumber(fetchedAlternateAddress.phone_number);
 
-                setAlternateShippingAddress(addressObj); // Set the user's alternate shipping address
-                setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
+                    setAlternateShippingAddress(addressObj); // Set the user's alternate shipping address
+                    setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
 
-            } else {
-                setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
+                } else {
+                    setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'Save Changes to Alternate Shipping Address' button
+                }
+            } catch (error) {
+                console.error("Failed to fetch alternate shipping address:", error);
             }
         }
         fetchData();
     }, [])
 
-    // Checks if the Alternate Address Form is filled.
-    // If so, enable the 'Save Alternate Shipping Address'
-    useEffect(() => {
+    // // Checks if the Alternate Address Form is filled.
+    // // If so, enable the 'Save Alternate Shipping Address'
+    // useEffect(() => {
 
-        // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
-        const formInputs = [
-            inputFirstName,
-            inputLastName,
-            inputStreetNumber,
-            inputStreetName,
-            inputCity,
-            inputProvince,
-            inputCountry,
-            inputPostalCode,
-            inputPhoneNumber
-        ]
+    //     // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
+    //     const formInputs = [
+    //         inputFirstName,
+    //         inputLastName,
+    //         inputStreetNumber,
+    //         inputStreetName,
+    //         inputCity,
+    //         inputProvince,
+    //         inputCountry,
+    //         inputPostalCode,
+    //         inputPhoneNumber
+    //     ]
 
-        // Check each input value to check that it has a value
-        const formInputsCheck = formInputs.every((element) => {
-            return element != "";
-        })
+    //     // Check each input value to check that it has a value
+    //     const formInputsCheck = formInputs.every((element) => {
+    //         return element != "";
+    //     })
 
-        // If every form field has a value, activate the button
-        if (formInputsCheck) {
-            setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
-        }
-        else {
-            setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
-        }
-    });
+    //     // If every form field has a value, activate the button
+    //     if (formInputsCheck) {
+    //         setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
+    //     }
+    //     else {
+    //         setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
+    //     }
+    // });
 
     // Handle Input from the Alternate Shipping Address form
     const handleInput = (e) => {
@@ -239,12 +243,11 @@ export default function CheckoutShipping() {
                 break;
         }
     }
-    
+
     // Form submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
         saveAlternateShippingAddress();
-
     }
 
     // Saves the Alternate Shipping Address to the DB
@@ -254,35 +257,38 @@ export default function CheckoutShipping() {
         if (!foundAlternativeShippingAddress) {
             // If user doesn't have a current Alternate Shipping Address, we POST a new one
             const addressObj = {};
-            addressObj.first_name = inputFirstName;
-            addressObj.last_name = inputLastName;
+            addressObj.firstName = inputFirstName;
+            addressObj.lastName = inputLastName;
             // Concatenate Street Number and Street Name into single value called 'address'
             addressObj.address = inputStreetNumber + " " + inputStreetName;
             addressObj.unit = inputUnit;
             addressObj.city = inputCity;
             addressObj.province = inputProvince;
             addressObj.country = inputCountry;
-            addressObj.postal_code = inputPostalCode
-            addressObj.phone_number = inputPhoneNumber;
+            addressObj.postalCode = inputPostalCode
+            addressObj.phoneNumber = inputPhoneNumber;
 
             await addAlternateShippingAddress(addressObj);
             setAlternateShippingAddress(addressObj);
+            setHasAlternateShippingAddress(true);
         }
         else {
             // If user has an Alternate Shipping Address, we PUT
             const addressObj = {};
-            addressObj.first_name = inputFirstName;
-            addressObj.last_name = inputLastName;
-            addressObj.street_number = inputStreetNumber;
-            addressObj.street_name = inputStreetName;
+            addressObj.firstName = inputFirstName;
+            addressObj.lastName = inputLastName;
+            // addressObj.address = inputStreetNumber + " " + inputStreetName;
+            addressObj.streetName = inputStreetName;
+            addressObj.streetNumber = inputStreetNumber;
             addressObj.unit = inputUnit;
             addressObj.city = inputCity;
             addressObj.province = inputProvince;
             addressObj.country = inputCountry;
-            addressObj.postal_code = inputPostalCode
-            addressObj.phone_number = inputPhoneNumber;
+            addressObj.postalCode = inputPostalCode
+            addressObj.phoneNumber = inputPhoneNumber;
             await updateAlternateShippingAddress(addressObj);
             setAlternateShippingAddress(addressObj);
+            setHasAlternateShippingAddress(true);
         }
     }
 
@@ -309,13 +315,19 @@ export default function CheckoutShipping() {
 
     return (
         <>
-            <div style={{ width: '60rem', height: '40rem' }} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
-                <div className="flex flex-row justify-between">
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+                <div className="flex justify-center">
+                    <CheckoutSteps step={1} />
+                </div>
+                <div className="flex flex-col justify-between">
                     <div>
                         {/* Primary Shipping Address */}
-                        <span className="text-xl font-bold mb-4">Primary Shipping Address</span>
-                        <button onClick={() => router.push('/edit-address')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</button>
-                        <div>
+                        <div className="flex items-center">
+                            <h1 className="text-md font-bold mb-4 mt-3 text-center">Primary Shipping Address</h1>
+                            <button onClick={() => router.push('/edit-address')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-5 py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</button>
+                        </div>
+                        {/* Radio Button */}
+                        <div className="mb-2">
                             <label htmlFor="address-primary" className="text-blue-600 font-bold mr-2">Use primary address</label>
                             <input onChange={handleInput} type="radio" checked={primaryAddressSelected} disabled={!hasPrimaryShippingAddress} id="address-primary" name="address-primary" />
                         </div>
@@ -336,11 +348,30 @@ export default function CheckoutShipping() {
                     </div>
                     <div>
                         {/* Alternate Shipping Address */}
-                        <div>
+                        <div className="flex items-center mb-4 mt-5">
+                            <h1 className="text-md font-bold mt-5 text-center">Alternate Shipping Address</h1>
+                            <button type="submit" form="alternate-address-form" className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 ml-5 py-2 px-4 rounded">Save</button>
+                        </div>
+                        {/* Radio Button */}
+                        <div className="mb-2">
                             <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
                             <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" className="bg-white" />
                         </div>
-                        <form onSubmit={handleSubmit}>
+                        <form id="alternate-address-form" onSubmit={handleSubmit}>
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="first-name">
+                                        *First Name
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputFirstName} name="first-name" id="first-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                                <div className="w-1/2 px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="last-name">
+                                        *Last Name
+                                    </label>
+                                    <input onChange={handleInput} required minLength={1} value={inputLastName} name="last-name" id="last-name" type="text" placeholder="" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                                </div>
+                            </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <div className="w-1/2 px-3">
                                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
@@ -374,7 +405,7 @@ export default function CheckoutShipping() {
                                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="province">
                                         *Province
                                     </label>
-                                    <select name="province" id="province" onChange={handleInput} value={inputProvince} className="bg-gray-200">
+                                    <select name="province" id="province" onChange={handleInput} value={inputProvince} className="bg-gray-200 w-36">
                                         <option value="AB">Alberta</option>
                                         <option value="BC">British Columbia</option>
                                         <option value="MB">Manitoba</option>
@@ -412,6 +443,7 @@ export default function CheckoutShipping() {
                         </form>
                     </div>
                 </div>
+
                 {/* Proceed to Billing Button */}
                 <div className="flex justify-end">
                     <button

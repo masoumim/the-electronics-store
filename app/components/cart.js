@@ -112,10 +112,10 @@ export default function Cart() {
     }
 
     return (
-        <div className="container mx-auto p-8">
+        <div className="container mx-auto p-3">
             {cartHasProducts ?
-                <div className="bg-white rounded-md shadow-md p-6 mb-6">
-                    <h2 className="text-2xl font-bold mb-4">My Cart:</h2>
+                <div className="bg-white rounded-md shadow-md pt-2 px-3 pb-5">
+                    <h2 className="text-2xl font-bold mb-4 ml-2">My Cart:</h2>
                     {/* Iterate over cartProductsInfo[] and display each product's properties */}
                     {cartProductsInfo.map((product, index) =>
                         <div key={index} className="mb-4">
