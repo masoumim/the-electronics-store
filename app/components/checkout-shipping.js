@@ -193,11 +193,6 @@ export default function CheckoutShipping() {
         }
     });
 
-    // Form submit handler
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    }
-
     // Handle Input from the Alternate Shipping Address form
     const handleInput = (e) => {
         const fieldName = e.target.name;
@@ -244,6 +239,13 @@ export default function CheckoutShipping() {
                 break;
         }
     }
+    
+    // Form submit handler
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        saveAlternateShippingAddress();
+
+    }
 
     // Saves the Alternate Shipping Address to the DB
     async function saveAlternateShippingAddress() {
@@ -252,16 +254,16 @@ export default function CheckoutShipping() {
         if (!foundAlternativeShippingAddress) {
             // If user doesn't have a current Alternate Shipping Address, we POST a new one
             const addressObj = {};
-            addressObj.firstName = inputFirstName;
-            addressObj.lastName = inputLastName;
+            addressObj.first_name = inputFirstName;
+            addressObj.last_name = inputLastName;
             // Concatenate Street Number and Street Name into single value called 'address'
             addressObj.address = inputStreetNumber + " " + inputStreetName;
             addressObj.unit = inputUnit;
             addressObj.city = inputCity;
             addressObj.province = inputProvince;
             addressObj.country = inputCountry;
-            addressObj.postalCode = inputPostalCode
-            addressObj.phoneNumber = inputPhoneNumber;
+            addressObj.postal_code = inputPostalCode
+            addressObj.phone_number = inputPhoneNumber;
 
             await addAlternateShippingAddress(addressObj);
             setAlternateShippingAddress(addressObj);
@@ -269,16 +271,16 @@ export default function CheckoutShipping() {
         else {
             // If user has an Alternate Shipping Address, we PUT
             const addressObj = {};
-            addressObj.firstName = inputFirstName;
-            addressObj.lastName = inputLastName;
-            addressObj.streetNumber = inputStreetNumber;
-            addressObj.streetName = inputStreetName;
+            addressObj.first_name = inputFirstName;
+            addressObj.last_name = inputLastName;
+            addressObj.street_number = inputStreetNumber;
+            addressObj.street_name = inputStreetName;
             addressObj.unit = inputUnit;
             addressObj.city = inputCity;
             addressObj.province = inputProvince;
             addressObj.country = inputCountry;
-            addressObj.postalCode = inputPostalCode
-            addressObj.phoneNumber = inputPhoneNumber;
+            addressObj.postal_code = inputPostalCode
+            addressObj.phone_number = inputPhoneNumber;
             await updateAlternateShippingAddress(addressObj);
             setAlternateShippingAddress(addressObj);
         }
@@ -312,7 +314,7 @@ export default function CheckoutShipping() {
                     <div>
                         {/* Primary Shipping Address */}
                         <span className="text-xl font-bold mb-4">Primary Shipping Address</span>
-                        <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</button>
+                        <button onClick={() => router.push('/edit-address')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</button>
                         <div>
                             <label htmlFor="address-primary" className="text-blue-600 font-bold mr-2">Use primary address</label>
                             <input onChange={handleInput} type="radio" checked={primaryAddressSelected} disabled={!hasPrimaryShippingAddress} id="address-primary" name="address-primary" />
@@ -330,17 +332,15 @@ export default function CheckoutShipping() {
                             </>
                             :
                             <></>
-
                         }
                     </div>
                     <div>
-                        {/* Alternate shipping address */}
-                        <span className="text-xl font-bold mb-4">Alternate Shipping Address</span> {hasAlternateShippingAddress ? <span>Edit</span> : <span>Add</span>}
+                        {/* Alternate Shipping Address */}
                         <div>
                             <label htmlFor="address-alternate" className="text-blue-600 font-bold mr-2">Use alternate address</label>
                             <input onChange={handleInput} type="radio" checked={alternateAddressSelected} disabled={!hasAlternateShippingAddress} id="address-alternate" name="address-alternate" className="bg-white" />
                         </div>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <div className="w-1/2 px-3">
                                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="street-number">
@@ -414,7 +414,13 @@ export default function CheckoutShipping() {
                 </div>
                 {/* Proceed to Billing Button */}
                 <div className="flex justify-end">
-                    <button onClick={proceedToBilling} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Proceed to Billing</button>
+                    <button
+                        onClick={proceedToBilling}
+                        disabled={!(primaryAddressSelected || alternateAddressSelected)}
+                        className={`bg-blue-500 ${(primaryAddressSelected || alternateAddressSelected) ? 'hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'} text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+                    >
+                        Proceed to Billing
+                    </button>
                 </div>
             </div>
         </>
