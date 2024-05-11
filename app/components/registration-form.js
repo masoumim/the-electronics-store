@@ -75,13 +75,25 @@ export default function RegistrationForm() {
                 }
             })
             .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') {
-                    setErrorMessage('The email address is already in use by another account.');
-                    setTimeout(() => setErrorMessage(''), 3000);  // Clear the error message after 3 seconds
-                } else {
-                    console.log(error);
-                    throw error;
+                // Handle Firebase Auth error
+                let errorMessage;
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'This email is already in use by another account.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'The email address is not valid.';
+                        break;
+                    case 'auth/operation-not-allowed':
+                        errorMessage = 'Email/password accounts are not enabled.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'The password is too weak.';
+                        break;
+                    default:
+                        errorMessage = 'An unknown error occurred.';
                 }
+                setErrorMessage(errorMessage);
             });
     }
 
@@ -135,12 +147,8 @@ export default function RegistrationForm() {
                             <p className="text-gray-600 text-xs italic">Password must be at least 6 characters long</p>
                         </div>
                     </div>
-                    <button
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline block w-full"
-                    >
-                        Register
-                    </button>
+                    {errorMessage && <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>}
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline block w-full">Register</button>
                 </form>
             </div>
         </div>

@@ -41,6 +41,7 @@ export default function CheckoutShipping() {
 
     const [primaryShippingAddress, setPrimaryShippingAddress] = useState({});           // The user's primary shipping address
     const [alternateShippingAddress, setAlternateShippingAddress] = useState({});       // The user's alternate shipping address
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);                      // Used to control the form submission feedback by changing color of the 'Save' button
 
     const router = useRouter();
 
@@ -166,36 +167,41 @@ export default function CheckoutShipping() {
         fetchData();
     }, [])
 
-    // // Checks if the Alternate Address Form is filled.
-    // // If so, enable the 'Save Alternate Shipping Address'
-    // useEffect(() => {
+    // Checks if the Alternate Address Form is filled.
+    // If so, enable the 'Save Alternate Shipping Address'
+    useEffect(() => {
 
-    //     // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
-    //     const formInputs = [
-    //         inputFirstName,
-    //         inputLastName,
-    //         inputStreetNumber,
-    //         inputStreetName,
-    //         inputCity,
-    //         inputProvince,
-    //         inputCountry,
-    //         inputPostalCode,
-    //         inputPhoneNumber
-    //     ]
+        // Activate the 'Save Alternate Shipping Address' button if all fields are filled out        
+        const formInputs = [
+            inputFirstName,
+            inputLastName,
+            inputStreetNumber,
+            inputStreetName,
+            inputCity,
+            inputProvince,
+            inputCountry,
+            inputPostalCode,
+            inputPhoneNumber
+        ]
 
-    //     // Check each input value to check that it has a value
-    //     const formInputsCheck = formInputs.every((element) => {
-    //         return element != "";
-    //     })
+        // Check each input value to check that it has a value
+        const formInputsCheck = formInputs.every((element) => {
+            return element != "";
+        })
 
-    //     // If every form field has a value, activate the button
-    //     if (formInputsCheck) {
-    //         setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
-    //     }
-    //     else {
-    //         setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
-    //     }
-    // });
+        // If every form field has a value, activate the button
+        if (formInputsCheck) {
+            setHasAlternateShippingAddress(true); // Used for conditionally rendering the 'save alternate address' button
+        }
+        else {
+            setHasAlternateShippingAddress(false); // Used for conditionally rendering the 'save alternate address' button
+        }
+    });
+
+    // Reset the form submission feedback (changes the color of the 'Save' button back to blue)
+    useEffect(() => {
+        setIsFormSubmitted(false);
+    }, [inputFirstName, inputLastName, inputStreetNumber, inputStreetName, inputCity, inputProvince, inputCountry, inputPostalCode, inputPhoneNumber, inputUnit]);
 
     // Handle Input from the Alternate Shipping Address form
     const handleInput = (e) => {
@@ -248,6 +254,7 @@ export default function CheckoutShipping() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         saveAlternateShippingAddress();
+        setIsFormSubmitted(true);
     }
 
     // Saves the Alternate Shipping Address to the DB
@@ -350,7 +357,15 @@ export default function CheckoutShipping() {
                         {/* Alternate Shipping Address */}
                         <div className="flex items-center mb-4 mt-5">
                             <h1 className="text-md font-bold mt-5 text-center">Alternate Shipping Address</h1>
-                            <button type="submit" form="alternate-address-form" className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 ml-5 py-2 px-4 rounded">Save</button>
+                            {/* <button type="submit" form="alternate-address-form" className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-5 ml-5 py-2 px-4 rounded">Save</button> */}
+                            <button
+                                type="submit"
+                                form="alternate-address-form"
+                                className={`font-bold mt-5 ml-5 py-2 px-4 rounded ${isFormSubmitted ? 'bg-green-500 text-white' : hasAlternateShippingAddress ? 'bg-blue-500 hover:bg-blue-700 text-white' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+                                disabled={!hasAlternateShippingAddress || isFormSubmitted}
+                            >
+                                {isFormSubmitted ? 'Save' : 'Save'}
+                            </button>
                         </div>
                         {/* Radio Button */}
                         <div className="mb-2">
