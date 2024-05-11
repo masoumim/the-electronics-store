@@ -1,3 +1,4 @@
+// This component establishes the route /gaming/accessories/controllers which will display a list of gaming controllers.
 import 'server-only';
 
 import Breadcrumbs from '@/app/components/breadcrumbs';

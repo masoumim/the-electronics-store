@@ -1,4 +1,8 @@
-// This file contains functions that send and request data from the Express.js backend API
+// This file contains functions that send and request data from the Express.js backend API.
+// To accomplish SSR, the functions make a fetch to methods in the /route-handlers folder.
+// It is these route.js files within the /route-handlers folder that contain the Express.js API routes.
+// This pattern can be found here (https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)
+// The pattern used is 3. Fetching Data on the Client with Route Handlers
 
 // Set the base url of the API
 const apiBaseUrl = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "https://the-electronics-store-api-962f1726488d.herokuapp.com";

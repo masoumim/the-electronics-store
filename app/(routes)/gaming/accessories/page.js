@@ -1,3 +1,4 @@
+// This component establishes the route /accessories which will display all of the products in the gaming accessories category.
 import 'server-only';
 
 import Breadcrumbs from '@/app/components/breadcrumbs';

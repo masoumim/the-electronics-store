@@ -1,3 +1,4 @@
+// The component establishes the route /gaming/consoles/xbox which will display Xbox consoles.
 import 'server-only';
 
 import Breadcrumbs from '@/app/components/breadcrumbs';

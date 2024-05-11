@@ -1,3 +1,4 @@
+// This component establishes the route /computers-desktops-parts which will display a list of desktop parts.
 import 'server-only';
 
 import Breadcrumbs from '@/app/components/breadcrumbs';

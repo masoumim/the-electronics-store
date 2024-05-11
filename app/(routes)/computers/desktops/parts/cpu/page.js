@@ -1,3 +1,4 @@
+// This component establishes the route /computers/desktops/parts/cpu which will display the CPU products.
 import 'server-only';
 
 import Breadcrumbs from '@/app/components/breadcrumbs';

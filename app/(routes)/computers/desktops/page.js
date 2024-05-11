@@ -1,3 +1,4 @@
+// This component establishes the route /computers/desktops which will display a list of desktop computers.
 import 'server-only';
 
 import Breadcrumbs from '@/app/components/breadcrumbs';
