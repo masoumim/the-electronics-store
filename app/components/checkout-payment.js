@@ -16,7 +16,7 @@ const auth = getFirebaseAuth();
 
 export default function CheckoutPayment() {
 
-    const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+    const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`);
     const [clientSecret, setClientSecret] = useState('');
     const [cartProducts, setCartProducts] = useState([]);
     const [userLoggedIn, setUserLoggedIn] = useState(false);   // Used to control fetches to getCheckoutSession(). Fetch won't execute if userLoggedIn is false.   
