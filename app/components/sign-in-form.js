@@ -1,5 +1,4 @@
 // sign-in-form.js - This interactive component contains the logic to sign-in a user and renders the sign-in form
-
 'use client'
 
 import { useState, useEffect } from "react";

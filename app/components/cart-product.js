@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { ctx } from "./providers.js";
 
-export default function CartProduct({ image, name, description, price, discount, quantity, productID }) {
+export default function CartProduct({ image, name, price, discount, quantity, productID }) {
     const [qty, setQty] = useState(quantity);                           // The quantity of the product
     const contactsCtx = useContext(ctx);                                // The Context object
     const setCart = contactsCtx[1];                                     // Setter to set cart

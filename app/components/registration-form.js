@@ -1,5 +1,4 @@
 // registration-form.js - This interactive component contains a form used for creating / registering new users.
-
 'use client'
 
 import { useState, useEffect } from "react";

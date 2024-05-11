@@ -1,6 +1,6 @@
 // gaming.js: Fetch all products under "Gaming" category
-
 'use client'
+
 import React, { useState, useEffect } from 'react';
 import ProductCardFull from './product-card-full';
 import { getProductsByCategory, getProductsContainingCategory } from '../api/api';

@@ -1,5 +1,4 @@
 // billing-form.js - This interactive component contains a form used for creating and editing a billing address
-
 'use client'
 
 import { useState, useEffect } from "react";
@@ -36,37 +35,22 @@ export default function BillingForm({ formType }) {
     // Get current signed-in user on page load
     useEffect(() => {
         async function fetchData() {
-            console.log('address-form.js useEffect() called');
-
             // Get the current signed-in user
             // *currentUser will return the current user after sign-in
             const user = auth.currentUser;
 
             if (user) {
-                console.log(`address-form.js called! auth.currentUser found = `);
-                console.log(user);
-
                 // Confirm user is signed in on the backend                
-                console.log('checking if user is signed in on backend:');
                 const backendUser = await checkBackendSignIn();
-                console.log('backendUser = ');
-                console.log(backendUser);
                 if (backendUser) {
                     // Get user info from the backend
-                    console.log(`calling getUserInfo()`)
                     const fetchedUserInfo = await getUserInfo();
-                    console.log(`back from getUserInfo()`);
-
-                    console.log(`fetchedUserInfo =`);
-                    console.log(fetchedUserInfo);
-
                     // Set the User state variable
                     const returnedUser = {}
                     returnedUser.uid = user.uid;
                     returnedUser.email = user.email;
                     returnedUser.firstName = fetchedUserInfo.first_name;
                     returnedUser.lastName = fetchedUserInfo.last_name;
-
                     setUser(returnedUser);
                 }
             } else {
@@ -74,35 +58,25 @@ export default function BillingForm({ formType }) {
                 // *onAuthStateChanged will execute in this case when user closes / refreshes the 
                 // browser window and they are still logged in on the frontend
                 onAuthStateChanged(auth, async (user) => {
-                    console.log('address-form.js - onAuthStateChange() called!')
                     if (user) {
-                        console.log('signed-in user onAuthStateChange found!');
-
                         // Check that user is signed-in in the backend
-                        console.log('onAuthStateChange() - calling checkBackendSignIn()')
                         const backendUser = await checkBackendSignIn();
 
                         // Set the User state variable                        
                         if (backendUser) {
                             // Get user info from the backend
-                            console.log('onAuthStateChange() - backendUser found - calling getUserInfo()');
                             const fetchedUserInfo = await getUserInfo();
-                            console.log('fetchedUserInfo = ');
-                            console.log(fetchedUserInfo);
-
                             // Set the User state variable
                             const returnedUser = {}
                             returnedUser.uid = user.uid;
                             returnedUser.email = user.email;
                             returnedUser.firstName = fetchedUserInfo.first_name;
                             returnedUser.lastName = fetchedUserInfo.last_name;
-
                             setUser(returnedUser);
                         }
                     }
                     else {
                         // No signed-in user found
-                        console.log(`No signed-in user found! Redirecting to home "/"`);
                         router.push('/');
                     }
                 })
@@ -115,14 +89,10 @@ export default function BillingForm({ formType }) {
     // Sets the input values of the billing address form to current values if the user is editing their billing info
     useEffect(() => {
         async function fetchData() {
-            console.log(`useEffect() 2 - formType = ${formType}`);
-
             // Get the user's billing address data
             const fetchedAddress = await getBillingAddress();
 
             if (formType === "edit") {
-                console.log(`formType === edit`);
-
                 if (fetchedAddress) {
                     // Set the form data using the address                
                     setInputFirstName(fetchedAddress.first_name);
@@ -145,8 +115,6 @@ export default function BillingForm({ formType }) {
             }
             else {
                 // formType === "add"
-                console.log(`formType === add`);
-
                 // If user already has a billing address, redirect them to /edit-billing
                 if (fetchedAddress) router.push('/edit-billing');
             }

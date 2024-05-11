@@ -2,7 +2,6 @@ import 'server-only'
 
 // Route Handlers for route: /route-handlers/checkout-session-shipping
 
-
 // POST - Add the user's Shipping Address ID to the Checkout Session
 export async function POST(request) {
     // Get the base URL (either localhost or Heroku)

@@ -1,6 +1,6 @@
 // cart.js - This component represents the user's Cart.
-
 'use client'
+
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";

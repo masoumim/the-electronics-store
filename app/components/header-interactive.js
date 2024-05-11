@@ -1,6 +1,6 @@
 // header-interactive - This interactive component contains the sign in button, the account button and the cart button.
-
 'use client'
+
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from "../firebase/config";

@@ -1,6 +1,6 @@
 // home-electronics.js: Fetch all products under "Home Electronics" category
-
 'use client'
+
 import React, { useState, useEffect } from 'react';
 import ProductCardFull from './product-card-full';
 import { getProductsByCategory } from '../api/api';

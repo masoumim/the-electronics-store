@@ -1,3 +1,4 @@
+// This file sets up a firebase configuration and initializes the Firebase App instance. It also exports a function that returns the Auth instance associated with the Firebase App.
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 

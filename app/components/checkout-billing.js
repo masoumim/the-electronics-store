@@ -1,6 +1,6 @@
 // checkout-billing.js - This component handles the Billing step (2 of 4) of the checkout process.
-
 'use client'
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";

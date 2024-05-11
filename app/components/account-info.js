@@ -166,7 +166,7 @@ export default function AccountInfo() {
         // Ask the user to input their password
         const password = prompt('Please enter your password to confirm this action');
 
-        // If the password is null (the user clicked "Cancel"), do not proceed with the reauthentication
+        // If the password is null (the user clicked "Cancel"), do not proceed with the re-authentication
         if (password === null) {
             return;
         }
