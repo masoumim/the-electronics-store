@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { getFirebaseAuth } from '../firebase/config.js';
-import { checkBackendSignIn, getCartInfo, getCheckoutSession, getPrimaryShippingAddress, getAlternateShippingAddress, getProduct, getBillingAddress, createOrder } from "../api/api.js";
+import { checkBackendSignIn, getCartInfo, getCheckoutSession, getProduct, createOrder, getAddressById } from "../api/api.js";
 import CheckoutSteps from "./checkout-steps.js";
 const auth = getFirebaseAuth();
 
@@ -105,28 +105,25 @@ export default function CheckoutReview() {
     useEffect(() => {
         async function fetchData() {
             if (checkoutSessionInfo) {
-                let checkoutShippingInfo;
-                if (checkoutSessionInfo.alternate_shipping_address_id !== null) {
-                    // If an alternate shipping address was used, fetch it
-                    checkoutShippingInfo = await getAlternateShippingAddress(checkoutSessionInfo.alternate_shipping_address_id);
-                } else {
-                    // Otherwise, fetch the primary shipping address
-                    checkoutShippingInfo = await getPrimaryShippingAddress(checkoutSessionInfo.shipping_address_id);
-                }
+                console.log('checkoutSessionInfo:', checkoutSessionInfo);
 
-                // If the address is structured differently, handle it here
+                const checkoutShippingInfo = await getAddressById(checkoutSessionInfo.user_id, checkoutSessionInfo.shipping_address_id);
+                console.log('checkoutShippingInfo:', checkoutShippingInfo);
+
                 if (checkoutShippingInfo && checkoutShippingInfo.street_number && checkoutShippingInfo.street_name) {
                     checkoutShippingInfo.address = `${checkoutShippingInfo.street_number} ${checkoutShippingInfo.street_name}`;
+                    console.log('checkoutShippingInfo after address set:', checkoutShippingInfo);
                 }
 
-                const checkoutBillingInfo = await getBillingAddress(checkoutSessionInfo.billing_address_id);
+                const checkoutBillingInfo = await getAddressById(checkoutSessionInfo.user_id, checkoutSessionInfo.billing_address_id);
                 setOrderShippingAddress(checkoutShippingInfo);
                 setOrderBillingAddress(checkoutBillingInfo);
+
+                console.log('orderShippingAddress after set:', orderShippingAddress);
             }
         }
         fetchData();
     }, [checkoutSessionInfo])
-
 
     // Create the order
     useEffect(() => {
@@ -148,8 +145,8 @@ export default function CheckoutReview() {
                     {/* Render the Checkout Steps component */}
                     <CheckoutSteps currentStep={4} />
                 </div>
-                <div className="flex flex-col sm:flex-row">
-                    <div className="w-full sm:w-1/2 flex justify-center mb-8 sm:mb-0">
+                <div className="flex items-center flex-col md:flex-row">
+                    <div className="w-full sm:w-1/2 flex justify-center mb-8 md:mb-0">
                         <div className="sm:max-w-xs">
                             <p className="text-xl font-bold mb-4">Your Order Summary:</p>
                             <ul className="list-disc list-inside text-left text-sm">
@@ -163,20 +160,14 @@ export default function CheckoutReview() {
                             <p className="text-sm"><b>total:</b> {orderTotal}</p>
                         </div>
                     </div>
-                    <div className="w-full sm:w-1/2 flex justify-center">
+                    <div className="w-full mx-5 sm:w-1/2 flex justify-center">
                         <div className="sm:max-w-xs flex flex-row">
                             <div className="w-full sm:w-1/2 pr-2">
                                 <p className="text-lg font-bold mb-2">Shipping:</p>
-                                {orderShippingAddress ? (
-                                    <>
-                                        <p className="text-sm">{orderShippingAddress.address}</p>
-                                        <p className="text-sm">{orderShippingAddress.city}, {orderShippingAddress.province}</p>
-                                        <p className="text-sm">{orderShippingAddress.country}</p>
-                                        <p className="text-sm">{orderShippingAddress.postal_code}</p>
-                                    </>
-                                ) : (
-                                    <p>Loading shipping address...</p>
-                                )}
+                                <p className="text-sm">{orderShippingAddress.address}</p>
+                                <p className="text-sm">{orderShippingAddress.city}, {orderShippingAddress.province}</p>
+                                <p className="text-sm">{orderShippingAddress.country}</p>
+                                <p className="text-sm">{orderShippingAddress.postal_code}</p>
                             </div>
                             <div className="w-full sm:w-1/2 pl-2">
                                 <p className="text-lg font-bold mb-2">Billing:</p>

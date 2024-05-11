@@ -401,3 +401,11 @@ export async function getProductsContainingCategory(categoryCode) {
     }
     return response.json();
 }
+// Get Address by ID
+export async function getAddressById(userId, addressId) {
+    const res = await fetch(`/route-handlers/shipping-address?api_base_url=${apiBaseUrl}&userId=${userId}&addressId=${addressId}`, { method: "GET" });
+    if (!res.ok) {
+        throw new Error('Failed to fetch address');
+    }
+    return res.json();
+}
