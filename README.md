@@ -103,4 +103,4 @@ The database schema includes tables for addresses, users, checkout sessions, ord
 
 ---
 
-**Note:** A separate README will be provided for detailed backend API documentation, including route details and Swagger UI integration here: https://github.com/masoumim/the-electronics-store/blob/main/README.md
+**Note:** A separate README will be provided for detailed backend API documentation, including route details and Swagger UI integration here: https://github.com/masoumim/the-electronics-store-api
